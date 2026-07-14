@@ -1,0 +1,289 @@
+{%- assign fallback_icons = 'shipping-icon.png,pickup-store-icon.png,packaging-icon.png' | split: ',' -%}
+
+<section class="services services--{{ section.id }}" aria-label="Store services and benefits">
+  <div class="services__container">
+    <ul class="services__list" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign fallback_index = forloop.index0 -%}
+        {%- assign fallback_filename = fallback_icons[fallback_index] -%}
+
+        <li class="services__item" {{ block.shopify_attributes }}>
+          <div class="services__icon-wrapper">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 100
+                | image_tag: class: 'services__icon', loading: 'lazy', alt: block.settings.title
+              }}
+            {%- else -%}
+              {%- if fallback_filename != blank -%}
+                <img
+                  src="{{ fallback_filename | asset_url }}"
+                  class="services__icon"
+                  width="36"
+                  height="36"
+                  alt="{{ block.settings.title | escape }}"
+                  loading="lazy"
+                >
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+
+          {%- if block.settings.title != blank -%}
+            <h3 class="services__title">{{ block.settings.title | escape }}</h3>
+          {%- endif -%}
+
+          {%- if block.settings.description != blank -%}
+            <p class="services__description">{{ block.settings.description | escape }}</p>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{%- style -%}
+  .services--{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    background-color: transparent;
+  }
+
+  .services--{{ section.id }} .services__container {
+    max-width: {{ section.settings.container_max_width }}px;
+    margin: 0 auto;
+    padding-left: {{ section.settings.padding_horizontal }}px;
+    padding-right: {{ section.settings.padding_horizontal }}px;
+  }
+
+  .services--{{ section.id }} .services__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .services--{{ section.id }} .services__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 32px 16px;
+    border-top: 1px solid #E5E5E5;
+    border-bottom: 1px solid #E5E5E5;
+  }
+
+  .services--{{ section.id }} .services__icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .services--{{ section.id }} .services__icon {
+    display: block;
+    width: auto;
+    height: 36px;
+    object-fit: contain;
+  }
+
+  .services--{{ section.id }} .services__title {
+    font-size: 1.25rem; /* ~20px */
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 10px 0;
+    color: #121212;
+    letter-spacing: -0.01em;
+  }
+
+  .services--{{ section.id }} .services__description {
+    font-size: 0.875rem; /* ~14px */
+    line-height: 1.5;
+    margin: 0;
+    color: #737373;
+  }
+
+  /* Tablet Responsive (768px and up) */
+  @media screen and (min-width: 768px) {
+    .services--{{ section.id }} {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+
+    .services--{{ section.id }} .services__list {
+      gap: 32px;
+    }
+
+    .services--{{ section.id }} .services__item {
+      padding: 40px 24px;
+    }
+
+    .services--{{ section.id }} .services__title {
+      font-size: 1.375rem; /* ~22px */
+    }
+
+    .services--{{ section.id }} .services__description {
+      font-size: 0.938rem; /* ~15px */
+    }
+  }
+
+  /* Desktop Responsive (1024px and up) */
+  @media screen and (min-width: 1024px) {
+
+
+    .services--{{ section.id }} .services__list {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 40px;
+    }
+
+    .services--{{ section.id }} .services__item {
+      flex: 1;
+      padding: 48px 20px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Services",
+  "tag": "section",
+  "class": "section-services",
+  "limit": 1,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Outer Section Padding (Tablet &Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding desktop",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding desktop",
+      "default": 64
+    },
+    {
+      "type": "header",
+      "content": "Outer Section Padding (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding mobile",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding mobile",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Container Settings"
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Container max-width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Container horizontal padding",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service_item",
+      "name": "Service Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon / Image",
+          "info": "Upload PNG or SVG. If blank, theme fallback assets will be used."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Service Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Service description details go here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services",
+      "category": "Custom sections",
+      "blocks": [
+        {
+          "type": "service_item",
+          "settings": {
+            "title": "Quick Delivery",
+            "description": "Inside City delivery within 5 days"
+          }
+        },
+        {
+          "type": "service_item",
+          "settings": {
+            "title": "Pick Up In Store",
+            "description": "We have option of pick up in store."
+          }
+        },
+        {
+          "type": "service_item",
+          "settings": {
+            "title": "Special Packaging",
+            "description": "Our packaging is best for products."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
