@@ -1,0 +1,404 @@
+{% liquid
+  assign vb_image = section.settings.image
+  assign vb_video = section.settings.video
+  assign vb_video_url = section.settings.video_url
+  assign vb_has_video = false
+  if vb_video != blank or vb_video_url != blank
+    assign vb_has_video = true
+  endif
+  assign vb_alt = vb_image.alt | default: section.settings.heading | default: 'Video banner'
+%}
+
+<video-banner
+  class="video-banner{% if vb_has_video %} video-banner--has-video{% endif %}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="video-banner__media">
+    {% comment %} Poster / fallback image {% endcomment %}
+    <div class="video-banner__image-wrap">
+      {% if vb_image != blank %}
+        <img
+          class="video-banner__image"
+          src="{{ vb_image | image_url: width: 1920 }}"
+          srcset="
+            {{ vb_image | image_url: width: 375 }} 375w,
+            {{ vb_image | image_url: width: 750 }} 750w,
+            {{ vb_image | image_url: width: 834 }} 834w,
+            {{ vb_image | image_url: width: 1024 }} 1024w,
+            {{ vb_image | image_url: width: 1668 }} 1668w,
+            {{ vb_image | image_url: width: 1920 }} 1920w
+          "
+          sizes="100vw"
+          alt="{{ vb_alt | escape }}"
+          width="{{ vb_image.width }}"
+          height="{{ vb_image.height }}"
+          loading="{% if section.index == 1 %}eager{% else %}lazy{% endif %}"
+          {% if section.index == 1 %}
+            fetchpriority="high"
+          {% endif %}
+        >
+      {% else %}
+        {% comment %} Fallback asset — add this file to your theme's /assets folder {% endcomment %}
+        <img
+          class="video-banner__image"
+          src="{{ 'video-banner.webp' | asset_url }}"
+          alt="{{ vb_alt | escape }}"
+          width="1920"
+          height="782"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+
+    {% comment %} Video target — populated on demand by JS, never pre-loaded {% endcomment %}
+    <div class="video-banner__frame" hidden>
+      {% if vb_video != blank %}
+        {{
+          vb_video
+          | video_tag:
+            image: vb_image,
+            preload: 'none',
+            controls: true,
+            loop: section.settings.loop,
+            class: 'video-banner__video'
+        }}
+      {% elsif vb_video_url != blank %}
+        <div class="video-banner__embed" data-embed-url="{{ vb_video_url | escape }}"></div>
+      {% endif %}
+    </div>
+
+    {% if section.settings.heading != blank %}
+      <div class="video-banner__caption">
+        <h2 class="video-banner__heading">{{ section.settings.heading | escape }}</h2>
+      </div>
+    {% endif %}
+
+    {% if vb_has_video %}
+      <button
+        type="button"
+        class="video-banner__play"
+        aria-label="{{ section.settings.play_label | escape }}"
+        aria-pressed="false"
+      >
+        <svg
+          class="video-banner__play-icon"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M8 5v14l11-7z" fill="currentColor"></path>
+        </svg>
+      </button>
+
+      <button type="button" class="video-banner__close" aria-label="Close video" hidden>
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.3 19.71 2.88 18.3 9.17 12 2.88 5.71 4.3 4.29l6.29 6.3 6.3-6.3z" fill="currentColor"></path>
+        </svg>
+      </button>
+    {% endif %}
+  </div>
+</video-banner>
+
+{% stylesheet %}
+  .video-banner {
+    --video-banner-ratio: 375 / 560;
+    --video-banner-play-size: 64px;
+
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+
+  .video-banner__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--video-banner-ratio);
+    overflow: hidden;
+    background-color: var(--color-background, #1a1a1a);
+  }
+
+  .video-banner__image-wrap,
+  .video-banner__frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .video-banner__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .video-banner__frame[hidden] {
+    display: none;
+  }
+
+  .video-banner__video,
+  .video-banner__embed,
+  .video-banner__embed iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover;
+  }
+
+  .video-banner__caption {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 1.25rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .video-banner__heading {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.25rem, 4vw, 2rem);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+  }
+
+  .video-banner__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--video-banner-play-size);
+    height: var(--video-banner-play-size);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.92);
+    color: #111;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .video-banner__play:hover,
+  .video-banner__play:focus-visible {
+    transform: translate(-50%, -50%) scale(1.06);
+    background-color: #fff;
+  }
+
+  .video-banner__play-icon {
+    width: 40%;
+    height: 40%;
+    margin-left: 3%;
+  }
+
+  .video-banner__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    cursor: pointer;
+    z-index: 3;
+  }
+
+  .video-banner__close[hidden] {
+    display: none;
+  }
+
+  .video-banner--playing .video-banner__image-wrap,
+  .video-banner--playing .video-banner__play,
+  .video-banner--playing .video-banner__caption {
+    display: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    .video-banner {
+      --video-banner-ratio: 834 / 560;
+      --video-banner-play-size: 76px;
+    }
+
+    .video-banner__caption {
+      padding: 2rem;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .video-banner {
+      --video-banner-ratio: 1920 / 782;
+      --video-banner-play-size: 88px;
+    }
+
+    .video-banner__caption {
+      padding: 3rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .video-banner__play {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (function () {
+    if (customElements.get('video-banner')) return;
+
+    class VideoBanner extends HTMLElement {
+      connectedCallback() {
+        this.playButton = this.querySelector('.video-banner__play');
+        this.closeButton = this.querySelector('.video-banner__close');
+        this.frame = this.querySelector('.video-banner__frame');
+        this.embedTarget = this.querySelector('.video-banner__embed');
+        this.video = this.querySelector('.video-banner__video');
+
+        if (!this.playButton || !this.frame) return;
+
+        this.onPlayClick = this.play.bind(this);
+        this.onCloseClick = this.close.bind(this);
+
+        this.playButton.addEventListener('click', this.onPlayClick);
+        this.closeButton?.addEventListener('click', this.onCloseClick);
+        this.video?.addEventListener('ended', this.onCloseClick);
+      }
+
+      play() {
+        // Build the embed lazily, on first play only, so the
+        // YouTube/Vimeo iframe (and its scripts) never load until
+        // the visitor actually asks for the video.
+        if (this.embedTarget && !this.embedTarget.dataset.built) {
+          const src = this.buildEmbedUrl(this.embedTarget.dataset.embedUrl);
+          if (src) {
+            const iframe = document.createElement('iframe');
+            iframe.src = src;
+            iframe.title = this.playButton.getAttribute('aria-label') || 'Video';
+            iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+            iframe.allowFullscreen = true;
+            iframe.loading = 'eager';
+            this.embedTarget.appendChild(iframe);
+            this.embedTarget.dataset.built = 'true';
+          }
+        }
+
+        this.classList.add('video-banner--playing');
+        this.frame.hidden = false;
+        this.playButton.setAttribute('aria-pressed', 'true');
+        this.closeButton?.removeAttribute('hidden');
+        this.closeButton?.focus();
+
+        if (this.video) {
+          this.video.play().catch(function () {
+            /* Autoplay-with-sound can be blocked; controls remain available. */
+          });
+        }
+      }
+
+      close() {
+        this.classList.remove('video-banner--playing');
+        this.frame.hidden = true;
+        this.playButton.setAttribute('aria-pressed', 'false');
+        this.closeButton?.setAttribute('hidden', '');
+        this.playButton.focus();
+
+        if (this.video) {
+          this.video.pause();
+          this.video.currentTime = 0;
+        }
+      }
+
+      buildEmbedUrl(url) {
+        if (!url) return null;
+
+        const youtubeMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+        if (youtubeMatch) {
+          return 'https://www.youtube-nocookie.com/embed/' + youtubeMatch[1] + '?autoplay=1&rel=0&playsinline=1';
+        }
+
+        const vimeoMatch = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+        if (vimeoMatch) {
+          return 'https://player.vimeo.com/video/' + vimeoMatch[1] + '?autoplay=1';
+        }
+
+        return null;
+      }
+    }
+
+    customElements.define('video-banner', VideoBanner);
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Video banner",
+  "tag": "section",
+  "class": "shopify-section--video-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "Recommended: 1920 x 782px. Falls back to the theme's default asset if left blank."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "Upload a video hosted by Shopify. Takes priority over the external video URL below."
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "External video URL",
+      "info": "YouTube or Vimeo link. Used only if no video is uploaded above."
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop video",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Optional. Leave blank to match the reference design."
+    },
+    {
+      "type": "text",
+      "id": "play_label",
+      "label": "Play button accessible label",
+      "default": "Play video"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video banner",
+      "category": "Custom sections"
+    }
+  ]
+}
+{% endschema %}

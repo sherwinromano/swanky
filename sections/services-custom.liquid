@@ -43,12 +43,6 @@
 </section>
 
 {%- style -%}
-  .services--{{ section.id }} {
-    padding-top: {{ section.settings.padding_top_mobile }}px;
-    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
-    background-color: transparent;
-  }
-
   .services--{{ section.id }} .services__container {
     max-width: {{ section.settings.container_max_width }}px;
     margin: 0 auto;
@@ -107,11 +101,6 @@
 
   /* Tablet Responsive (768px and up) */
   @media screen and (min-width: 768px) {
-    .services--{{ section.id }} {
-      padding-top: {{ section.settings.padding_top_desktop }}px;
-      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
-    }
-
     .services--{{ section.id }} .services__list {
       gap: 32px;
     }
@@ -159,54 +148,6 @@
   "settings": [
     {
       "type": "header",
-      "content": "Outer Section Padding (Tablet &Desktop)"
-    },
-    {
-      "type": "range",
-      "id": "padding_top_desktop",
-      "min": 0,
-      "max": 160,
-      "step": 4,
-      "unit": "px",
-      "label": "Top padding desktop",
-      "default": 64
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom_desktop",
-      "min": 0,
-      "max": 160,
-      "step": 4,
-      "unit": "px",
-      "label": "Bottom padding desktop",
-      "default": 64
-    },
-    {
-      "type": "header",
-      "content": "Outer Section Padding (Mobile)"
-    },
-    {
-      "type": "range",
-      "id": "padding_top_mobile",
-      "min": 0,
-      "max": 80,
-      "step": 4,
-      "unit": "px",
-      "label": "Top padding mobile",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom_mobile",
-      "min": 0,
-      "max": 80,
-      "step": 4,
-      "unit": "px",
-      "label": "Bottom padding mobile",
-      "default": 40
-    },
-    {
-      "type": "header",
       "content": "Container Settings"
     },
     {
@@ -227,7 +168,7 @@
       "step": 5,
       "unit": "px",
       "label": "Container horizontal padding",
-      "default": 20
+      "default": 15
     }
   ],
   "blocks": [
