@@ -62,17 +62,232 @@
       ],
       "name": "Services",
       "settings": {
-        "padding_top_desktop": 152,
-        "padding_bottom_desktop": 152,
-        "padding_top_mobile": 80,
-        "padding_bottom_mobile": 80,
         "container_max_width": 1200,
         "padding_horizontal": 15
+      }
+    },
+    "collection_highlights_custom_LAN6UJ": {
+      "type": "collection-highlights-custom",
+      "name": "Collection Highlights",
+      "settings": {
+        "title": "What's Trending",
+        "subtitle": "These are the products that are trending now.",
+        "collection": "trending",
+        "products_to_show": 4,
+        "button_link": "shopify://collections/all",
+        "button_text": "Shop All",
+        "container_max_width": 1200,
+        "padding_horizontal": 15
+      }
+    },
+    "video_banner_custom_WPgGMP": {
+      "type": "video-banner-custom",
+      "name": "Video banner",
+      "settings": {
+        "video": "shopify://files/videos/Promotional Video.webm",
+        "video_url": "",
+        "loop": false,
+        "heading": "",
+        "play_label": "Play video"
+      }
+    },
+    "testimonials_custom_xTFUBf": {
+      "type": "testimonials-custom",
+      "blocks": {
+        "testimonial_HMNKM8": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Tempus oncu enim pellen tesque este pretium in neque, elit morbi sagittis lorem habi mattis Pellen tesque pretium feugiat vel morbi suspen dise sagittis lorem habi tasse morbi sagittis loreus oncu enim cursus.",
+            "star_rating": 5,
+            "author": "Emma Chamberlin"
+          }
+        },
+        "testimonial_9yfhQW": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "star_rating": 5,
+            "author": "John Doe"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_HMNKM8",
+        "testimonial_9yfhQW"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "container_max_width": 1200,
+        "padding_horizontal": 40
+      }
+    },
+    "collection_highlights_custom_HQ6zUd": {
+      "type": "collection-highlights-custom",
+      "name": "Collection Highlights",
+      "settings": {
+        "title": "New Arrivals",
+        "subtitle": "These are the products that are new.",
+        "collection": "trending",
+        "products_to_show": 4,
+        "button_link": "shopify://collections/all",
+        "button_text": "Shop All",
+        "container_max_width": 1200,
+        "padding_horizontal": 15
+      }
+    },
+    "collection_showcase_custom_UyN3Qm": {
+      "type": "collection-showcase-custom",
+      "blocks": {
+        "collection_item_zFWkhJ": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/showcase-img-1.webp",
+            "heading": "Summer Outfits",
+            "button_label": "Shop collection",
+            "button_link": "shopify://collections"
+          }
+        },
+        "collection_item_wtWHUx": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/showcase-img-2.webp",
+            "heading": "Gugles",
+            "button_label": "Shop it now",
+            "button_link": "shopify://collections"
+          }
+        },
+        "collection_item_NbxdQf": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/showcase-img-3.webp",
+            "heading": "Accessories",
+            "button_label": "Shop it now",
+            "button_link": "shopify://collections"
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_zFWkhJ",
+        "collection_item_wtWHUx",
+        "collection_item_NbxdQf"
+      ],
+      "name": "Collection Showcase",
+      "settings": {
+        "overlay_opacity": 15,
+        "desktop_min_height": 640
+      }
+    },
+    "recent_blogs_custom_nUGwhA": {
+      "type": "recent-blogs-custom",
+      "blocks": {
+        "blog_post_KCCErR": {
+          "type": "blog_post",
+          "settings": {
+            "image": "shopify://shop_images/blog-img-1.webp",
+            "title": "Best Comfortable Clothes Ideas",
+            "excerpt": "Justo maecenas facilisi cursus fermentum enim viverra.",
+            "link": "shopify://pages/blog"
+          }
+        },
+        "blog_post_JUFz8C": {
+          "type": "blog_post",
+          "settings": {
+            "image": "shopify://shop_images/blog-img-2.webp",
+            "title": "Casual Denim Clothing For Women",
+            "excerpt": "Sed sed eleifend vel sed elementum pharetra quam.",
+            "link": "shopify://pages/blog"
+          }
+        },
+        "blog_post_WtkDUp": {
+          "type": "blog_post",
+          "settings": {
+            "image": "shopify://shop_images/blog-img-3.webp",
+            "title": "Best Poses For Fashion Photo",
+            "excerpt": "Viverra fringilla amet quis sollicitudin scelerisque nibh.",
+            "link": "shopify://pages/blog"
+          }
+        }
+      },
+      "block_order": [
+        "blog_post_KCCErR",
+        "blog_post_JUFz8C",
+        "blog_post_WtkDUp"
+      ],
+      "name": "Recent Blogs",
+      "settings": {
+        "heading": "Recent Blogs",
+        "subtitle": "Read our news & articles about updates.",
+        "button_label": "Read All",
+        "button_link": "shopify://pages/blog",
+        "side_padding": 16
+      }
+    },
+    "instagram_section_custom_eCpRrp": {
+      "type": "instagram-section-custom",
+      "blocks": {
+        "image_block_JXXd8b": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-1.webp",
+            "link": "/",
+            "alt": "Social image one"
+          }
+        },
+        "image_block_nTPeT8": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-2.webp",
+            "link": "/",
+            "alt": "Social image two"
+          }
+        },
+        "image_block_JriUqh": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-3.webp",
+            "link": "/",
+            "alt": "Social image three"
+          }
+        },
+        "image_block_zfELfP": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-4.webp",
+            "link": "/",
+            "alt": "Social image four"
+          }
+        },
+        "image_block_KjytYW": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-5.webp",
+            "link": "/",
+            "alt": "Social image five"
+          }
+        }
+      },
+      "block_order": [
+        "image_block_JXXd8b",
+        "image_block_nTPeT8",
+        "image_block_JriUqh",
+        "image_block_zfELfP",
+        "image_block_KjytYW"
+      ],
+      "name": "Shop Our Insta",
+      "settings": {
+        "heading": "Shop Our Insta"
       }
     }
   },
   "order": [
     "hero_custom_nQBgiJ",
-    "services_custom_eQRTWF"
+    "services_custom_eQRTWF",
+    "collection_highlights_custom_LAN6UJ",
+    "video_banner_custom_WPgGMP",
+    "testimonials_custom_xTFUBf",
+    "collection_highlights_custom_HQ6zUd",
+    "collection_showcase_custom_UyN3Qm",
+    "recent_blogs_custom_nUGwhA",
+    "instagram_section_custom_eCpRrp"
   ]
 }
