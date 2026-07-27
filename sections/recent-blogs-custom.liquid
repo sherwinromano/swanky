@@ -1,0 +1,393 @@
+{% comment %}
+  Section: Recent Blogs
+  - Mobile-first responsive (base < 768px, tablet >= 768px, desktop >= 1024px)
+  - BEM naming: .recent-blogs, .recent-blogs__element, .recent-blogs__element--modifier
+  - Content comes from merchant-editable blocks (max 3), not a dynamic blog feed
+  - Image fallback chain per block: block image -> named file in the theme's Assets folder -> inline SVG placeholder
+  - No outer top/bottom padding on the section, inline (left/right) padding only
+{% endcomment %}
+
+{% liquid
+  assign heading_id = 'recent-blogs-heading-' | append: section.id
+%}
+
+{% style %}
+  .recent-blogs-{{ section.id }} {
+    --rb-side-padding: {{ section.settings.side_padding }}px;
+    padding-block: 0; /* no outer top/bottom padding, per spec */
+    padding-inline: var(--rb-side-padding);
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__container {
+    max-width: 1200px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__header {
+    text-align: center;
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__heading {
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 8px;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__subtitle {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #737373;
+  }
+
+  /* Mobile-first: single column list */
+  .recent-blogs-{{ section.id }} .recent-blogs__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__item {
+    margin: 0;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__link:focus-visible {
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__media {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background-color: #e9e4de;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__image,
+  .recent-blogs-{{ section.id }} .recent-blogs__placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__link:hover .recent-blogs__image {
+    transform: scale(1.03);
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__link:hover .recent-blogs__title {
+    color: #EC6C5A;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: auto;
+    text-align: center;
+    margin-top: 14px;
+    margin-bottom: 4px;
+    transition: color 0.2s ease;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__title--accent {
+    color: var(--rb-accent);
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__excerpt {
+    color: #737373;
+    font-size: 0.95rem;
+    line-height: auto;
+    text-align: center;
+    margin: 0;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__empty {
+    text-align: center;
+    list-style: none;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #040404;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 50px;
+    transition: background 0.2s ease;
+  }
+
+  .recent-blogs-{{ section.id }} .recent-blogs__button:hover {
+    opacity: 0.85;
+    background-color: transparent;
+    border: 1px solid #040404;
+    color: #000;
+  }
+
+
+  /* Tablet: 768px and up — bigger type, still a single column (per design) */
+  @media screen and (min-width: 768px) {
+    .recent-blogs-{{ section.id }} .recent-blogs__header {
+      margin-bottom: 40px;
+    }
+
+    .recent-blogs-{{ section.id }} .recent-blogs__grid {
+      gap: 40px;
+    }
+
+    .recent-blogs-{{ section.id }} .recent-blogs__title {
+      font-size: 1.5rem;
+    }
+
+    .recent-blogs-{{ section.id }} .recent-blogs__excerpt {
+      font-size: 1rem;
+    }
+  }
+
+  /* Desktop: 1024px and up — three column grid */
+  @media screen and (min-width: 1024px) {
+    .recent-blogs-{{ section.id }} .recent-blogs__container {
+      padding-block: 64px;
+    }
+
+    .recent-blogs-{{ section.id }} .recent-blogs__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .recent-blogs-{{ section.id }} .recent-blogs__title {
+      font-size: 1.375rem;
+    }
+  }
+{% endstyle %}
+
+<section
+  class="recent-blogs recent-blogs-{{ section.id }}"
+  aria-labelledby="{{ heading_id }}"
+>
+  <div class="recent-blogs__container">
+    <div class="recent-blogs__header">
+      <h2 id="{{ heading_id }}" class="recent-blogs__heading">
+        {{ section.settings.heading }}
+      </h2>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="recent-blogs__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    <ul class="recent-blogs__grid" role="list">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks limit: 3 -%}
+          {%- liquid
+            assign loading_attr = 'lazy'
+            assign fetchpriority_attr = 'auto'
+            if forloop.first
+              assign loading_attr = 'eager'
+              assign fetchpriority_attr = 'high'
+            endif
+            assign has_link = false
+            if block.settings.link != blank
+              assign has_link = true
+            endif
+          -%}
+          <li class="recent-blogs__item" {{ block.shopify_attributes }}>
+            {% if has_link %}
+              <a href="{{ block.settings.link }}" class="recent-blogs__link">
+            {% else %}
+              <div class="recent-blogs__link">
+            {% endif %}
+            <span class="recent-blogs__media">
+              {%- if block.settings.image -%}
+                {{-
+                  block.settings.image
+                  | image_url: width: 1500
+                  | image_tag:
+                    loading: loading_attr,
+                    fetchpriority: fetchpriority_attr,
+                    widths: '375,550,750,900,1100,1500',
+                    sizes: '(min-width: 1024px) 33vw, (min-width: 768px) 80vw, 100vw',
+                    class: 'recent-blogs__image',
+                    alt: ''
+                -}}
+              {%- elsif block.settings.fallback_image_filename != blank -%}
+                <img
+                  src="{{ block.settings.fallback_image_filename | asset_url }}"
+                  alt=""
+                  loading="{{ loading_attr }}"
+                  class="recent-blogs__image"
+                  width="700"
+                  height="875"
+                >
+              {%- else -%}
+                {%- comment -%} Last-resort fallback: inline placeholder, no asset file required {%- endcomment -%}
+                <svg
+                  class="recent-blogs__placeholder"
+                  viewBox="0 0 400 500"
+                  role="img"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <rect width="400" height="500" fill="#e9e4de" />
+                  <path d="M140 320h120M170 360h60" stroke="#b8b0a6" stroke-width="8" stroke-linecap="round" />
+                  <circle cx="200" cy="220" r="60" fill="#d8d1c6" />
+                </svg>
+              {%- endif -%}
+            </span>
+            <h3 class="recent-blogs__title{% if block.settings.highlight_title %} recent-blogs__title--accent{% endif %}">
+              {{ block.settings.title }}
+            </h3>
+            {%- if block.settings.excerpt != blank -%}
+              <p class="recent-blogs__excerpt">{{ block.settings.excerpt }}</p>
+            {%- endif -%}
+            {% if has_link %}
+              </a>
+            {% else %}
+              </div>
+            {% endif %}
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        <li class="recent-blogs__empty">Add up to three blog post blocks to this section.</li>
+      {%- endif -%}
+    </ul>
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="recent-blogs__cta">
+        <a class="recent-blogs__button" href="{{ section.settings.button_link | default: '#' }}">
+          {{ section.settings.button_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Recent Blogs",
+  "tag": "section",
+  "class": "shopify-section--recent-blogs",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Recent Blogs"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Read our news & articles about updates."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Read All"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "side_padding",
+      "label": "Side padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "blog_post",
+      "name": "Blog post",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Blog post title"
+        },
+        {
+          "type": "textarea",
+          "id": "excerpt",
+          "label": "Excerpt",
+          "default": "Add a short summary for this post."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recent Blogs",
+      "category": "Custom sections",
+      "blocks": [
+        {
+          "type": "blog_post",
+          "settings": {
+            "title": "Best Comfortable Clothes Ideas",
+            "excerpt": "Justo maecenas facilisi cursus fermentum enim viverra."
+          }
+        },
+        {
+          "type": "blog_post",
+          "settings": {
+            "title": "Casual Denim Clothing For Women",
+            "excerpt": "Sed sed eleifend vel sed elementum pharetra quam."
+          }
+        },
+        {
+          "type": "blog_post",
+          "settings": {
+            "title": "Best Poses For Fashion Photo",
+            "excerpt": "Viverra fringilla amet quis sollicitudin scelerisque nibh."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,448 @@
+{%- style -%}
+  .footer-section--{{ section.id }} .footer__container {
+    max-width: {{ section.settings.container_max_width }}px;
+    margin: 0 auto;
+    padding-left: {{ section.settings.padding_horizontal }}px;
+    padding-right: {{ section.settings.padding_horizontal }}px;
+    padding-top: 100px;
+    padding-bottom: 50px;
+  }
+
+  .footer__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .footer__column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer__logo {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 16px 0;
+    color: #000000;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+
+  .footer__logo-dot {
+    color: #EC6C5A;
+  }
+
+  .footer__logo-image {
+    width: 141px;
+    height: 39px;
+    height: auto;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .footer__text {
+    font-size: 0.938rem;
+    line-height: 1.6;
+    color: #707070;
+    margin: 0 0 20px 0;
+  }
+
+  .footer__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 15px 0;
+    letter-spacing: -0.01em;
+  }
+
+  .footer__menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer__menu-link {
+    font-size: 0.875rem;
+    font-family: var(--font-h4--family);
+    text-transform: uppercase;
+    color: #040404;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    display: inline-block;
+    transition: color 0.2s ease;
+  }
+
+  .footer__menu-link:hover {
+    text-decoration: underline;
+  }
+
+  .footer__newsletter-wrapper {
+    position: relative;
+    border-bottom: 1px solid #121212;
+    padding-bottom: 8px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+  }
+
+  .footer__newsletter-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 0.938rem;
+    font-style: italic;
+    color: #121212;
+    padding: 4px 32px 4px 0;
+    outline: none;
+  }
+
+  .footer__newsletter-input::placeholder {
+    color: #A0A0A0;
+  }
+
+  .footer__newsletter-button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+
+  .footer__newsletter-button:hover {
+    transform: translate(3px, -50%);
+  }
+
+  .footer__newsletter-button > svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Social Icons Grid with Brand-Specific Hovers */
+  .footer__social-list {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+  }
+
+  .footer__social-link {
+    color: #9C9C9C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.2s ease;
+  }
+
+  .footer__social-svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  .footer__social-link--facebook:hover, .footer__social-link--instagram:hover, .footer__social-link--twitter:hover, .footer__social-link--linkedin:hover, .footer__social-link--youtube:hover  { color: #EB8772; transform: translateY(-3px); }
+
+
+  .footer__contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footer__contact-text {
+    font-size: 0.938rem;
+    color: #707070;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .footer__contact-link {
+    font-size: 0.938rem;
+    font-weight: 700;
+    color: #121212;
+    text-decoration: underline;
+    display: inline-block;
+    word-break: break-all;
+    transition: color 0.2s ease;
+  }
+
+  .footer__contact-link:hover {
+    color: #EC6C5A;
+  }
+
+  @media screen and (min-width: 768px) {
+    .footer__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 48px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .footer__grid {
+      grid-template-columns: 1.3fr 1fr 1fr 1.1fr;
+      gap: 40px;
+    }
+  }
+{%- endstyle -%}
+
+<footer class="footer-section footer-section--{{ section.id }}">
+  <div class="footer__container">
+    <div class="footer__grid">
+      <div class="footer__column">
+        {% if section.settings.brand_logo != blank %}
+          <img
+            src="{{ section.settings.brand_logo | image_url: width: 240 }}"
+            srcset="{{ section.settings.brand_logo | image_url: width: 240 }} 240w, {{ section.settings.brand_logo | image_url: width: 480 }} 480w, {{ section.settings.brand_logo | image_url: width: 720 }} 720w"
+            sizes="(max-width: 1024px) 180px, 240px"
+            alt="{{ section.settings.brand_logo.alt | default: 'Brand logo' }}"
+            class="footer__logo-image"
+            width="141"
+            height="39"
+            loading="lazy"
+            decoding="async"
+          >
+        {% else %}
+          <h2 class="footer__logo">SWANKY<span class="footer__logo-dot">.</span></h2>
+        {% endif %}
+        {%- if section.settings.brand_bio != blank -%}
+          <p class="footer__text">{{ section.settings.brand_bio | escape }}</p>
+        {%- endif -%}
+
+        {%- form 'customer', id: 'FooterNewsletter', class: 'footer__newsletter-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+
+          <div class="footer__newsletter-wrapper">
+            <input
+              type="email"
+              name="contact[email]"
+              class="footer__newsletter-input"
+              value="{{ form.email }}"
+              placeholder="Enter Your Email Address..."
+              aria-label="Email Address"
+              required
+            >
+            <button type="submit" class="footer__newsletter-button" aria-label="Subscribe to newsletter">
+              <img
+                src="{{ 'ic_baseline-send.svg' | asset_url }}"
+                alt="Send email icon"
+                width="24"
+                height="24"
+              >
+            </button>
+          </div>
+        {%- endform -%}
+
+        {% render 'footer-social-nav', section: section %}
+      </div>
+
+      <div class="footer__column">
+        {%- if section.settings.menu_1_title != blank -%}
+          <h3 class="footer__title">{{ section.settings.menu_1_title | escape }}</h3>
+        {%- endif -%}
+        {%- if section.settings.menu_1 != blank -%}
+          <ul class="footer__menu" role="list">
+            {%- for link in linklists[section.settings.menu_1].links -%}
+              <li class="footer__menu-item">
+                <a href="{{ link.url }}" class="footer__menu-link">{{ link.title }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <div class="footer__column">
+        {%- if section.settings.menu_2_title != blank -%}
+          <h3 class="footer__title">{{ section.settings.menu_2_title | escape }}</h3>
+        {%- endif -%}
+        {%- if section.settings.menu_2 != blank -%}
+          <ul class="footer__menu" role="list">
+            {%- for link in linklists[section.settings.menu_2].links -%}
+              <li class="footer__menu-item">
+                <a href="{{ link.url }}" class="footer__menu-link">{{ link.title }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <div class="footer__column">
+        {%- if section.settings.contact_title != blank -%}
+          <h3 class="footer__title">{{ section.settings.contact_title | escape }}</h3>
+        {%- endif -%}
+        <div class="footer__contact-info">
+          {%- if section.settings.contact_text_1 != blank and section.settings.email_address != blank -%}
+            <div class="footer__contact-block">
+              <p class="footer__contact-text">{{ section.settings.contact_text_1 | escape }}</p>
+              <a href="mailto:{{ section.settings.email_address }}" class="footer__contact-link">
+                {{ section.settings.email_address | escape }}
+              </a>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.contact_text_2 != blank and section.settings.phone_number != blank -%}
+            <div class="footer__contact-block">
+              <p class="footer__contact-text">{{ section.settings.contact_text_2 | escape }}</p>
+              <a href="tel:{{ section.settings.phone_number | replace: ' ', '' }}" class="footer__contact-link">
+                {{ section.settings.phone_number | escape }}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Custom Footer",
+  "tag": "footer",
+  "class": "section-footer",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "brand_logo",
+      "label": "Brand Logo"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_bio",
+      "label": "Description",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    },
+    {
+      "type": "header",
+      "content": "Social Media Links"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook_link",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram_link",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "social_twitter_link",
+      "label": "Twitter URL"
+    },
+    {
+      "type": "url",
+      "id": "social_linkedin_link",
+      "label": "LinkedIn URL"
+    },
+    {
+      "type": "url",
+      "id": "social_youtube_link",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "header",
+      "content": "Navigation Menus"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_title",
+      "label": "Menu 1 Title",
+      "default": "Quick Links"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu 1 Link List"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_title",
+      "label": "Menu 2 Title",
+      "default": "Help & Info"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu 2 Link List"
+    },
+    {
+      "type": "header",
+      "content": "Contact Details"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Contact Us Block Title",
+      "default": "Contact Us"
+    },
+    {
+      "type": "text",
+      "id": "contact_text_1",
+      "label": "Email Description Label",
+      "default": "Do you have any queries or suggestions?"
+    },
+    {
+      "type": "text",
+      "id": "email_address",
+      "label": "Email Address",
+      "default": "yourinfo@gmail.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_text_2",
+      "label": "Phone Description Label",
+      "default": "If you need support? Just give us a call."
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone Number String",
+      "default": "+55 111 222 333 44"
+    },
+    {
+      "type": "header",
+      "content": "Layout Controls"
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 10,
+      "unit": "px",
+      "label": "Max Container Width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal Padding (Inline)",
+      "default": 15
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer",
+      "category": "Custom sections"
+    }
+  ]
+}
+{% endschema %}

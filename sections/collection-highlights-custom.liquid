@@ -1,0 +1,736 @@
+{%- style -%}
+  /* CSS Variables & Dynamic Settings */
+  .trending-products--{{ section.id }} {
+    overflow: hidden;
+  }
+
+  .trending-products--{{ section.id }} .trending-products__container {
+    max-width: {{ section.settings.container_max_width }}px;
+    margin: 0 auto;
+    padding-left: {{ section.settings.padding_horizontal }}px;
+    padding-right: {{ section.settings.padding_horizontal }}px;
+    position: relative;
+  }
+
+  /* Header Styles */
+  .trending-products--{{ section.id }} .trending-products__header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .trending-products--{{ section.id }} .trending-products__title {
+    font-size: 2rem; /* ~32px */
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: #121212;
+    letter-spacing: -0.02em;
+  }
+
+  .trending-products--{{ section.id }} .trending-products__subtitle {
+    font-size: 0.938rem; /* ~15px */
+    color: #707070;
+    margin: 0;
+  }
+
+  /* Slider Structure & Mobile-First Touch Swipe */
+  .trending-products--{{ section.id }} .trending-products__slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .trending-products--{{ section.id }} .trending-products__track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Hide standard scrollbar Firefox */
+  }
+
+  .trending-products--{{ section.id }} .trending-products__track::-webkit-scrollbar {
+    display: none; /* Hide standard scrollbar Chrome/Safari */
+  }
+
+  .trending-products--{{ section.id }} .trending-products__slide {
+    flex: 0 0 75%; /* Allows partial viewing of the next card on mobile */
+    scroll-snap-align: start;
+  }
+
+  /* Product Card & Typography (BEM structure) */
+  .trending-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: transparent;
+    contain: layout style paint;
+  }
+
+  .trending-card__media {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background-color: #f2f2f2;
+    aspect-ratio: 3 / 4;
+  }
+
+  .trending-card__link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .trending-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  /* Desktop Hover Interactions (Absolute Layout Overlay) */
+  .trending-card__hover-bar {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+  }
+
+  .trending-card__form {
+    flex-grow: 1;
+    margin: 0;
+  }
+
+  .trending-card__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color: #121212;
+    border: 1px solid #121212;
+    font-family: var(--font-paragraph--family);
+    height: 44px;
+    padding: 0 12px;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .trending-card__btn--cart {
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .trending-card__btn--icon {
+    width: 44px;
+    flex-shrink: 0;
+  }
+
+  .trending-card__btn--cart:hover {
+    background-color: #121212;
+    color: #ffffff;
+  }
+
+  .trending-card__meta {
+    text-align: center;
+  }
+
+  .trending-card__title {
+    font-size: 1.125rem; /* ~18px */
+    line-height: normal;
+    font-family: var(--font-h3--family);
+    margin: 0 0 6px 0;
+    color: #121212;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .trending-card__price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #E86A58; /* Color matching the Figma design file */
+    margin: 0;
+  }
+
+  /* Navigation UI (Arrows & Dots) */
+  .trending-products__arrow {
+    display: none; /* Hidden on mobile/tablet */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #F1E4E1; /* Soft tinted gray circle background */
+    border: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.2s ease;
+  }
+
+  .trending-products__arrow--disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .trending-products__arrow--prev {
+    left: -80px;
+  }
+
+  .trending-products__arrow--next {
+    right: -80px;
+  }
+
+  .trending-products__arrow-icon {
+    width: 20px;
+    height: 20px;
+    color: #121212;
+    display: block;
+  }
+
+  .trending-products__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 24px 0 32px 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .trending-products__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #C4C4C4;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .trending-products__dot--active {
+    background-color: #E86A58; /* Matching the active peach color */
+  }
+
+  /* Centered Shop All Footer Button */
+  .trending-products__footer {
+    text-align: center;
+  }
+
+  .trending-products__shop-all {
+    display: inline-block;
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    font-weight: 700;
+    padding: 16px 40px;
+    letter-spacing: 0.1em;
+    transition: background-color 0.2s ease;
+  }
+
+  .trending-products__shop-all:hover {
+    background-color: #2b2b2b;
+  }
+
+  /* Tablet responsive breakpoints (768px and up) */
+  @media screen and (min-width: 768px) {
+
+    .trending-products--{{ section.id }} .trending-products__slide {
+      flex: 0 0 calc(40% - 8px); /* Displays 2 full cards and partial 3rd card */
+    }
+  }
+
+  /* Desktop responsive breakpoints (1024px and up) */
+  @media screen and (min-width: 1024px) {
+
+    .trending-products--{{ section.id }} .trending-products__slide {
+      flex: 0 0 calc(25% - 12px); /* Displays exactly 4 columns */
+    }
+
+    .trending-products--{{ section.id }} .trending-products__track {
+      gap: 16px;
+    }
+
+    /* Desktop Navigation Changes */
+    .trending-products__arrow {
+      display: flex;
+    }
+
+    .trending-products__dots {
+      display: none; /* Hidden on desktop since arrows handle pagination */
+    }
+
+    /* Desktop Hover Interactions */
+    .trending-card:hover .trending-card__hover-bar {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .trending-card:hover .trending-card__image {
+      transform: scale(1.04);
+    }
+
+    .trending-card:hover .trending-card__title {
+      text-decoration: underline; /* Title gets underlined in hover state */
+    }
+
+    .trending-products__footer {
+        margin-top: 40px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  id="trending-{{ section.id }}"
+  class="trending-products trending-products--{{ section.id }}"
+  aria-label="Trending Products Slider"
+>
+  <div class="trending-products__container">
+    <div class="trending-products__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="trending-products__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="trending-products__subtitle">{{ section.settings.subtitle | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="trending-products__slider-wrapper">
+      {%- comment -%} Navigation Arrows with asset fallbacks {%- endcomment -%}
+      <button class="trending-products__arrow trending-products__arrow--prev" aria-label="Previous Slide">
+        <img
+          src="{{ 'chevron-left.svg' | asset_url }}"
+          alt="Chevron left"
+          class="trending-products__arrow-icon"
+          loading="lazy"
+          width="25"
+          height="40"
+        >
+      </button>
+
+      <div class="trending-products__track" role="list">
+        {%- assign collection = collections[section.settings.collection] -%}
+        {%- assign limit = section.settings.products_to_show -%}
+
+        {%- if collection != blank and collection.products_count > 0 -%}
+          {%- for product in collection.products limit: limit -%}
+            <div class="trending-products__slide" role="listitem">
+              <div class="trending-card">
+                <div class="trending-card__media">
+                  <a
+                    href="{{ product.url }}"
+                    class="trending-card__link"
+                    aria-label="View {{ product.title | escape }}"
+                  >
+                    {%- if product.featured_image != blank -%}
+                      {{
+                        product.featured_image
+                        | image_url: width: 600
+                        | image_tag:
+                          class: 'trending-card__image',
+                          loading: 'lazy',
+                          alt: product.featured_image.alt,
+                          widths: '300,400,500,600,800'
+                        | escape
+                      }}
+                    {%- else -%}
+                      {%- comment -%} Shopify fallback placeholder image {%- endcomment -%}
+                      {{ 'product-1' | placeholder_svg_tag: 'trending-card__image' }}
+                    {%- endif -%}
+                  </a>
+
+                  {%- comment -%} Desktop Interactive Overlay Bar {%- endcomment -%}
+                  <div class="trending-card__hover-bar">
+                    <form
+                      method="post"
+                      action="{{ routes.cart_add_url }}"
+                      class="trending-card__form"
+                      data-type="add-to-cart-form"
+                    >
+                      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                      <button type="submit" class="trending-card__btn trending-card__btn--cart">Add To Cart</button>
+                    </form>
+
+                    {%- comment -%} Wishlist Button with SVG Fallback {%- endcomment -%}
+                    <button class="trending-card__btn trending-card__btn--icon" aria-label="Add to wishlist">
+                      {%- capture wishlist_icon_exist -%}{{ 'icon-heart.svg' | asset_url }}{%- endcapture -%}
+                      {%- if wishlist_icon_exist contains 'v=' -%}
+                        <img
+                          src="{{ 'icon-heart.svg' | asset_url }}"
+                          alt="Heart icon"
+                          width="24"
+                          height="24"
+                          loading="lazy"
+                        >
+                      {%- else -%}
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                      {%- endif -%}
+                    </button>
+
+                    {%- comment -%} Expand View Button with SVG Fallback {%- endcomment -%}
+                    <button class="trending-card__btn trending-card__btn--icon" aria-label="Quick View">
+                      {%- capture expand_icon_exist -%}{{ 'icon-expand.svg' | asset_url }}{%- endcapture -%}
+                      {%- if expand_icon_exist contains 'v=' -%}
+                        <img
+                          src="{{ 'icon-expand.svg' | asset_url }}"
+                          alt="Expand icon"
+                          width="24"
+                          height="24"
+                          loading="lazy"
+                        >
+                      {%- else -%}
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                        </svg>
+                      {%- endif -%}
+                    </button>
+                  </div>
+                </div>
+
+                <div class="trending-card__meta">
+                  <a href="{{ product.url }}" class="trending-card__title">{{ product.title | escape }}</a>
+                  <p class="trending-card__price">{{ product.price | money }}</p>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} Visual Placeholder State for Customize Theme Editor Preview {%- endcomment -%}
+          {%- for i in (1..4) -%}
+            <div class="trending-products__slide" role="listitem">
+              <div class="trending-card">
+                <div class="trending-card__media">
+                  {{ 'product-' | append: i | placeholder_svg_tag: 'trending-card__image' }}
+                </div>
+                <div class="trending-card__meta">
+                  <h3 class="trending-card__title">Sample Product {{ i }}</h3>
+                  <p class="trending-card__price">$12.00</p>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+
+      <button class="trending-products__arrow trending-products__arrow--next" aria-label="Next Slide">
+        <img
+          src="{{ 'chevron-right.svg' | asset_url }}"
+          alt="Chevron right"
+          class="trending-products__arrow-icon"
+          loading="lazy"
+          width="24"
+          height="40"
+        >
+      </button>
+    </div>
+
+    {%- comment -%} Navigation dots shown on Mobile/Tablet {%- endcomment -%}
+    <div class="trending-products__dots" role="tablist" aria-label="Slides pagination">
+      {%- assign products_count = collection.products.size | default: 4 -%}
+      {%- for i in (1..products_count) -%}
+        <button
+          class="trending-products__dot {% if forloop.first %}trending-products__dot--active{% endif %}"
+          role="tab"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          aria-label="Go to slide {{ forloop.index }}"
+          data-slide="{{ forloop.index0 }}"
+        ></button>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.button_link != blank -%}
+      <div class="trending-products__footer">
+        <a href="{{ section.settings.button_link }}" class="trending-products__shop-all">
+          {{ section.settings.button_text | default: 'Shop All' }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const section = document.getElementById('trending-{{ section.id }}');
+    if (!section) return;
+
+    const track = section.querySelector('.trending-products__track');
+    const prevBtn = section.querySelector('.trending-products__arrow--prev');
+    const nextBtn = section.querySelector('.trending-products__arrow--next');
+    const dots = section.querySelectorAll('.trending-products__dot');
+    const forms = section.querySelectorAll("[data-type='add-to-cart-form']");
+
+    let isInitialized = false;
+
+    // Intersection Observer: only initialize scroll listeners when visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isInitialized) {
+            initializeSlider();
+            isInitialized = true;
+            observer.unobserve(section);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(section);
+
+    function initializeSlider() {
+      // 1. Navigation Slide Logic
+      if (track) {
+        let slideOffset = 0;
+        let scrollUpdateScheduled = false;
+
+        const updateSlideOffset = () => {
+          const slide = track.querySelector('.trending-products__slide');
+          if (!slide) return;
+          const gap = parseInt(window.getComputedStyle(track).gap) || 16;
+          slideOffset = slide.offsetWidth + gap;
+        };
+
+        const updateArrowStates = () => {
+          const isAtStart = track.scrollLeft === 0;
+          const isAtEnd = Math.abs(track.scrollWidth - track.scrollLeft - track.clientWidth) < 1;
+
+          if (prevBtn) {
+            isAtStart
+              ? prevBtn.classList.add('trending-products__arrow--disabled')
+              : prevBtn.classList.remove('trending-products__arrow--disabled');
+          }
+          if (nextBtn) {
+            isAtEnd
+              ? nextBtn.classList.add('trending-products__arrow--disabled')
+              : nextBtn.classList.remove('trending-products__arrow--disabled');
+          }
+        };
+
+        // Initialize slide offset and arrow states
+        updateSlideOffset();
+        updateArrowStates();
+        window.addEventListener('resize', updateSlideOffset, { passive: true });
+
+        if (prevBtn && nextBtn) {
+          prevBtn.addEventListener('click', () => {
+            track.scrollBy({ left: -slideOffset, behavior: 'smooth' });
+          });
+          nextBtn.addEventListener('click', () => {
+            track.scrollBy({ left: slideOffset, behavior: 'smooth' });
+          });
+        }
+
+        // Optimized scroll listener with RAF debouncing
+        track.addEventListener(
+          'scroll',
+          () => {
+            if (!scrollUpdateScheduled) {
+              scrollUpdateScheduled = true;
+              requestAnimationFrame(() => {
+                updateArrowStates();
+                scrollUpdateScheduled = false;
+              });
+            }
+          },
+          { passive: true }
+        );
+
+        // 2. Mobile/Tablet Dots Scroll Tracking (uses cached slideOffset)
+        if (dots.length > 0) {
+          let dotsUpdateScheduled = false;
+
+          const updateDots = () => {
+            const scrollLeft = track.scrollLeft;
+            if (slideOffset <= 0) return;
+            const activeIndex = Math.round(scrollLeft / slideOffset);
+
+            dots.forEach((dot, index) => {
+              if (index === activeIndex) {
+                dot.classList.add('trending-products__dot--active');
+                dot.setAttribute('aria-selected', 'true');
+              } else {
+                dot.classList.remove('trending-products__dot--active');
+                dot.setAttribute('aria-selected', 'false');
+              }
+            });
+          };
+
+          track.addEventListener(
+            'scroll',
+            () => {
+              if (!dotsUpdateScheduled) {
+                dotsUpdateScheduled = true;
+                requestAnimationFrame(() => {
+                  updateDots();
+                  dotsUpdateScheduled = false;
+                });
+              }
+            },
+            { passive: true }
+          );
+
+          dots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+              const index = parseInt(dot.getAttribute('data-slide'));
+              track.scrollTo({ left: index * slideOffset, behavior: 'smooth' });
+            });
+          });
+        }
+      }
+    } // Close initializeSlider function
+
+    // 3. Functional AJAX Add to Cart Submission
+    forms.forEach((form) => {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const submitBtn = form.querySelector('.trending-card__btn--cart');
+        const originalText = submitBtn.textContent;
+        const formData = new FormData(form);
+
+        submitBtn.textContent = 'Adding...';
+        submitBtn.disabled = true;
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            submitBtn.textContent = 'Added!';
+            submitBtn.style.backgroundColor = '#E86A58';
+            submitBtn.style.color = '#ffffff';
+            submitBtn.style.borderColor = '#E86A58';
+
+            // Fire global update cart event for standard theme mini-carts/drawers
+            document.dispatchEvent(new CustomEvent('cart:updated', { bubbles: true }));
+
+            setTimeout(() => {
+              submitBtn.textContent = originalText;
+              submitBtn.disabled = false;
+              submitBtn.removeAttribute('style');
+            }, 2000);
+          })
+          .catch((error) => {
+            console.error('AJAX Error:', error);
+            submitBtn.textContent = 'Error!';
+            submitBtn.disabled = false;
+            setTimeout(() => {
+              submitBtn.textContent = originalText;
+            }, 2000);
+          });
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection Highlights",
+  "tag": "section",
+  "class": "section-whats-trending",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "What's Trending"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "These are the products that are trending now."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 4,
+      "label": "Products to show",
+      "default": 8
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Shop All Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Shop All Button Text",
+      "default": "Shop All"
+    },
+    {
+      "type": "header",
+      "content": "Layout Constrains"
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 10,
+      "unit": "px",
+      "label": "Max Container Width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal Padding",
+      "default": 15
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Highlights",
+      "category": "Custom sections"
+    }
+  ]
+}
+{% endschema %}
