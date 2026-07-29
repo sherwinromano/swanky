@@ -7,6 +7,10 @@
     assign vb_has_video = true
   endif
   assign vb_alt = vb_image.alt | default: section.settings.heading | default: 'Video banner'
+  assign vb_poster = vb_image
+  if vb_poster == blank and vb_video != blank and vb_video.preview_image != blank
+    assign vb_poster = vb_video.preview_image
+  endif
 %}
 
 <video-banner
@@ -16,28 +20,28 @@
   <div class="video-banner__media">
     {% comment %} Poster / fallback image {% endcomment %}
     <div class="video-banner__image-wrap">
-      {% if vb_image != blank %}
+      {% if vb_poster != blank %}
         <img
           class="video-banner__image"
-          src="{{ vb_image | image_url: width: 1920 }}"
+          src="{{ vb_poster | image_url: width: 1920 }}"
           srcset="
-            {{ vb_image | image_url: width: 375 }} 375w,
-            {{ vb_image | image_url: width: 750 }} 750w,
-            {{ vb_image | image_url: width: 834 }} 834w,
-            {{ vb_image | image_url: width: 1024 }} 1024w,
-            {{ vb_image | image_url: width: 1668 }} 1668w,
-            {{ vb_image | image_url: width: 1920 }} 1920w
+            {{ vb_poster | image_url: width: 375 }} 375w,
+            {{ vb_poster | image_url: width: 750 }} 750w,
+            {{ vb_poster | image_url: width: 834 }} 834w,
+            {{ vb_poster | image_url: width: 1024 }} 1024w,
+            {{ vb_poster | image_url: width: 1668 }} 1668w,
+            {{ vb_poster | image_url: width: 1920 }} 1920w
           "
           sizes="100vw"
           alt="{{ vb_alt | escape }}"
-          width="{{ vb_image.width }}"
-          height="{{ vb_image.height }}"
+          width="{{ vb_poster.width }}"
+          height="{{ vb_poster.height }}"
           loading="{% if section.index == 1 %}eager{% else %}lazy{% endif %}"
           {% if section.index == 1 %}
             fetchpriority="high"
           {% endif %}
         >
-      {% else %}
+      {% elsif vb_video == blank and vb_video_url == blank %}
         {% comment %} Fallback asset — add this file to your theme's /assets folder {% endcomment %}
         <img
           class="video-banner__image"
@@ -56,7 +60,7 @@
         {{
           vb_video
           | video_tag:
-            image: vb_image,
+            image: vb_poster,
             preload: 'none',
             controls: true,
             loop: section.settings.loop,
@@ -66,12 +70,6 @@
         <div class="video-banner__embed" data-embed-url="{{ vb_video_url | escape }}"></div>
       {% endif %}
     </div>
-
-    {% if section.settings.heading != blank %}
-      <div class="video-banner__caption">
-        <h2 class="video-banner__heading">{{ section.settings.heading | escape }}</h2>
-      </div>
-    {% endif %}
 
     {% if vb_has_video %}
       <button
@@ -102,13 +100,18 @@
 </video-banner>
 
 {% stylesheet %}
+  .shopify-section--video-banner {
+    display: flex;
+    height: 500px;
+  }
+
   .video-banner {
     --video-banner-ratio: 375 / 560;
     --video-banner-play-size: 64px;
-
     position: relative;
     display: block;
     width: 100%;
+    height: 100%;
   }
 
   .video-banner__media {
@@ -117,6 +120,7 @@
     aspect-ratio: var(--video-banner-ratio);
     overflow: hidden;
     background-color: var(--color-background, #1a1a1a);
+    height: 100%;
   }
 
   .video-banner__image-wrap,
@@ -147,24 +151,6 @@
     height: 100%;
     border: 0;
     object-fit: cover;
-  }
-
-  .video-banner__caption {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    padding: 1.25rem;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .video-banner__heading {
-    margin: 0;
-    color: #fff;
-    font-size: clamp(1.25rem, 4vw, 2rem);
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
   }
 
   .video-banner__play {
@@ -222,8 +208,7 @@
   }
 
   .video-banner--playing .video-banner__image-wrap,
-  .video-banner--playing .video-banner__play,
-  .video-banner--playing .video-banner__caption {
+  .video-banner--playing .video-banner__play {
     display: none;
   }
 
@@ -232,26 +217,16 @@
       --video-banner-ratio: 834 / 560;
       --video-banner-play-size: 76px;
     }
-
-    .video-banner__caption {
-      padding: 2rem;
-    }
   }
 
   @media screen and (min-width: 1024px) {
+    .shopify-section--video-banner {
+      height: 100vh;
+    }
+
     .video-banner {
       --video-banner-ratio: 1920 / 782;
       --video-banner-play-size: 88px;
-    }
-
-    .video-banner__caption {
-      padding: 3rem;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .video-banner__play {
-      transition: none;
     }
   }
 {% endstylesheet %}
@@ -376,16 +351,6 @@
       "id": "loop",
       "label": "Loop video",
       "default": false
-    },
-    {
-      "type": "header",
-      "content": "Content"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "info": "Optional. Leave blank to match the reference design."
     },
     {
       "type": "text",

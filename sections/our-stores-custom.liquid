@@ -1,0 +1,307 @@
+{% liquid
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+  assign image = section.settings.image
+%}
+
+<section class="stores" aria-labelledby="Stores-{{ section.id }}-heading">
+  <div class="stores__wrapper">
+    <div class="stores__media">
+      {% if image %}
+        {{
+          image
+          | image_url: width: 1600
+          | image_tag:
+            loading: 'lazy',
+            widths: '375,550,750,1100,1500',
+            sizes: '(min-width: 1024px) 50vw, 100vw',
+            class: 'stores__image',
+            alt: image.alt
+          | default: heading
+          | escape
+        }}
+      {% else %}
+        <img
+          src="{{ 'physical-store.webp' | asset_url }}"
+          alt="A wallpaper of apparel store"
+          role="presentation"
+          class="stores__image"
+          loading="lazy"
+          width="740"
+          height="416"
+        >
+      {% endif %}
+    </div>
+
+    <div class="stores__content">
+      <div class="stores__title">
+        {% if heading != blank %}
+          <h2 class="stores__heading" id="Stores-{{ section.id }}-heading">{{ heading }}</h2>
+        {% endif %}
+
+        {% if subheading != blank %}
+          <p class="stores__subheading">{{ subheading }}</p>
+        {% endif %}
+      </div>
+
+      {% if section.blocks.size > 0 %}
+        <div class="stores__locations">
+          {% for block in section.blocks %}
+            {% liquid
+              assign country = block.settings.country
+              assign address = block.settings.address
+              assign phone_1 = block.settings.phone_1
+              assign phone_2 = block.settings.phone_2
+              assign email = block.settings.email
+            %}
+            <div class="stores__location" {{ block.shopify_attributes }}>
+              {% if country != blank %}
+                <h3 class="stores__location-title">{{ country }}</h3>
+              {% endif %}
+
+              {% if address != blank %}
+                <p class="stores__location-address">
+                  {{ address }}
+                </p>
+              {% endif %}
+
+              {% if phone_1 != blank or phone_2 != blank %}
+                <ul class="stores__location-phones" aria-label="Phone numbers">
+                  {% if phone_1 != blank %}
+                    <li class="stores__location-phone">
+                      <a href="tel:{{ phone_1 | remove: ' ' }}">{{ phone_1 }}</a>
+                    </li>
+                  {% endif %}
+                  {% if phone_2 != blank %}
+                    <li class="stores__location-phone">
+                      <a href="tel:{{ phone_2 | remove: ' ' }}">{{ phone_2 }}</a>
+                    </li>
+                  {% endif %}
+                </ul>
+              {% endif %}
+
+              {% if email != blank %}
+                <a class="stores__location-email" href="mailto:{{ email }}">{{ email }}</a>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .stores {
+    padding-block: 2.5rem;
+  }
+
+  .stores__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  .stores__media {
+    width: 100%;
+  }
+
+  .stores__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .stores__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .stores__heading {
+    font-size: 1.75rem;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .stores__subheading {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 0.95rem;
+    line-height: normal;
+  }
+
+  .stores__locations {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .stores__location {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stores__location-title {
+    font-size: 1rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin: 0 0 0.8rem;
+  }
+
+  .stores__location-address {
+    font-style: normal;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: normal;
+  }
+
+  .stores__location-phones {
+    list-style: none;
+    margin-block: 5px;
+    padding: 0;
+    font-size: 0.9rem;
+  }
+
+  .stores__location-phone a,
+  .stores__location-email {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .stores__location-phone a:hover,
+  .stores__location-email:hover {
+    text-decoration: underline;
+  }
+
+  .stores__location-email {
+    display: inline-block;
+    font-size: 0.9rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    .stores__wrapper {
+      padding-inline: 2rem;
+    }
+
+    .stores__locations {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .stores__heading {
+      font-size: 2rem;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .stores__wrapper {
+      flex-direction: row;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .stores__media,
+    .stores__content {
+      flex: 1 1 50%;
+      min-width: 0;
+    }
+
+    .stores__heading {
+      font-size: 2.5rem;
+    }
+
+    .stores__subheading {
+      font-size: 1rem;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Our stores",
+  "tag": "section",
+  "class": "section-our-stores",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Stores"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "You can also directly buy products from our stores."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "location",
+      "name": "Location",
+      "settings": [
+        {
+          "type": "text",
+          "id": "country",
+          "label": "Country / region name",
+          "default": "USA"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address",
+          "default": "730 Glenstone Ave 65802, Springfield, US"
+        },
+        {
+          "type": "text",
+          "id": "phone_1",
+          "label": "Phone 1",
+          "default": "+123 111 222 33"
+        },
+        {
+          "type": "text",
+          "id": "phone_2",
+          "label": "Phone 2",
+          "default": "+123 111 222 33"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+          "default": "example@email.com"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Our stores",
+      "category": "Custom sections",
+      "blocks": [
+        {
+          "type": "location"
+        },
+        {
+          "type": "location"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
