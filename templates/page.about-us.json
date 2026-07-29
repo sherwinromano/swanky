@@ -22,10 +22,12 @@
             "alignment": "left",
             "type_preset": "h2",
             "font": "var(--font-primary--family)",
+            "font_size": "1rem",
             "line_height": "normal",
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
+            "text_color": "",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -38,7 +40,9 @@
         },
         "page-content": {
           "type": "page-content",
-          "settings": {},
+          "settings": {
+            "text_color": ""
+          },
           "blocks": {}
         }
       },
@@ -46,6 +50,7 @@
         "heading",
         "page-content"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
@@ -53,9 +58,244 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "subpage_banner_custom_mh6YRi": {
+      "type": "subpage-banner-custom",
+      "name": "Subpage banner",
+      "settings": {}
+    },
+    "about_section_custom_MnYtkz": {
+      "type": "about-section-custom",
+      "name": "About story",
+      "settings": {
+        "heading": "How Was Swanky Started?",
+        "rich_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+        "background_color": "#FAF9F7",
+        "heading_color": "#000",
+        "text_color": "#505050"
+      }
+    },
+    "services_custom_ACRz9J": {
+      "type": "services-custom",
+      "blocks": {
+        "service_item_w8nfja": {
+          "type": "service_item",
+          "settings": {
+            "title": "Quick Delivery",
+            "description": "Inside City delivery within 5 days"
+          }
+        },
+        "service_item_aKmPU9": {
+          "type": "service_item",
+          "settings": {
+            "title": "Pick Up In Store",
+            "description": "We have option of pick up in store."
+          }
+        },
+        "service_item_gdziEj": {
+          "type": "service_item",
+          "settings": {
+            "title": "Special Packaging",
+            "description": "Our packaging is best for products."
+          }
+        }
+      },
+      "block_order": [
+        "service_item_w8nfja",
+        "service_item_aKmPU9",
+        "service_item_gdziEj"
+      ],
+      "name": "Services",
+      "settings": {
+        "container_max_width": 1200,
+        "padding_horizontal": 15
+      }
+    },
+    "video_banner_custom_zDeBJR": {
+      "type": "video-banner-custom",
+      "name": "Video banner",
+      "settings": {
+        "video": "shopify://files/videos/Promotional Video.webm",
+        "video_url": "",
+        "loop": true,
+        "play_label": "Play video"
+      }
+    },
+    "testimonials_custom_Ummcdh": {
+      "type": "testimonials-custom",
+      "blocks": {
+        "testimonial_pKGLrQ": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Tempus oncu enim pellen tesque este pretium in neque, elit morbi sagittis lorem habi mattis Pellen tesque pretium feugiat vel morbi suspen dise sagittis lorem habi tasse morbi sagittis loreus oncu enim cursus.",
+            "star_rating": 5,
+            "author": "Emma Chamberlin"
+          }
+        },
+        "testimonial_UjaE6h": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "star_rating": 5,
+            "author": "John Doe"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_pKGLrQ",
+        "testimonial_UjaE6h"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "container_max_width": 1200,
+        "padding_horizontal": 40
+      }
+    },
+    "recent_blogs_custom_kFX9rb": {
+      "type": "recent-blogs-custom",
+      "blocks": {
+        "blog_post_cNWXnk": {
+          "type": "blog_post",
+          "settings": {
+            "image": "shopify://shop_images/blog-img-1.webp",
+            "title": "Best Comfortable Clothes Ideas",
+            "excerpt": "Justo maecenas facilisi cursus fermentum enim viverra.",
+            "link": "shopify://pages/blog"
+          }
+        },
+        "blog_post_dwPhAY": {
+          "type": "blog_post",
+          "settings": {
+            "image": "shopify://shop_images/blog-img-2.webp",
+            "title": "Casual Denim Clothing For Women",
+            "excerpt": "Sed sed eleifend vel sed elementum pharetra quam.",
+            "link": "shopify://pages/blog"
+          }
+        },
+        "blog_post_x3MBMT": {
+          "type": "blog_post",
+          "settings": {
+            "image": "shopify://shop_images/blog-img-3.webp",
+            "title": "Best Poses For Fashion Photo",
+            "excerpt": "Viverra fringilla amet quis sollicitudin scelerisque nibh.",
+            "link": "shopify://pages/blog"
+          }
+        }
+      },
+      "block_order": [
+        "blog_post_cNWXnk",
+        "blog_post_dwPhAY",
+        "blog_post_x3MBMT"
+      ],
+      "name": "Recent Blogs",
+      "settings": {
+        "heading": "Recent Blogs",
+        "subtitle": "Read our news & articles about updates.",
+        "button_label": "Read All",
+        "button_link": "shopify://pages/blog",
+        "side_padding": 16
+      }
+    },
+    "our_stores_custom_fP8t8z": {
+      "type": "our-stores-custom",
+      "blocks": {
+        "location_wArr8H": {
+          "type": "location",
+          "settings": {
+            "country": "USA",
+            "address": "730 Glenstone Ave 65802, Springfield, US",
+            "phone_1": "+123 111 222 33",
+            "phone_2": "+123 111 222 33",
+            "email": "example@email.com"
+          }
+        },
+        "location_kFpbmt": {
+          "type": "location",
+          "settings": {
+            "country": "France",
+            "address": "13 Rue Montmartre 75001, Paris, France",
+            "phone_1": "+123 111 222 33",
+            "phone_2": "+123 111 222 33",
+            "email": "example@email.com"
+          }
+        }
+      },
+      "block_order": [
+        "location_wArr8H",
+        "location_kFpbmt"
+      ],
+      "name": "Our stores",
+      "settings": {
+        "heading": "Our Stores",
+        "subheading": "You can also directly buy products from our stores."
+      }
+    },
+    "instagram_section_custom_DXzQ9a": {
+      "type": "instagram-section-custom",
+      "blocks": {
+        "image_block_hkEP4A": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-1.webp",
+            "link": "shopify://pages/about-us",
+            "alt": "Social link"
+          }
+        },
+        "image_block_bwTUyz": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-2.webp",
+            "link": "shopify://pages/about-us",
+            "alt": "Social link"
+          }
+        },
+        "image_block_KnDBnD": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-3.webp",
+            "link": "shopify://pages/about-us",
+            "alt": "Social link"
+          }
+        },
+        "image_block_AAeDr9": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-4.webp",
+            "link": "shopify://pages/about-us",
+            "alt": "Social link"
+          }
+        },
+        "image_block_BWVfEd": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-5.webp",
+            "link": "shopify://pages/about-us",
+            "alt": "Social link"
+          }
+        }
+      },
+      "block_order": [
+        "image_block_hkEP4A",
+        "image_block_bwTUyz",
+        "image_block_KnDBnD",
+        "image_block_AAeDr9",
+        "image_block_BWVfEd"
+      ],
+      "name": "Shop Our Insta",
+      "settings": {
+        "heading": "Shop Our Insta"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "subpage_banner_custom_mh6YRi",
+    "about_section_custom_MnYtkz",
+    "services_custom_ACRz9J",
+    "video_banner_custom_zDeBJR",
+    "testimonials_custom_Ummcdh",
+    "recent_blogs_custom_kFX9rb",
+    "our_stores_custom_fP8t8z",
+    "instagram_section_custom_DXzQ9a"
   ]
 }
