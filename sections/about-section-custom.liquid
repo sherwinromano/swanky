@@ -1,0 +1,145 @@
+{%- liquid
+  assign heading = section.settings.heading
+  assign rich_text = section.settings.rich_text
+  assign bg_color = section.settings.background_color
+  assign heading_color = section.settings.heading_color
+  assign text_color = section.settings.text_color
+-%}
+
+<section
+  class="about-story"
+  style="--about-story-bg: {{ bg_color }}; --about-story-heading-color: {{ heading_color }}; --about-story-text-color: {{ text_color }};"
+  aria-labelledby="AboutStory-Heading-{{ section.id }}"
+>
+  <div class="about-story__container">
+    {%- if heading != blank -%}
+      <h2 class="about-story__heading" id="AboutStory-Heading-{{ section.id }}">
+        {{ heading }}
+      </h2>
+    {%- endif -%}
+
+    {%- if rich_text != blank -%}
+      <div class="about-story__text rte">
+        {{ rich_text }}
+      </div>
+    {%- else -%}
+      {%- comment -%} Fallback content {%- endcomment -%}
+      <div class="about-story__text rte">
+        <p>Tell your brand story here. Add rich text content in the section settings to replace this placeholder.</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .about-story {
+    background-color: var(--about-story-bg, #faf9f7);
+    padding: 48px 20px;
+  }
+
+  .about-story__container {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .about-story__heading {
+    color: var(--about-story-heading-color, #1a1a1a);
+    font-size: 1.75rem;
+    line-height: 1.25;
+    font-weight: 600;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .about-story__text {
+    color: var(--about-story-text-color, #5a5a5a);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .about-story__text p {
+    margin: 0 0 16px;
+  }
+
+  .about-story__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 768px) {
+    .about-story {
+      padding: 64px 40px;
+    }
+
+    .about-story__heading {
+      font-size: 2.25rem;
+      margin-bottom: 24px;
+    }
+
+    .about-story__text {
+      font-size: 1rem;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .about-story {
+      padding: 88px 40px;
+    }
+
+    .about-story__heading {
+      font-size: 2.5rem;
+      margin-bottom: 28px;
+    }
+
+    .about-story__container {
+      max-width: 780px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About story",
+  "tag": "section",
+  "class": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How Was Swanky Started?"
+    },
+    {
+      "type": "richtext",
+      "id": "rich_text",
+      "label": "Text",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FAF9F7"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#505050"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About story",
+      "category": "Custom sections"
+    }
+  ]
+}
+{% endschema %}

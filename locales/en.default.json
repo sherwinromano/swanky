@@ -66,6 +66,11 @@
     "price_filter_low": "Low price",
     "price_filter_high": "High price"
   },
+  "general": {
+    "breadcrumb": {
+      "home": "Home"
+    }
+  },
   "actions": {
     // Quick add button on product cards, shortened version of add to cart
     "add": "Add",

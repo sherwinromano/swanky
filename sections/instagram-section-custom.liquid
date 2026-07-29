@@ -2,139 +2,6 @@
   assign block_count = section.blocks.size
 -%}
 
-{% style %}
-  .insta-feed {
-    overflow: hidden;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-inline: 15px;
-  }
-
-  .insta-feed__inner {
-    max-width: 100%;
-    margin-inline: auto;
-  }
-
-  .insta-feed__heading-link {
-    text-decoration: none;
-    display: block;
-  }
-
-  .insta-feed__heading {
-    margin: 0 0 24px;
-    text-align: center;
-    color: #040404;
-    font-size: 1.75rem;
-    line-height: 1.2;
-  }
-
-  .insta-feed__grid {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    gap: 20px;
-  }
-
-  .insta-feed__item {
-    width: 100%;
-  }
-
-  .insta-feed__link {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .insta-feed__link:focus-visible {
-    outline: 2px solid currentColor;
-    outline-offset: -4px;
-  }
-
-  .insta-feed__media {
-    position: relative;
-    display: block;
-    width: 100%;
-    overflow: hidden;
-    background-color: #e9e2da;
-  }
-
-  .insta-feed__image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .insta-feed__image--placeholder {
-    object-fit: contain;
-    padding: 24px;
-  }
-
-  .insta-feed__overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #00000080;
-    opacity: 0;
-    transition: opacity 0.25s ease;
-    pointer-events: none;
-  }
-
-  .insta-feed__icon {
-    width: 32px;
-    height: 32px;
-    color: #ffffff;
-  }
-
-  /* Reveal overlay on hover / keyboard focus of the link that wraps the media */
-  .insta-feed__link:hover .insta-feed__overlay,
-  .insta-feed__link:focus-visible .insta-feed__overlay {
-    opacity: 1;
-  }
-
-  /* If a block has no link, still allow hover reveal directly on the media */
-  .insta-feed__item:has(> .insta-feed__media):hover .insta-feed__overlay {
-    opacity: 1;
-  }
-
-  @media (min-width: 768px) {
-    .insta-feed__heading {
-      font-size: 2.25rem;
-      margin-bottom: 32px;
-    }
-
-    .insta-feed__icon {
-      width: 40px;
-      height: 40px;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .insta-feed__grid {
-      flex-direction: row;
-    }
-
-    .insta-feed__item {
-      flex: 1 1 20%;
-      max-width: 20%;
-    }
-
-    .insta-feed__heading {
-      font-size: 2.5rem;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .insta-feed__overlay {
-      transition: none;
-    }
-  }
-{% endstyle %}
-
 <section
   class="insta-feed"
   id="insta-feed-{{ section.id }}"
@@ -234,6 +101,150 @@
     {%- endif -%}
   </div>
 </section>
+
+{% style %}
+  .insta-feed {
+    overflow: hidden;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: 15px;
+  }
+
+  .insta-feed__inner {
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .insta-feed__heading-link {
+    text-decoration: none;
+    display: block;
+  }
+
+  .insta-feed__heading {
+    margin: 0 0 24px;
+    text-align: center;
+    color: #040404;
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  .insta-feed__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .insta-feed__item {
+    width: 100%;
+    height: auto;
+    display: flex;
+  }
+
+  .insta-feed__link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    width: 100%;
+  }
+
+  .insta-feed__link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -4px;
+  }
+
+  .insta-feed__media {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #e9e2da;
+  }
+
+  .insta-feed__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .insta-feed__image--placeholder {
+    object-fit: contain;
+    padding: 24px;
+  }
+
+  .insta-feed__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00000080;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+
+  .insta-feed__icon {
+    width: 32px;
+    height: 32px;
+    color: #ffffff;
+  }
+
+  /* Reveal overlay on hover / keyboard focus of the link that wraps the media */
+  .insta-feed__link:hover .insta-feed__overlay,
+  .insta-feed__link:focus-visible .insta-feed__overlay {
+    opacity: 1;
+  }
+
+  /* If a block has no link, still allow hover reveal directly on the media */
+  .insta-feed__item:has(> .insta-feed__media):hover .insta-feed__overlay {
+    opacity: 1;
+  }
+
+  @media (min-width: 400px) {
+    .insta-feed__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 640px) {
+    .insta-feed__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 768px) {
+    .insta-feed__heading {
+      font-size: 2.25rem;
+      margin-bottom: 32px;
+    }
+
+    .insta-feed__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .insta-feed__icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .insta-feed__grid {
+      display: flex;
+    }
+
+    .insta-feed__heading {
+      font-size: 2.5rem;
+    }
+  }
+{% endstyle %}
 
 {% schema %}
 {

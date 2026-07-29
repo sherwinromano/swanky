@@ -6,12 +6,10 @@
   assign mega_trigger = section.settings.mega_menu_trigger | strip | downcase
   assign logo_position = section.settings.logo_position
   assign wishlist_url = section.settings.wishlist_url | default: '#'
-  assign sticky_type = section.settings.sticky_header_type
 %}
 
 <header-component
   class="site-header-wrapper site-header--logo-{{ logo_position }}"
-  data-sticky="{{ sticky_type }}"
 >
   <header class="site-header">
     <div class="site-header__bar">
@@ -295,32 +293,15 @@
 
   .site-header {
     --site-header-height: 64px;
-    position: relative;
-    z-index: 100;
-    background-color: var(--site-header-bg, #ffffff);
-    color: var(--site-header-color, #111111);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease;
-    width: 100%;
-  }
-
-  /* Fixed/Sticky states applied conditionally */
-  header-component[data-sticky='on_scroll_up'] .site-header {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
-  header-component[data-sticky='always'] .site-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-  }
-
-  .site-header.is-hidden {
-    transform: translateY(-100%);
+    z-index: 100;
+    background-color: var(--site-header-bg, #ffffff);
+    color: var(--site-header-color, #111111);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    width: 100%;
   }
 
   body.site-header-lock {
@@ -633,7 +614,7 @@
     align-items: center;
     justify-content: space-between;
     min-height: var(--site-header-height);
-    padding: 0 1rem;
+    padding: 1rem;
     border-bottom: 1px solid #000;
   }
 
@@ -892,17 +873,6 @@
     {
       "type": "header",
       "content": "Behavior"
-    },
-    {
-      "type": "select",
-      "id": "sticky_header_type",
-      "label": "Sticky header behavior",
-      "options": [
-        { "value": "none", "label": "None (Scrolls off screen)" },
-        { "value": "on_scroll_up", "label": "On scroll up (Auto-hide on scroll down)" },
-        { "value": "always", "label": "Always sticky" }
-      ],
-      "default": "on_scroll_up"
     }
   ],
   "presets": [

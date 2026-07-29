@@ -1,0 +1,130 @@
+<section
+  class="subpage-banner"
+  aria-labelledby="subpage-banner-title-{{ section.id }}"
+>
+  <div class="subpage-banner__container">
+    <h1 class="subpage-banner__title" id="subpage-banner-title-{{ section.id }}">
+      {{ page_title }}
+    </h1>
+
+    <nav class="subpage-banner__breadcrumb" aria-label="Breadcrumb">
+      <ol class="subpage-banner__breadcrumb-list">
+        <li class="subpage-banner__breadcrumb-item">
+          <a class="subpage-banner__breadcrumb-link" href="{{ routes.root_url }}">
+            {{ 'general.breadcrumb.home' | t | default: 'Home' }}
+          </a>
+        </li>
+        <img
+          src="{{ 'icon-chevron-right.svg' | asset_url }}"
+          alt="Chevron right icon"
+          width="8"
+          height="12"
+          loading="lazy"
+          style="width: 10px;"
+        >
+        <li class="subpage-banner__breadcrumb-item subpage-banner__breadcrumb-item--current" aria-current="page">
+          <span class="subpage-banner__breadcrumb-text">
+            {{ page_title }}
+          </span>
+        </li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+{% stylesheet %}
+  /* Subpage Banner - BEM, mobile-first */
+
+  .subpage-banner {
+    background-color: var(--subpage-banner-bg, #f1e4e1);
+    padding: 32px 16px;
+    text-align: center;
+  }
+
+  .subpage-banner__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .subpage-banner__title {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #1a1a1a;
+  }
+
+  .subpage-banner__breadcrumb {
+    display: flex;
+    justify-content: center;
+  }
+
+  .subpage-banner__breadcrumb-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    gap: 12px;
+    padding: 0;
+    list-style: none;
+    font-size: 13px;
+  }
+
+  .subpage-banner__breadcrumb-item {
+    display: flex;
+    align-items: center;
+    color: #4a4a4a;
+  }
+
+  .subpage-banner__breadcrumb-link {
+    color: #000;
+    font-family: var(--font-h4--family);
+
+    text-underline-offset: 2px;
+  }
+
+  .subpage-banner__breadcrumb-item--current {
+    color: #000;
+    font-family: var(--font-h4--family);
+    font-weight: 500;
+    text-decoration: underline;
+  }
+
+  @media screen and (min-width: 768px) {
+    .subpage-banner {
+      padding: 48px 24px;
+    }
+
+    .subpage-banner__title {
+      font-size: 36px;
+    }
+
+    .subpage-banner__breadcrumb-list {
+      font-size: 14px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .subpage-banner {
+      padding: 64px 32px;
+    }
+
+    .subpage-banner__title {
+      font-size: 44px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Subpage banner",
+  "class": "subpage-banner",
+  "presets": [
+    {
+      "name": "Subpage banner",
+      "category": "Custom sections"
+    }
+  ]
+}
+{% endschema %}

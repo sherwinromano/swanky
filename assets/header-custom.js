@@ -49,9 +49,6 @@
       );
       this.stickyType = this.getAttribute("data-sticky");
 
-      this.setHeaderHeight();
-      window.addEventListener("resize", () => this.setHeaderHeight());
-
       this.toggleBtn?.addEventListener("click", () => this.openDrawer());
       this.drawerCloseBtns.forEach((btn) =>
         btn.addEventListener("click", () => this.closeAll()),
@@ -82,12 +79,6 @@
         "--site-header-height",
         `${height}px`,
       );
-
-      if (this.stickyType === "always") {
-        document.body.style.paddingTop = `${height}px`;
-      } else {
-        document.body.style.paddingTop = "0px";
-      }
     }
 
     openDrawer() {

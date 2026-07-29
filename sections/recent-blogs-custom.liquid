@@ -1,20 +1,111 @@
-{% comment %}
-  Section: Recent Blogs
-  - Mobile-first responsive (base < 768px, tablet >= 768px, desktop >= 1024px)
-  - BEM naming: .recent-blogs, .recent-blogs__element, .recent-blogs__element--modifier
-  - Content comes from merchant-editable blocks (max 3), not a dynamic blog feed
-  - Image fallback chain per block: block image -> named file in the theme's Assets folder -> inline SVG placeholder
-  - No outer top/bottom padding on the section, inline (left/right) padding only
-{% endcomment %}
-
 {% liquid
   assign heading_id = 'recent-blogs-heading-' | append: section.id
 %}
 
+<section
+  class="recent-blogs recent-blogs-{{ section.id }}"
+  aria-labelledby="{{ heading_id }}"
+>
+  <div class="recent-blogs__container">
+    <div class="recent-blogs__header">
+      <h2 id="{{ heading_id }}" class="recent-blogs__heading">
+        {{ section.settings.heading }}
+      </h2>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="recent-blogs__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    <ul class="recent-blogs__grid" role="list">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks limit: 3 -%}
+          {%- liquid
+            assign loading_attr = 'lazy'
+            assign fetchpriority_attr = 'auto'
+            if forloop.first
+              assign loading_attr = 'eager'
+              assign fetchpriority_attr = 'high'
+            endif
+            assign has_link = false
+            if block.settings.link != blank
+              assign has_link = true
+            endif
+          -%}
+          <li class="recent-blogs__item" {{ block.shopify_attributes }}>
+            {% if has_link %}
+              <a href="{{ block.settings.link }}" class="recent-blogs__link">
+            {% else %}
+              <div class="recent-blogs__link">
+            {% endif %}
+            <span class="recent-blogs__media">
+              {%- if block.settings.image -%}
+                {{-
+                  block.settings.image
+                  | image_url: width: 1500
+                  | image_tag:
+                    loading: loading_attr,
+                    fetchpriority: fetchpriority_attr,
+                    widths: '375,550,750,900,1100,1500',
+                    sizes: '(min-width: 1024px) 33vw, (min-width: 768px) 80vw, 100vw',
+                    class: 'recent-blogs__image',
+                    alt: ''
+                -}}
+              {%- elsif block.settings.fallback_image_filename != blank -%}
+                <img
+                  src="{{ block.settings.fallback_image_filename | asset_url }}"
+                  alt=""
+                  loading="{{ loading_attr }}"
+                  class="recent-blogs__image"
+                  width="700"
+                  height="875"
+                >
+              {%- else -%}
+                {%- comment -%} Last-resort fallback: inline placeholder, no asset file required {%- endcomment -%}
+                <svg
+                  class="recent-blogs__placeholder"
+                  viewBox="0 0 400 500"
+                  role="img"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <rect width="400" height="500" fill="#e9e4de" />
+                  <path d="M140 320h120M170 360h60" stroke="#b8b0a6" stroke-width="8" stroke-linecap="round" />
+                  <circle cx="200" cy="220" r="60" fill="#d8d1c6" />
+                </svg>
+              {%- endif -%}
+            </span>
+            <h3 class="recent-blogs__title{% if block.settings.highlight_title %} recent-blogs__title--accent{% endif %}">
+              {{ block.settings.title }}
+            </h3>
+            {%- if block.settings.excerpt != blank -%}
+              <p class="recent-blogs__excerpt">{{ block.settings.excerpt }}</p>
+            {%- endif -%}
+            {% if has_link %}
+              </a>
+            {% else %}
+              </div>
+            {% endif %}
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        <li class="recent-blogs__empty">Add up to three blog post blocks to this section.</li>
+      {%- endif -%}
+    </ul>
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="recent-blogs__cta">
+        <a class="recent-blogs__button" href="{{ section.settings.button_link | default: '#' }}">
+          {{ section.settings.button_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
 {% style %}
   .recent-blogs-{{ section.id }} {
     --rb-side-padding: {{ section.settings.side_padding }}px;
-    padding-block: 0; /* no outer top/bottom padding, per spec */
+    padding-block: 0;
     padding-inline: var(--rb-side-padding);
   }
 
@@ -46,7 +137,6 @@
     color: #737373;
   }
 
-  /* Mobile-first: single column list */
   .recent-blogs-{{ section.id }} .recent-blogs__grid {
     list-style: none;
     display: grid;
@@ -148,8 +238,12 @@
     color: #000;
   }
 
+  @media screen and (min-width: 640px) {
+    .recent-blogs-{{ section.id }} .recent-blogs__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+  }
 
-  /* Tablet: 768px and up — bigger type, still a single column (per design) */
   @media screen and (min-width: 768px) {
     .recent-blogs-{{ section.id }} .recent-blogs__header {
       margin-bottom: 40px;
@@ -168,14 +262,13 @@
     }
   }
 
-  /* Desktop: 1024px and up — three column grid */
   @media screen and (min-width: 1024px) {
     .recent-blogs-{{ section.id }} .recent-blogs__container {
       padding-block: 64px;
     }
 
     .recent-blogs-{{ section.id }} .recent-blogs__grid {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 24px;
     }
 
@@ -184,106 +277,6 @@
     }
   }
 {% endstyle %}
-
-<section
-  class="recent-blogs recent-blogs-{{ section.id }}"
-  aria-labelledby="{{ heading_id }}"
->
-  <div class="recent-blogs__container">
-    <div class="recent-blogs__header">
-      <h2 id="{{ heading_id }}" class="recent-blogs__heading">
-        {{ section.settings.heading }}
-      </h2>
-      {%- if section.settings.subtitle != blank -%}
-        <p class="recent-blogs__subtitle">{{ section.settings.subtitle }}</p>
-      {%- endif -%}
-    </div>
-
-    <ul class="recent-blogs__grid" role="list">
-      {%- if section.blocks.size > 0 -%}
-        {%- for block in section.blocks limit: 3 -%}
-          {%- liquid
-            assign loading_attr = 'lazy'
-            assign fetchpriority_attr = 'auto'
-            if forloop.first
-              assign loading_attr = 'eager'
-              assign fetchpriority_attr = 'high'
-            endif
-            assign has_link = false
-            if block.settings.link != blank
-              assign has_link = true
-            endif
-          -%}
-          <li class="recent-blogs__item" {{ block.shopify_attributes }}>
-            {% if has_link %}
-              <a href="{{ block.settings.link }}" class="recent-blogs__link">
-            {% else %}
-              <div class="recent-blogs__link">
-            {% endif %}
-            <span class="recent-blogs__media">
-              {%- if block.settings.image -%}
-                {{-
-                  block.settings.image
-                  | image_url: width: 1500
-                  | image_tag:
-                    loading: loading_attr,
-                    fetchpriority: fetchpriority_attr,
-                    widths: '375,550,750,900,1100,1500',
-                    sizes: '(min-width: 1024px) 33vw, (min-width: 768px) 80vw, 100vw',
-                    class: 'recent-blogs__image',
-                    alt: ''
-                -}}
-              {%- elsif block.settings.fallback_image_filename != blank -%}
-                <img
-                  src="{{ block.settings.fallback_image_filename | asset_url }}"
-                  alt=""
-                  loading="{{ loading_attr }}"
-                  class="recent-blogs__image"
-                  width="700"
-                  height="875"
-                >
-              {%- else -%}
-                {%- comment -%} Last-resort fallback: inline placeholder, no asset file required {%- endcomment -%}
-                <svg
-                  class="recent-blogs__placeholder"
-                  viewBox="0 0 400 500"
-                  role="img"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <rect width="400" height="500" fill="#e9e4de" />
-                  <path d="M140 320h120M170 360h60" stroke="#b8b0a6" stroke-width="8" stroke-linecap="round" />
-                  <circle cx="200" cy="220" r="60" fill="#d8d1c6" />
-                </svg>
-              {%- endif -%}
-            </span>
-            <h3 class="recent-blogs__title{% if block.settings.highlight_title %} recent-blogs__title--accent{% endif %}">
-              {{ block.settings.title }}
-            </h3>
-            {%- if block.settings.excerpt != blank -%}
-              <p class="recent-blogs__excerpt">{{ block.settings.excerpt }}</p>
-            {%- endif -%}
-            {% if has_link %}
-              </a>
-            {% else %}
-              </div>
-            {% endif %}
-          </li>
-        {%- endfor -%}
-      {%- else -%}
-        <li class="recent-blogs__empty">Add up to three blog post blocks to this section.</li>
-      {%- endif -%}
-    </ul>
-
-    {%- if section.settings.button_label != blank -%}
-      <div class="recent-blogs__cta">
-        <a class="recent-blogs__button" href="{{ section.settings.button_link | default: '#' }}">
-          {{ section.settings.button_label }}
-        </a>
-      </div>
-    {%- endif -%}
-  </div>
-</section>
 
 {% schema %}
 {
