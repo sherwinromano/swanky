@@ -290,6 +290,7 @@ p:empty {
   display: flex;
   flex-direction: column;
   gap: 150px;
+  margin-top: 65px;
   background-color: #faf6f5;
 }
 
@@ -2437,6 +2438,7 @@ deferred-media[class]
 .compare-at-price,
 .unit-price {
   white-space: nowrap;
+  font-weight: 600;
 }
 
 .unit-price {

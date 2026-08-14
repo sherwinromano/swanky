@@ -226,23 +226,30 @@
     endif
   -%}
 
-  <div class="cart-totals__container{% if settings.show_installments %} cart-totals__container--has-installments{% endif %}">
-    <span
-      class="cart-totals__item cart-totals__total"
-      role="status"
-    >
-      <span class="cart-totals__total-label cart-primary-typography">{{ 'content.cart_estimated_total' | t }}</span>
+  <div class="cart-totals__container">
+    <div class="cart-summary__row cart-summary__row--subtotal">
+      <span class="cart-summary__label cart-primary-typography"> Subtotal </span>
+      <span
+        class="cart-summary__value cart-secondary-typography"
+        data-testid="cart-subtotal-value"
+      >
+        {{ cart.items_subtotal_price | money }}
+      </span>
+    </div>
+
+    <div class="cart-summary__row cart-summary__row--total" role="status">
+      <span class="cart-summary__label cart-primary-typography"> Total </span>
       <text-component
         ref="cartTotal"
         value="{{ total_price | strip_html }}"
-        class="cart-totals__total-value cart-secondary-typography"
-        {% comment %} Used by payment_terms web component {% endcomment %}
+        class="cart-summary__value cart-secondary-typography"
         data-testid="cart-total-value"
         data-cart-subtotal
       >
         {{ total_price }}
       </text-component>
-    </span>
+    </div>
+
     {% if settings.show_installments %}
       <span class="cart-totals__item cart-totals__installments">
         {% form 'cart', cart %}
@@ -250,35 +257,44 @@
         {% endform %}
       </span>
     {% endif %}
-    <div class="cart-totals__item cart-totals__tax-note cart-primary-typography">
-      {% render 'tax-info', has_discounts_enabled: settings.show_add_discount_code %}
-    </div>
   </div>
 </div>
 
-<div class="cart__ctas">
+<div class="cart__ctas cart-summary__buttons">
+  <button
+    type="submit"
+    class="cart-summary__button"
+    name="update"
+    form="cart-form"
+    {% if cart == empty %}
+      disabled
+    {% endif %}
+  >
+    Update cart
+  </button>
+
+  <a
+    href="{{ routes.all_products_collection_url }}"
+    class="cart-summary__button"
+  >
+    Continue shopping
+  </a>
+
   <button
     type="submit"
     id="checkout"
-    class="cart__checkout-button button"
+    class="cart-summary__button"
     name="checkout"
     {% if cart == empty %}
       disabled
     {% endif %}
     form="cart-form"
   >
-    <span class="button-text">
-      {{ 'content.checkout' | t }}
-    </span>
+    Proceed to checkout
   </button>
 
   {% if additional_checkout_buttons and settings.show_accelerated_checkout_buttons %}
-    <div
-      class="
-        additional-checkout-buttons
-        {% if accelerated_checkout_buttons_layout == 'vertical' %}additional-checkout-buttons--vertical{% endif %}
-      "
-    >
+    <div class="cart-summary__accelerated-checkout">
       {{ content_for_additional_checkout_buttons }}
     </div>
   {% endif %}
@@ -308,6 +324,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .cart-summary .cart__ctas {
+    flex-direction: column;
   }
 
   .cart-totals__tax-note {
@@ -438,6 +458,11 @@
 
   .cart-note__summary:hover {
     color: rgb(var(--color-rgb, var(--color-foreground-rgb)) / var(--opacity-subdued-text));
+  }
+
+  .cart-summary__label {
+    width: 30%;
+    font-family: var(--font-h4--family);
   }
 
   .cart-note__label {
@@ -609,9 +634,136 @@
     font-weight: 500;
   }
 
+  @media screen and (min-width: 640px) {
+    .cart-summary__label {
+      width: 10%;
+    }
+  }
+
   @media screen and (min-width: 750px) {
     .cart-summary--extend {
       height: 100%;
+    }
+
+    .cart-summary .cart__ctas {
+      flex-direction: row;
+    }
+  }
+  /* Figma cart-summary layout */
+  .cart-totals {
+    gap: 0;
+    width: 100%;
+  }
+
+  .cart-totals__original-container,
+  .cart-totals__original-container:empty {
+    display: none;
+  }
+
+  .cart-totals__container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    border-block: 1px solid rgb(var(--color-foreground-rgb) / 0.1);
+  }
+
+  .cart-summary__row {
+    display: flex;
+    padding-block: 24px;
+    border-block-end: 1px solid rgb(var(--color-foreground-rgb) / 0.1);
+  }
+
+  .cart-summary__row--total {
+    border-block-end: 0;
+  }
+
+  .cart-summary__label,
+  .cart-summary__value {
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 400;
+  }
+
+  .cart-summary__value {
+    color: #e86f63;
+    font-weight: 700;
+  }
+
+  .cart-summary__buttons {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-top: 15px;
+  }
+
+  .cart-summary__button {
+    appearance: none;
+    flex: none !important;
+    border: 0;
+    border-radius: 0;
+    background: #050505;
+    color: #fff;
+    min-width: 80px;
+    height: 15px;
+    padding: 0 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.35px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 18px !important;
+    cursor: pointer;
+  }
+
+  .cart-summary__button:hover {
+    opacity: 0.85;
+  }
+
+  .cart-summary__button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .cart-summary__accelerated-checkout {
+    display: none;
+  }
+
+  .cart-summary__buttons .cart__checkout-button {
+    width: auto;
+    height: 15px;
+    padding-inline: 10px;
+  }
+
+  .cart-totals__installments,
+  .cart-totals__tax-note {
+    display: none;
+  }
+
+  .cart-actions {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .cart-summary__buttons {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 6px;
+    }
+
+    .cart-summary__button {
+      width: 100%;
+      min-width: 0;
+      height: 28px;
     }
   }
 {% endstylesheet %}

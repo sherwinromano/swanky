@@ -1,5 +1,3 @@
-
-
 {% assign block_settings = block.settings %}
 {% liquid
   assign custom_color = false
@@ -33,25 +31,86 @@
   {{ block.shopify_attributes }}
 >
   <div class="{{ cart_summary_inner_class }}">
-    {% render 'cart-summary', accelerated_checkout_buttons_layout: 'vertical', section_id: section.id %}
+    {% render 'cart-summary', accelerated_checkout_buttons_layout: 'horizontal', section_id: section.id %}
   </div>
 </div>
 
 {% stylesheet %}
+  /* Reset summary block to fit directly underneath product items */
+  .cart-summary {
+    width: 100%;
+    display: block !important;
+    border: none !important;
+  }
+
   .cart-summary__inner {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: var(--gap-2xl);
-    container-type: inline-size;
-    padding: 0;
-    position: sticky;
-    top: 0;
-    align-self: start;
+    align-items: flex-start !important; /* Left-align "Cart Totals" and content */
+    gap: 1.5rem;
+    padding: 2rem 0 0 0 !important;
+    position: static !important; /* Remove sticky sidebar behavior */
+    width: 100% !important;
+  }
 
-    @media screen and (min-width: 750px) {
-      padding: var(--padding-5xl);
-      grid-row: 1 / -1;
+  /* Style summary rows (Subtotal / Total) */
+  .cart-summary .cart__summary-totals {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cart-summary .cart__subtotal-container,
+  .cart-summary .cart__total-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgb(var(--color-foreground-rgb) / 0.15);
+  }
+
+  .cart-summary .cart__total-label,
+  .cart-summary .cart__subtotal-label {
+    font-weight: 700;
+    color: #111;
+  }
+
+  /* Coral/Salmon Price text */
+  .cart-summary .cart__total-value,
+  .cart-summary .cart__subtotal-value {
+    color: #ff7e6b !important;
+    font-weight: 600;
+  }
+
+  /* Action Buttons (Update Cart | Continue Shopping | Proceed to Checkout) */
+  .cart-summary .cart__ctas {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  @media screen and (min-width: 600px) {
+    .cart-summary .cart__ctas {
+      flex-direction: row; /* Horizontal button row on desktop */
+      align-items: center;
+    }
+
+    .cart-summary .cart__ctas .button,
+    .cart-summary .cart__ctas button,
+    .cart-summary .cart__ctas a {
+      flex: 1;
+      text-align: center;
+      background-color: #000000 !important;
+      color: #ffffff !important;
+      border-radius: 0 !important;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.85rem 1rem;
     }
   }
 
