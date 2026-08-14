@@ -97,11 +97,38 @@
             "link": "/cart",
             "alt": "Instagram link two"
           }
+        },
+        "image_block_tr7rCN": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-3.webp",
+            "link": "/cart",
+            "alt": "Instagram link three"
+          }
+        },
+        "image_block_BtbGKL": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-4.webp",
+            "link": "/cart",
+            "alt": "Instagram link four"
+          }
+        },
+        "image_block_9RfCYN": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/social-img-5.webp",
+            "link": "/cart",
+            "alt": "Instagram link five"
+          }
         }
       },
       "block_order": [
         "image_block_gwQ3UA",
-        "image_block_bbkkQ6"
+        "image_block_bbkkQ6",
+        "image_block_tr7rCN",
+        "image_block_BtbGKL",
+        "image_block_9RfCYN"
       ],
       "name": "Shop Our Insta",
       "settings": {
