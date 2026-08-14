@@ -87,6 +87,11 @@
         class="cart-items spacing-style{% if block_settings.dividers %} cart-items--dividers{% endif %}"
         style="{%  render 'spacing-style', settings: block_settings %} --cart-items-gap:{{ block_settings.gap | append: "px" }};"
       >
+        <div class="cart-items__header">
+          <h3>Product</h3>
+          <h3>Quantity</h3>
+          <h3>Subtotal</h3>
+        </div>
         <table
           class="cart-items__table"
           role="table"
@@ -323,6 +328,7 @@
                     </div>
                   </div>
                 </td>
+
                 <td
                   class="cart-items__quantity"
                   role="cell"
@@ -347,20 +353,6 @@
                       class: 'cart-primary-typography',
                       can_update_quantity: can_update_quantity
                     %}
-
-                    <button
-                      class="button cart-items__remove"
-                      type="button"
-                      aria-label="{{ 'accessibility.remove_item' | t: title: item.title | escape }}"
-                      on:click="/onLineItemRemove/{{ item.index | plus: 1 }}"
-                      {% assign can_remove = item.instructions.can_remove | default: true, allow_false: true %}
-                      {% if can_remove == false %}
-                        hidden
-                      {% endif %}
-                    >
-                      {{- 'icon-delete.svg' | inline_asset_content -}}
-                      <span class="visually-hidden">{{ 'accessibility.remove' | t }}</span>
-                    </button>
                   </div>
                 </td>
                 <td
@@ -403,6 +395,24 @@
                     </div>
                   {%- endif -%}
                 </td>
+                <td
+                  class="cart-items__remove-cell"
+                  role="cell"
+                >
+                  <button
+                    class="button cart-items__remove"
+                    type="button"
+                    aria-label="{{ 'accessibility.remove_item' | t: title: item.title | escape }}"
+                    on:click="/onLineItemRemove/{{ item.index | plus: 1 }}"
+                    {% assign can_remove = item.instructions.can_remove | default: true, allow_false: true %}
+                    {% if can_remove == false %}
+                      hidden
+                    {% endif %}
+                  >
+                    {{- 'icon-delete.svg' | inline_asset_content -}}
+                    <span class="visually-hidden">{{ 'accessibility.remove' | t }}</span>
+                  </button>
+                </td>
               </tr>
             {% endfor %}
           </tbody>
@@ -435,6 +445,16 @@
     width: 100%;
   }
 
+  .cart-items__price.cart-secondary-typography {
+    align-items: center !important;
+  }
+
+  .cart-items__details.cart-primary-typography {
+    display: flex;
+    flex-direction: column !important;
+    align-items: start !important;
+  }
+
   .cart-items-disabled {
     pointer-events: none;
   }
@@ -458,6 +478,106 @@
     text-align: center;
   }
 
+  .cart-items__header {
+    display: none;
+    padding-bottom: 1.5rem;
+  }
+
+  .cart-items__header > h3 {
+    margin: 0 !important;
+    /* Fluid font-size: 14px at small viewports, up to 16px at large viewports */
+    font-size: 1rem !important;
+    text-transform: none;
+  }
+
+  @container cart-items (min-width: 720px) {
+    /* Table Header Alignment */
+    .cart-items__header {
+      display: grid !important;
+      /* Columns: [Image] [Product Info] [Quantity] [Subtotal] [Delete] */
+      grid-template-columns: clamp(5rem, 15cqi, 7.5rem) 2fr 1fr 1fr var(--minimum-touch-target, 44px) !important;
+      column-gap: var(--gap-md, 1rem) !important;
+      align-items: center !important;
+    }
+
+    .cart-items__header > h3:nth-child(1) {
+      grid-column: 2 !important;
+      text-align: left !important;
+    }
+
+    .cart-items__header > h3:nth-child(2) {
+      grid-column: 3 !important;
+      text-align: center !important; /* Center the 'Quantity' label above the input */
+    }
+
+    .cart-items__header > h3:nth-child(3) {
+      grid-column: 4 !important;
+      text-align: right !important; /* Right-align 'Subtotal' above the price */
+    }
+
+    .cart-items__table-row {
+      display: grid !important;
+      grid-template-columns: clamp(5rem, 15cqi, 7.5rem) 2fr 1fr 1fr var(--minimum-touch-target, 44px) !important;
+      grid-template-areas: 'media details quantity price remove' !important;
+      column-gap: var(--gap-md, 1rem) !important;
+      align-items: center !important;
+      padding-block: 1rem !important;
+    }
+
+    .cart-items__quantity {
+      grid-area: quantity !important;
+      display: flex !important;
+      justify-content: center !important; /* Centered in column 3 */
+      align-items: center !important;
+      margin: 0 !important;
+      width: 100% !important;
+    }
+    .cart-items__quantity-controls {
+      display: flex !important;
+      justify-content: center !important;
+      width: auto !important;
+    }
+
+    .cart-items__price {
+      grid-area: price !important;
+      display: flex !important;
+      justify-content: center !important; /* Right-aligned in column 4 */
+      align-items: end !important;
+      text-align: right !important;
+      margin: 0 !important;
+      font-weight: 700 !important;
+    }
+
+    /* 4. Center align the delete button column */
+    .cart-items__remove-cell {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      align-self: center !important;
+    }
+
+    /* Footer Action Buttons Layout (Horizontal Row) */
+    .cart__ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    @media screen and (min-width: 600px) {
+      .cart__ctas {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .cart__ctas .button,
+      .cart__ctas button,
+      .cart__ctas a {
+        flex: 1;
+        width: auto;
+      }
+    }
+  }
+
   .cart-items__table {
     width: 100%;
     border-spacing: 0;
@@ -469,23 +589,39 @@
 
   .cart-items__table-row {
     --cart-item-price-width: 6rem;
-
     display: grid;
-    grid-template-columns: clamp(2.5rem, 15cqi, 7.5rem) minmax(0, 1fr) minmax(var(--cart-item-price-width), auto);
+    grid-template-columns: clamp(2.5rem, 15cqi, 7.5rem) 1fr auto;
+    grid-template-rows: min-content min-content min-content;
     grid-template-areas:
-      'media details price'
-      'media quantity price'
+      'media details remove'
+      'media quantity remove'
       'media error error';
     column-gap: var(--gap-md);
+    row-gap: var(--gap-3xs, 4px);
     align-items: start;
-    padding-bottom: var(--cart-items-gap);
     margin-bottom: var(--margin-lg);
+  }
+
+  /* Subtotal is redundant on narrow layouts - the price already shows next to the title */
+  .cart-items__price {
+    display: none;
+  }
+
+  .cart-items__remove-cell {
+    grid-area: remove;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .cart-items__details {
     grid-area: details;
+
     min-width: 0;
     color: rgb(var(--color-foreground-rgb) / var(--opacity-70));
+  }
+
+  .cart-items__details * {
+    font-size: 1rem !important;
   }
 
   .cart-items__product-info {
@@ -654,6 +790,7 @@
     grid-area: quantity;
     margin-block-start: var(--margin-xs);
     display: flex;
+    margin-top: 0 !important;
     align-items: center;
     justify-content: flex-start;
     gap: var(--gap-xs);
@@ -699,8 +836,16 @@
     min-width: var(--cart-item-price-width);
     text-align: end;
     display: block;
-    font-size: var(--font-size--sm);
+    font-size: 1rem !important;
+    font-weight: var(--font-weight-bold);
     line-height: var(--line-height);
+    /* Swap this for your theme's accent/sale color variable if it has one */
+    color: var(--color-cart-price-accent, #e25c3e);
+  }
+
+  .cart-items__unit-price-wrapper {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-cart-price-accent, #e25c3e);
   }
 
   .cart-items__price-unit {
@@ -722,6 +867,7 @@
     object-position: center center;
     width: 100%;
     height: auto;
+    max-height: 200px;
   }
 
   .cart-items__empty-button {
@@ -771,15 +917,16 @@
     .cart-items__table-row {
       --cart-item-price-width: 6rem;
 
-      grid-template-columns: 7.5rem 1fr 1fr minmax(var(--cart-item-price-width), auto);
+      grid-template-columns: 7.5rem 1fr 1fr minmax(var(--cart-item-price-width), auto) var(--minimum-touch-target);
       grid-template-rows: min-content 1fr;
       grid-template-areas:
-        'media details quantity price'
-        'media details error error';
+        'media details quantity price remove'
+        'media details error error remove';
     }
 
     .cart-items__quantity,
-    .cart-items__price {
+    .cart-items__price,
+    .cart-items__remove-cell {
       grid-area: initial;
     }
 
@@ -788,10 +935,15 @@
     }
 
     .cart-items__price {
-      min-height: var(--minimum-touch-target);
       display: flex;
+      min-height: var(--minimum-touch-target);
       flex-direction: column;
       align-items: flex-end;
+    }
+
+    .cart-items__remove-cell {
+      align-items: center;
+      align-self: center;
     }
 
     /* Cart drawer: separate areas for variants and unit price */
@@ -958,6 +1110,7 @@
 
     .cart-items .quantity-selector input {
       max-width: calc(var(--quantity-selector-width) - var(--button-size-md) * 2);
+      font-size: 1rem !important;
     }
   }
 
@@ -1008,6 +1161,333 @@
     to {
       filter: none;
       opacity: 1;
+    }
+  }
+
+  /* =========================================================
+     Figma cart-products layout override
+     Styling only — Horizon Liquid/JS structure is unchanged.
+     ========================================================= */
+
+  .cart-items__header > h3 {
+    font-size: 13px;
+    line-height: 1.2;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .cart-items__title {
+    font-size: 15px;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+
+  .cart-items__details * {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .cart-items__details > * + * {
+    margin-block-start: 3px;
+  }
+
+  .cart-items__price {
+    color: var(--color-cart-price-accent, #e86f63);
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  .cart-items__media-container {
+    width: 56px;
+    height: 64px;
+    aspect-ratio: auto;
+  }
+
+  .cart-items__media-image {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+  }
+
+  .cart-items__remove {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    padding: 0;
+  }
+
+  .cart-items__remove svg,
+  .cart-items__remove .svg-wrapper {
+    width: 22px;
+    height: 22px;
+  }
+
+  @container cart-items (min-width: 720px) {
+    .cart-items__header {
+      grid-template-columns: 56px minmax(260px, 1fr) 150px 130px 42px !important;
+      column-gap: 18px !important;
+      border-bottom: 1px solid rgb(var(--color-foreground-rgb) / 0.1);
+    }
+
+    .cart-items__header > h3:nth-child(1) {
+      grid-column: 2 !important;
+      text-align: left !important;
+    }
+
+    .cart-items__header > h3:nth-child(2) {
+      grid-column: 3 !important;
+      text-align: center !important;
+    }
+
+    .cart-items__header > h3:nth-child(3) {
+      grid-column: 4 !important;
+      text-align: center !important;
+    }
+
+    .cart-items__table-row {
+      grid-template-columns: 56px minmax(260px, 1fr) 150px 130px 42px !important;
+      grid-template-rows: min-content 1fr;
+      grid-template-areas:
+        'media details quantity price remove'
+        'media details error error remove';
+      column-gap: 18px !important;
+      min-height: 86px;
+      margin-bottom: 0;
+      align-items: center;
+    }
+
+    .cart-items__media {
+      width: 56px;
+    }
+
+    .cart-items__details {
+      align-self: center;
+    }
+
+    .cart-items__quantity {
+      justify-content: center !important;
+      width: 100% !important;
+      margin: 0 !important;
+    }
+
+    .cart-items__quantity-controls {
+      justify-content: center;
+      width: auto;
+    }
+
+    .cart-items__price {
+      justify-content: center;
+      align-items: center;
+      min-height: 32px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .cart-items__remove-cell {
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cart-items__remove {
+      width: 32px;
+      height: 32px;
+    }
+
+    .cart-items .quantity-selector {
+      --quantity-selector-width: 92px;
+      width: 92px;
+      height: 30px;
+    }
+
+    .cart-items .quantity-selector button {
+      width: 30px;
+      height: 30px;
+    }
+
+    .cart-items .quantity-selector input {
+      height: 30px;
+      max-width: 32px;
+    }
+  }
+
+  @media screen and (max-width: 719px) {
+    .cart-items {
+      --cart-items-gap: 0px !important;
+    }
+
+    .cart-items__table-row {
+      grid-template-columns: 68px minmax(0, 1fr) 38px;
+      grid-template-rows: auto auto auto;
+      grid-template-areas:
+        'media details remove'
+        'media quantity remove'
+        'media error error';
+      column-gap: 10px;
+      row-gap: 4px;
+      align-items: start;
+      margin: 0;
+      min-height: 0;
+    }
+
+    .cart-items__media {
+      width: 68px;
+      align-self: start;
+    }
+
+    .cart-items__media-container {
+      width: 68px;
+      height: 83px;
+      aspect-ratio: auto;
+    }
+
+    .cart-items__details {
+      align-self: start;
+      min-width: 0;
+      padding-top: 0;
+    }
+
+    .cart-items__product-info {
+      min-width: 0;
+    }
+
+    .cart-items__title-row {
+      display: block;
+      max-width: calc(100% - 2px);
+    }
+
+    .cart-items__title {
+      font-size: 18px;
+      line-height: 1.15;
+      font-weight: 600;
+      white-space: normal;
+    }
+
+    .cart-items__details * {
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .cart-items__unit-price-wrapper {
+      margin-top: 3px;
+    }
+
+    .cart-items__quantity {
+      align-self: start;
+      justify-content: flex-start;
+      width: auto !important;
+      margin: 0 !important;
+    }
+
+    .cart-items__quantity-controls {
+      width: auto;
+      gap: 0;
+    }
+
+    .cart-items .quantity-selector {
+      --quantity-selector-width: 90px;
+      width: 90px;
+      height: 30px;
+    }
+
+    .cart-items .quantity-selector button {
+      width: 30px;
+      height: 30px;
+    }
+
+    .cart-items .quantity-selector input {
+      height: 30px;
+      max-width: 30px;
+    }
+
+    .cart-items__remove-cell {
+      align-self: start;
+      justify-content: flex-end;
+      padding-top: 2px;
+    }
+
+    .cart-items__remove {
+      width: 38px;
+      height: 38px;
+    }
+
+    .cart-items__price {
+      display: none !important;
+    }
+
+    .cart-items--dividers .cart-items__table-row {
+      border-bottom: 1px solid rgb(var(--color-foreground-rgb) / 0.1);
+      margin-bottom: 0;
+    }
+
+    .cart-items--dividers .cart-items__table-row:last-of-type {
+      border-block-end: none;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .cart-items__header,
+    .cart-items__table-row {
+      grid-template-columns: 56px minmax(380px, 1fr) 150px 130px 42px !important;
+    }
+  }
+
+  /* =========================================================
+     Vertical alignment refinement
+     Keeps Horizon markup/functionality unchanged.
+     ========================================================= */
+
+  @container cart-items (min-width: 720px) {
+    .cart-items__table-row {
+      align-items: center !important;
+    }
+
+    .cart-items__details,
+    .cart-items__quantity,
+    .cart-items__price,
+    .cart-items__remove-cell {
+      align-self: center !important;
+    }
+
+    .cart-items__details,
+    .cart-items__quantity,
+    .cart-items__price {
+      display: flex;
+      align-items: center;
+    }
+
+    .cart-items__details {
+      justify-content: flex-start;
+    }
+
+    .cart-items__quantity,
+    .cart-items__price {
+      justify-content: center;
+    }
+  }
+
+  @media screen and (max-width: 719px) {
+    .cart-items__table-row {
+      /* The product information + quantity control form one vertically
+         centered content group beside the product image. */
+      grid-template-rows: minmax(0, 1fr) 30px minmax(0, 1fr) !important;
+      align-items: stretch !important;
+      row-gap: 4px !important;
+    }
+
+    .cart-items__details {
+      align-self: end !important;
+    }
+
+    .cart-items__quantity {
+      align-self: center !important;
+      height: 30px;
+    }
+
+    .cart-items__remove-cell {
+      align-self: center !important;
+      padding-top: 0 !important;
     }
   }
 {% endstylesheet %}
