@@ -109,6 +109,10 @@
       class="facets facets--horizontal facets-controls-wrapper spacing-style"
       style="{% render 'spacing-style', settings: block_settings %}{% if block_settings.text_label_case == 'uppercase' %} --facet-label-transform: uppercase;{% endif %}"
     >
+      {% if block_settings.enable_filtering %}
+        <h4 class="facets--filters-title">{{ 'content.filters' | t }}</h4>
+      {% endif %}
+
       <div
         class="products-count-wrapper"
         data-testid="products-count"
@@ -184,19 +188,12 @@
           ref="facetsForm"
         >
           {% if should_show_pane %}
-            {% comment %}
-              This displays sorted products result
-              {% render 'filter-remove-buttons',
-                filters: filters,
-                results_url: results_url,
-                show_filter_label: block_settings.show_filter_label,
-                should_show_clear_all: true
-              %}
-            {% endcomment %}
-
-            {% if block_settings.enable_filtering %}
-              {% render 'custom-collection-search' %}
-            {% endif %}
+            {% render 'filter-remove-buttons',
+              filters: filters,
+              results_url: results_url,
+              show_filter_label: block_settings.show_filter_label,
+              should_show_clear_all: true
+            %}
 
             {% if block_settings.enable_filtering %}
               {% assign total_active_values = 0 %}
