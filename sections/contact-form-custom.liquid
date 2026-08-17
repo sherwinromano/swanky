@@ -1,0 +1,545 @@
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --contact-text: {{ section.settings.text_color }};
+    --contact-accent: {{ section.settings.accent_color }};
+    --contact-border: {{ section.settings.border_color }};
+    --contact-heading-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+    --contact-section-pt: {{ section.settings.padding_top }}px;
+    --contact-section-pb: {{ section.settings.padding_bottom }}px;
+    background-color: var(--contact-bg);
+    color: var(--contact-text);
+    padding-top: var(--contact-section-pt);
+    padding-bottom: var(--contact-section-pb);
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__page-width {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .contact-section__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    #shopify-section-{{ section.id }} .contact-section__grid {
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 4.5rem;
+    }
+  }
+
+  /* Heading block */
+  #shopify-section-{{ section.id }} .contact-section__heading {
+    font-size: var(--contact-heading-size);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0 0 0.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__subheading {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    opacity: 0.7;
+    margin: 0 0 2rem;
+    max-width: 34ch;
+  }
+
+  /* Office blocks */
+  #shopify-section-{{ section.id }} .contact-section__offices {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  @media screen and (min-width: 480px) {
+    #shopify-section-{{ section.id }} .contact-section__offices {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__office-title {
+    font-size: 1.50rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__office-title:hover {
+    text-decoration: underline;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__office-address {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    opacity: 0.75;
+    margin: 0 0 0.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__office-link {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.75;
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__office-link:hover {
+    opacity: 1;
+    color: var(--contact-accent);
+  }
+
+  /* Form column */
+  #shopify-section-{{ section.id }} .contact-section__form-heading {
+    font-size: var(--contact-heading-size);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0 0 0.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__form-subheading {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    opacity: 0.7;
+    margin: 0 0 2rem;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .contact-section__form {
+      grid-template-columns: 1fr 1fr;
+    }
+    #shopify-section-{{ section.id }} .contact-section__field--full {
+      grid-column: 1 / -1;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    opacity: 0.85;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__input,
+  #shopify-section-{{ section.id }} .contact-section__textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 0.9375rem;
+    color: var(--contact-text);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--contact-border);
+    padding: 0.6rem 0.1rem;
+    outline: none;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__input:focus,
+  #shopify-section-{{ section.id }} .contact-section__textarea:focus {
+    border-color: var(--contact-accent);
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__textarea {
+    resize: vertical;
+    min-height: 70px;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__field--full {
+    grid-column: 1 / -1;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__submit {
+    justify-self: start;
+    margin-top: 0.5rem;
+    padding: 0.9rem 2.5rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: var(--font-family-body);
+    color: {{ section.settings.button_text_color }};
+    background-color: var(--contact-accent);
+    border: 1px solid var(--contact-accent);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__submit:hover {
+    opacity: 0.85;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__field--full .contact-section__submit {
+    grid-column: 1 / -1;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__message {
+    font-size: 0.875rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--contact-border);
+    grid-column: 1 / -1;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__message--success {
+    border-color: #2f7d3c;
+    color: #2f7d3c;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__message--error {
+    border-color: #c0392b;
+    color: #c0392b;
+  }
+
+  #shopify-section-{{ section.id }} .contact-section__message ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+{% endstyle %}
+
+<section class="contact-section" id="ContactSection-{{ section.id }}">
+  <div class="contact-section__page-width">
+    <div class="contact-section__grid">
+      <div class="contact-section__info">
+        {% if section.settings.heading != blank %}
+          <h2 class="contact-section__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.subheading != blank %}
+          <div class="contact-section__subheading">{{ section.settings.subheading }}</div>
+        {% endif %}
+
+        {% if section.blocks.size > 0 %}
+          <div class="contact-section__offices">
+            {% for block in section.blocks %}
+              {% if block.type == 'office' %}
+                <div class="contact-section__office" {{ block.shopify_attributes }}>
+                  {% if block.settings.title != blank %}
+                    <h3 class="contact-section__office-title">{{ block.settings.title }}</h3>
+                  {% endif %}
+                  {% if block.settings.address != blank %}
+                    <div class="contact-section__office-address">{{ block.settings.address }}</div>
+                  {% endif %}
+                  {% if block.settings.phone != blank %}
+                    <a href="tel:{{ block.settings.phone | remove: ' ' }}" class="contact-section__office-link">
+                      {{- block.settings.phone -}}
+                    </a>
+                  {% endif %}
+                  {% if block.settings.email != blank %}
+                    <a href="mailto:{{ block.settings.email }}" class="contact-section__office-link">
+                      {{- block.settings.email -}}
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="contact-section__form-wrapper">
+        {% if section.settings.form_heading != blank %}
+          <h2 class="contact-section__form-heading">{{ section.settings.form_heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.form_subheading != blank %}
+          <p class="contact-section__form-subheading">{{ section.settings.form_subheading }}</p>
+        {% endif %}
+
+        {% form 'contact', id: 'ContactForm', class: 'contact-section__form' %}
+          {% if form.posted_successfully? %}
+            <p class="contact-section__message contact-section__message--success" tabindex="-1" autofocus>
+              {{ section.settings.success_message | default: "Thanks for reaching out. We'll get back to you soon." }}
+            </p>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="contact-section__message contact-section__message--error">
+              <ul>
+                {% for field in form.errors %}
+                  <li>
+                    {% if field == 'form' %}
+                      {{ form.errors.messages[field] }}
+                    {% else %}
+                      <a href="#ContactFormName-{{ section.id }}">
+                        {{- form.errors.translated_fields[field] | capitalize }}
+                        {{ form.errors.messages[field] -}}
+                      </a>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+
+          <div class="contact-section__field">
+            <input
+              class="contact-section__input"
+              type="text"
+              id="ContactFormName-{{ section.id }}"
+              name="contact[name]"
+              placeholder="Write Your Name Here"
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+              autocomplete="name"
+            >
+          </div>
+
+          <div class="contact-section__field">
+            <input
+              class="contact-section__input"
+              type="email"
+              id="ContactFormEmail-{{ section.id }}"
+              name="contact[email]"
+              spellcheck="false"
+              autocapitalize="off"
+              autocomplete="email"
+              placeholder="Write Your Email Here"
+              value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+              required
+            >
+          </div>
+
+          <div class="contact-section__field">
+            <input
+              class="contact-section__input"
+              type="tel"
+              id="ContactFormPhone-{{ section.id }}"
+              name="contact[phone]"
+              autocomplete="tel"
+              value="{{ form.phone }}"
+              placeholder="Phone Number"
+            >
+          </div>
+
+          <div class="contact-section__field">
+            <input
+              class="contact-section__input"
+              type="text"
+              id="ContactFormSubject-{{ section.id }}"
+              name="contact[subject]"
+              placeholder="Write Your Subject Here"
+            >
+          </div>
+
+          <div class="contact-section__field contact-section__field--full">
+            <textarea
+              class="contact-section__textarea"
+              rows="6"
+              id="ContactFormMessage-{{ section.id }}"
+              name="contact[body]"
+              style="resize: none;"
+              placeholder="Write Your Message Here"
+              required
+            >{{ form.body }}</textarea>
+          </div>
+
+          <div class="contact-section__field--full">
+            <button type="submit" class="contact-section__submit">
+              {{ section.settings.button_label | default: 'Submit' }}
+            </button>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('shopify:section:load', function (event) {
+    if (
+      event.target.id !== 'ContactSection-{{ section.id }}' &&
+      !event.target.querySelector('#ContactSection-{{ section.id }}')
+    ) {
+      return;
+    }
+    var successMsg = event.target.querySelector('.contact-section__message--success');
+    if (successMsg) {
+      successMsg.focus();
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Contact Info + Form",
+  "tag": "section",
+  "class": "section section--contact",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left Column — Contact Info"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Contact Info"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Tortor discussion convallis aenean sit tortor at risus viverra adipiscing.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Right Column — Contact Form"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "Any Questions?"
+    },
+    {
+      "type": "text",
+      "id": "form_subheading",
+      "label": "Form subheading",
+      "default": "Use the form below to get in touch with us."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Submit button label",
+      "default": "Submit"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thanks for reaching out. We'll get back to you soon."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#040404"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border / divider",
+      "default": "#dcdcdc"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent (button + links)",
+      "default": "#040404"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "office",
+      "name": "Office Info",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Office"
+        },
+        {
+          "type": "richtext",
+          "id": "address",
+          "label": "Address",
+          "default": "<p>750 Glenstone Ave 65802, Springfield, US</p>"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+          "default": "+123 222 333 44"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+          "default": "swanky@yourinfo.com"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Contact Info + Form",
+      "category": "Custom sections",
+      "blocks": [
+        {
+          "type": "office",
+          "settings": {
+            "title": "Office",
+            "address": "<p>750 Glenstone Ave 65802, Springfield, US</p>",
+            "phone": "+123 222 333 44",
+            "email": "swanky@yourinfo.com"
+          }
+        },
+        {
+          "type": "office",
+          "settings": {
+            "title": "Management",
+            "address": "<p>750 Glenstone Ave 65802, Springfield, US</p>",
+            "phone": "+123 222 333 44",
+            "email": "swanky@yourinfo.com"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
