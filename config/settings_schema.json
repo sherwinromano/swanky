@@ -1,0 +1,111 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Skeleton",
+    "theme_version": "0.1.0",
+    "theme_author": "Shopify",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "t:general.typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:general.fonts"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_primary_font",
+        "default": "syne_n4",
+        "label": "Primary"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_secondary_font",
+        "default": "dm_sans_n4",
+        "label": "Secondary"
+      }
+    ]
+  },
+  {
+    "name": "t:general.colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "default": "#FAF6F5",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "primary_color",
+        "default": "#040404",
+        "label": "Primary"
+      },
+      {
+        "type": "color",
+        "id": "secondary_color",
+        "default": "#737373",
+        "label": "Secondary"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "default": "#EC6C5A",
+        "label": "Accent"
+      }
+    ]
+  },
+  {
+    "name": "t:general.layout",
+    "settings": [
+      {
+        "type": "select",
+        "id": "max_page_width",
+        "label": "t:labels.page_width",
+        "options": [
+          {
+            "value": "90rem",
+            "label": "t:options.page_width.narrow"
+          },
+          {
+            "value": "110rem",
+            "label": "t:options.page_width.wide"
+          }
+        ],
+        "default": "90rem"
+      },
+      {
+        "type": "range",
+        "id": "min_page_margin",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:labels.page_margin",
+        "default": 15
+      },
+      {
+        "type": "range",
+        "id": "row_gap",
+        "min": 0,
+        "max": 150,
+        "step": 2,
+        "unit": "px",
+        "label": "Row gap",
+        "default": 150
+      },
+      {
+        "type": "range",
+        "id": "max_width",
+        "min": 10,
+        "max": 1480,
+        "step": 15,
+        "unit": "px",
+        "label": "Max width",
+        "default": 1420
+      }
+    ]
+  }
+]

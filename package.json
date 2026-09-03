@@ -1,0 +1,21 @@
+{
+  "name": "swanky",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\" style=\"position: relative;\">\r   <br>\r     <img src=\"./assets/shoppy-x-ray.svg\" alt=\"logo\" width=\"200\">\r   <br>\r   Shopify Skeleton Theme\r </h1>",
+  "main": "index.js",
+  "scripts": {
+    "tw:watch": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/application.css --watch",
+    "tw:build": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/application.css --minify",
+    "shopify:dev": "shopify theme dev",
+    "dev": "concurrently \"npm run tw:watch\" \"npm run shopify:dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "concurrently": "^10.0.5",
+    "tailwindcss": "^4.3.3"
+  }
+}
