@@ -13,8 +13,49 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "quick_links_cijnnx": {
+          "type": "quick_links",
+          "settings": {
+            "heading": "Quick Links",
+            "quick_links_menu": "quick-links"
+          }
+        },
+        "help_info_9WCaQ4": {
+          "type": "help_info",
+          "settings": {
+            "heading": "Help & Info",
+            "help_info_menu": "help-info"
+          }
+        },
+        "contact_us_JwkDmG": {
+          "type": "contact_us",
+          "settings": {
+            "heading": "Contact Us",
+            "text": "Do you have any queries or suggestions?",
+            "email": "example@gmail.com",
+            "support_text": "If you need support? Just give us a call.",
+            "phone": "+11 222 333 444 55"
+          }
+        }
+      },
+      "block_order": [
+        "quick_links_cijnnx",
+        "help_info_9WCaQ4",
+        "contact_us_JwkDmG"
+      ],
       "settings": {
-        "menu": "",
+        "logo": "shopify://shop_images/logo.png",
+        "brand_name": "Swanky",
+        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+        "show_newsletter": true,
+        "newsletter_placeholder": "Enter your email address",
+        "show_social": true,
+        "social_facebook": "https://www.facebook.com/",
+        "social_instagram": "https://instagram.com/",
+        "social_twitter": "https://x.com/",
+        "social_linkedin": "https://linkedin.com/",
+        "social_youtube": "https://youtube.com/",
         "show_payment_icons": true
       }
     }
