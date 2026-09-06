@@ -9,12 +9,64 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "hero_VBUNkr": {
+      "type": "hero",
+      "name": "Hero section",
+      "settings": {
+        "hero_image": "shopify://shop_images/hero-image.webp",
+        "mobile_hero_image": "shopify://shop_images/hero-image-mobile.webp",
+        "heading": "Make Your Fashion Look Swanky.",
+        "content_position": "center",
+        "content_max_width": 700,
+        "button_label": "Shop Now",
+        "button_link": "shopify://collections/automated-collection",
+        "button_style": "solid",
+        "overlay_color": "#040404",
+        "overlay_opacity": 10
+      }
+    },
+    "services_KeK99m": {
+      "type": "services",
+      "blocks": {
+        "service_Xj6zNp": {
+          "type": "service",
+          "settings": {
+            "icon": "truck",
+            "heading": "Quick Delivery",
+            "text": "Inside City delivery within 5 days"
+          }
+        },
+        "service_preTzK": {
+          "type": "service",
+          "settings": {
+            "icon": "bag",
+            "heading": "Pick Up In Store",
+            "text": "We have option of pick up in store."
+          }
+        },
+        "service_8TCkUf": {
+          "type": "service",
+          "settings": {
+            "icon": "gift",
+            "heading": "Special Packaging",
+            "text": "Our packaging is best for products."
+          }
+        }
+      },
+      "block_order": [
+        "service_Xj6zNp",
+        "service_preTzK",
+        "service_8TCkUf"
+      ],
+      "name": "Services",
+      "settings": {
+        "divider_color": "#DDD3D1",
+        "text_color": "#737373"
+      }
     }
   },
   "order": [
-    "main"
+    "hero_VBUNkr",
+    "services_KeK99m"
   ]
 }
