@@ -2803,6 +2803,7 @@ details[open] > .header__submenu {
 .menu-drawer__menu-item,
 .menu-drawer__close-button {
   font-family: var(--font-heading-family);
+  text-transform: uppercase;
 }
 
 .header__inline-menu {
