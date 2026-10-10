@@ -150,6 +150,7 @@
                     href="{{ block.settings.button_link_1 }}"
                   {% endif %}
                   class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
+                  style="padding: {{ block.settings.button_padding_vertical_1 }}px {{ block.settings.button_padding_horizontal_1 }}px;{% case block.settings.button_background_1 %}{% when 'white' %} background-color: #fff; color: #000;{% when 'transparent' %} background-color: transparent; color: #fff;{% endcase %}"
                 >
                   {{- block.settings.button_label_1 | escape -}}
                 </a>
@@ -162,6 +163,7 @@
                     href="{{ block.settings.button_link_2 }}"
                   {% endif %}
                   class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
+                  style="padding: {{ block.settings.button_padding_vertical_2 }}px {{ block.settings.button_padding_horizontal_2 }}px;"
                 >
                   {{- block.settings.button_label_2 | escape -}}
                 </a>
@@ -173,6 +175,12 @@
   </div>
 </div>
 
+{% style %}
+  .banner__buttons > a.button {
+    text-transform: uppercase;
+  }
+{% endstyle %}
+
 {% schema %}
 {
   "name": "t:sections.image-banner.name",
@@ -181,6 +189,7 @@
   "disabled_on": {
     "groups": ["header", "footer"]
   },
+  "limit": 1,
   "settings": [
     {
       "type": "image_picker",
@@ -471,6 +480,42 @@
           "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_1.label"
         },
         {
+          "type": "select",
+          "id": "button_background_1",
+          "options": [
+            {
+              "value": "white",
+              "label": "White"
+            },
+            {
+              "value": "transparent",
+              "label": "Transparent"
+            }
+          ],
+          "default": "transparent",
+          "label": "Button 1 background color"
+        },
+        {
+          "type": "range",
+          "id": "button_padding_vertical_1",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 12,
+          "label": "Button 1 vertical padding"
+        },
+        {
+          "type": "range",
+          "id": "button_padding_horizontal_1",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 24,
+          "label": "Button 1 horizontal padding"
+        },
+        {
           "type": "header",
           "content": "t:sections.image-banner.blocks.buttons.settings.header_2.content"
         },
@@ -491,13 +536,33 @@
           "id": "button_style_secondary_2",
           "default": false,
           "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_2.label"
+        },
+        {
+          "type": "range",
+          "id": "button_padding_vertical_2",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 12,
+          "label": "Button 2 vertical padding"
+        },
+        {
+          "type": "range",
+          "id": "button_padding_horizontal_2",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 24,
+          "label": "Button 2 horizontal padding"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "t:sections.image-banner.presets.name",
+      "name": "Hero section",
       "blocks": [
         {
           "type": "heading"
