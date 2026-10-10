@@ -27,12 +27,12 @@
             "button_style_secondary_1": false,
             "button_background_1": "white",
             "button_padding_vertical_1": 12,
-            "button_padding_horizontal_1": 40,
+            "button_padding_horizontal_1": 50,
             "button_label_2": "",
             "button_link_2": "",
             "button_style_secondary_2": false,
             "button_padding_vertical_2": 12,
-            "button_padding_horizontal_2": 24
+            "button_padding_horizontal_2": 50
           }
         }
       },
