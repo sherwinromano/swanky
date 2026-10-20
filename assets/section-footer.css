@@ -28,8 +28,8 @@
 
   .footer__content-top {
     padding-bottom: 3rem;
-    padding-left: calc(4rem / var(--font-body-scale));
-    padding-right: calc(4rem / var(--font-body-scale));
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 }
 
@@ -52,6 +52,8 @@
 .footer__content-bottom-wrapper {
   display: flex;
   width: 100%;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @media screen and (max-width: 749px) {
@@ -87,24 +89,24 @@
 }
 
 .footer__column {
-  width: 100%;
+  width: fit-content;
   align-items: flex-end;
 }
 
 .footer__column--info {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-left: 2rem;
   padding-right: 2rem;
+  gap: 10px;
 }
 
 @media screen and (min-width: 750px) {
   .footer__column--info {
     padding-left: 0;
     padding-right: 0;
-    align-items: flex-end;
+    align-items: center;
   }
 }
 
@@ -176,7 +178,7 @@
 }
 
 .footer-block__newsletter {
-  text-align: center;
+  text-align: start;
   flex-grow: 1;
 }
 
@@ -196,7 +198,8 @@
     margin: 0;
   }
 
-  .footer-block__newsletter:not(:only-child) .newsletter-form__message--success {
+  .footer-block__newsletter:not(:only-child)
+    .newsletter-form__message--success {
     left: auto;
   }
 
@@ -282,7 +285,7 @@
 
 @media screen and (min-width: 750px) {
   .footer__payment {
-    margin-top: 1.5rem;
+    margin-top: 0;
   }
 }
 
@@ -292,11 +295,11 @@
 
 .footer__copyright {
   text-align: center;
-  margin-top: 1.5rem;
 }
 
 @media screen and (min-width: 750px) {
-  .footer__content-bottom-wrapper:not(.footer__content-bottom-wrapper--center) .footer__copyright {
+  .footer__content-bottom-wrapper:not(.footer__content-bottom-wrapper--center)
+    .footer__copyright {
     text-align: right;
   }
 }
@@ -420,7 +423,9 @@
   text-align: center;
 }
 
-.footer-block:only-child > .footer-block__brand-info > .footer-block__image-wrapper {
+.footer-block:only-child
+  > .footer-block__brand-info
+  > .footer-block__image-wrapper {
   margin-left: auto;
   margin-right: auto;
 }
@@ -430,7 +435,9 @@
   height: auto;
 }
 
-.footer-block:only-child .footer-block__brand-info .footer__list-social.list-social {
+.footer-block:only-child
+  .footer-block__brand-info
+  .footer__list-social.list-social {
   justify-content: center;
 }
 
@@ -462,7 +469,7 @@
 }
 
 .policies li::before {
-  content: '\00B7';
+  content: "\00B7";
   padding: 0 0.8rem;
 }
 
