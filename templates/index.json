@@ -91,7 +91,7 @@
       ],
       "name": "Services",
       "settings": {
-        "use_page_width": false,
+        "use_page_width": true,
         "icon_color": "#EE6B55",
         "heading_color": "#040404",
         "text_color": "#737373",
