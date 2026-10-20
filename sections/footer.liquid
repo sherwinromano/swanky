@@ -57,7 +57,7 @@
 
   .footer__column--info {
 	  flex-direction: column;
-	  align-items: start;
+	  
 	  width: 100%;
   }
 
@@ -70,6 +70,10 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
+    .footer__column--info {
+      align-items: start;
+    }
+    
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
