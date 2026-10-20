@@ -55,9 +55,54 @@
         "mobile_content_alignment": "center",
         "show_text_below": false
       }
+    },
+    "services_strip_4JCMqc": {
+      "type": "services-strip",
+      "blocks": {
+        "service_knHbCx": {
+          "type": "service",
+          "settings": {
+            "icon": "truck",
+            "heading": "Quick Delivery",
+            "text": "Inside City delivery within 5 days"
+          }
+        },
+        "service_r9e4ae": {
+          "type": "service",
+          "settings": {
+            "icon": "bag",
+            "heading": "Pick Up In Store",
+            "text": "We have option of pick up in store."
+          }
+        },
+        "service_HQEmgj": {
+          "type": "service",
+          "settings": {
+            "icon": "gift",
+            "heading": "Special Packaging",
+            "text": "Our packaging is best for products."
+          }
+        }
+      },
+      "block_order": [
+        "service_knHbCx",
+        "service_r9e4ae",
+        "service_HQEmgj"
+      ],
+      "name": "Services",
+      "settings": {
+        "use_page_width": false,
+        "icon_color": "#EE6B55",
+        "heading_color": "#040404",
+        "text_color": "#737373",
+        "border_color": "#DDD3D1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
-    "image_banner_gL3iKt"
+    "image_banner_gL3iKt",
+    "services_strip_4JCMqc"
   ]
 }
