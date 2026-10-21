@@ -28,7 +28,7 @@
 
 .article-card__title a:after {
   bottom: 0;
-  content: '';
+  content: "";
   height: 100%;
   left: 0;
   position: absolute;
@@ -52,8 +52,8 @@
 
 .blog-articles .article-card .card__information,
 .blog__posts .article-card .card__information {
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 1rem; /* 2rem default */
+  padding-right: 1rem; /* 2rem default */
 }
 
 .article-card__info {
@@ -76,6 +76,7 @@
 .article-card__excerpt {
   width: 100%;
   margin-top: 1.2rem;
+  line-height: 110%;
 }
 
 .article-card__link:not(:only-child) {

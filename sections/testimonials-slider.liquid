@@ -1,0 +1,229 @@
+{{ 'section-testimonials-slider.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'testimonials-slider.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign slide_count = section.blocks.size
+-%}
+
+<section
+  class="testimonials testimonials--{{ section.id }}"
+  style="
+    --testimonials-text: {{ section.settings.text_color }};
+    --testimonials-author: {{ section.settings.author_color }};
+    --testimonials-star: {{ section.settings.star_color }};
+  "
+>
+  <h2 class="visually-hidden">{{ section.settings.heading | escape }}</h2>
+
+  {%- if slide_count > 0 -%}
+    <testimonials-slider
+      class="testimonials__slider"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="{{ section.settings.heading | escape }}"
+    >
+      <span class="testimonials__quote-mark" aria-hidden="true">
+        <img src="{{ 'blockquote.svg' | asset_url }}" alt="Blockquote icon" width="92" height="60" />
+      </span>
+
+      {%- if slide_count > 1 -%}
+        <button
+          type="button"
+          class="testimonials__arrow testimonials__arrow--prev"
+          data-direction="prev"
+          aria-label="{{ 'general.slider.previous_slide' | t | default: 'Previous testimonial' }}"
+          aria-disabled="true"
+        >
+          <img src="{{ 'arrow-left.svg' | asset_url }}" alt="Arrow left icon" width="32" height="32" />
+        </button>
+      {%- endif -%}
+
+      <div class="testimonials__viewport" data-viewport tabindex="-1">
+        <ul class="testimonials__track" data-track role="list" aria-live="polite">
+          {%- for block in section.blocks -%}
+            <li
+              class="testimonials__slide"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="{{ forloop.index }} / {{ slide_count }}"
+              data-slide
+              {{ block.shopify_attributes }}
+            >
+              <figure class="testimonials__card">
+                {%- if block.settings.quote != blank -%}
+                  <blockquote class="testimonials__quote">
+                    <p>{{ block.settings.quote | escape }}</p>
+                  </blockquote>
+                {%- endif -%}
+
+                {%- assign rating = block.settings.rating | default: 5 -%}
+                <figcaption class="testimonials__meta">
+                  <span class="testimonials__stars" role="img" aria-label="{{ rating }} / 5">
+                    {%- for i in (1..5) -%}
+                      <svg
+                        class="testimonials__star{% if i > rating %} testimonials__star--empty{% endif %}"
+                        viewBox="0 0 20 20"
+                        width="20"
+                        height="20"
+                        aria-hidden="true"
+                        focusable="false"
+                      >
+                        <path fill="currentColor" d="m10 0 2.94 6.57 7.06.7-5.3 4.76 1.52 7.02L10 15.4l-6.22 3.65 1.52-7.02L0 7.27l7.06-.7z"/>
+                      </svg>
+                    {%- endfor -%}
+                  </span>
+                  {%- if block.settings.author != blank -%}
+                    <cite class="testimonials__author">{{ block.settings.author | escape }}</cite>
+                  {%- endif -%}
+                </figcaption>
+              </figure>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      {%- if slide_count > 1 -%}
+        <div
+          class="testimonials__controls"
+          role="group"
+          aria-label="{{ section.settings.heading | escape }} navigation"
+        >
+          <button
+            type="button"
+            class="testimonials__arrow testimonials__arrow--prev testimonials__arrow--bottom"
+            data-direction="prev"
+            aria-label="{{ 'general.slider.previous_slide' | t | default: 'Previous testimonial' }}"
+            aria-disabled="true"
+          >
+            <img src="{{ 'arrow-left.svg' | asset_url }}" alt="" width="32" height="32" />
+          </button>
+          <button
+            type="button"
+            class="testimonials__arrow testimonials__arrow--next testimonials__arrow--bottom"
+            data-direction="next"
+            aria-label="{{ 'general.slider.next_slide' | t | default: 'Next testimonial' }}"
+          >
+            <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="32" height="32" />
+          </button>
+        </div>
+      {%- endif -%}
+
+      {%- if slide_count > 1 -%}
+        <button
+          type="button"
+          class="testimonials__arrow testimonials__arrow--next"
+          data-direction="next"
+          aria-label="{{ 'general.slider.next_slide' | t | default: 'Next testimonial' }}"
+        >
+          <img src="{{ 'arrow-right.svg' | asset_url }}" alt="Arrow right icon" width="32" height="32" />
+        </button>
+      {%- endif -%}
+    </testimonials-slider>
+
+  {%- elsif request.design_mode -%}
+    <p class="testimonials__empty">Add a testimonial block to get started.</p>
+  {%- endif -%}
+</section>
+
+{% style %}
+  testimonials-slider.testimonials__slider {
+    position: static;
+  }
+
+  blockquote.testimonials__quote {
+    border-left: 0;
+    color: var(--testimonials-text);
+  }
+
+  button.testimonials__arrow {
+    position: static;
+  }
+
+  testimonials-slider > button.testimonials__arrow {
+    display: none;
+  }
+
+  .testimonials__viewport {
+    margin-top: 20px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    testimonials-slider.testimonials__slider {
+      position: relative;
+    }
+
+    testimonials-slider.testimonials__slider > button.testimonials__arrow {
+      position: absolute;
+    }
+
+    testimonials-slider.testimonials__slider > button.testimonials__arrow--prev {
+      margin-left: 15rem;
+      margin-bottom: 8rem;
+    }
+
+    testimonials-slider.testimonials__slider > button.testimonials__arrow--next {
+      right: 0;
+      margin-right: 15rem;
+      margin-bottom: 8rem;
+    }
+
+    testimonials-slider > button.testimonials__arrow {
+      display: flex;
+    }
+
+    .testimonials__controls {
+      display: none;
+    }
+  }
+{% endstyle %}
+{% schema %}
+{
+  "name": "Testimonials slider",
+  "tag": "div",
+  "class": "section",
+  "limit": 1,
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Accessible heading (visually hidden)",
+      "default": "Customer testimonials"
+    },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "text_color", "label": "Quote text", "default": "#8a8a8a" },
+    { "type": "color", "id": "star_color", "label": "Stars", "default": "#161616" },
+    { "type": "color", "id": "author_color", "label": "Author name", "default": "#EC6C5A" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        { "type": "text", "id": "author", "label": "Author name", "default": "Emma Chamberlin" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials slider",
+      "blocks": [{ "type": "testimonial" }, { "type": "testimonial" }, { "type": "testimonial" }]
+    }
+  ]
+}
+{% endschema %}
