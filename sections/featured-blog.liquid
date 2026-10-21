@@ -9,10 +9,56 @@
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
+  .blog__posts.grid {
+    column-gap: 20px;
+  }
+
+  .title-wrapper-with-link {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 0 0 40px 0;
+  }
+
+  .title-wrapper-with-link > .subheading {
+    margin: 0;
+    font-size: 1.35rem;
+  }
+
+  .card__heading.h2 > a {
+    line-height: 100%;
+  }
+
+  .article-card__excerpt.rte-width {
+    font-size: 1.35rem;
+  }
+
+  .blog__button {
+    margin-top: 0;
+    padding: 0 5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 1.35rem;
+  }
+
+  .caption {
+    font-size: 1.30rem;
+  }
+
+  .slider-button:disabled {
+    opacity: 0.5;
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .blog__posts.grid {
+      column-gap: 8px;
     }
   }
 {%- endstyle -%}
@@ -37,6 +83,9 @@
         >
           {{ section.settings.heading }}
         </h2>
+        <p class="subheading">
+          {{ section.settings.subheading }}
+        </p>
 
         {%- if section.settings.blog != blank
           and section.settings.show_view_all
@@ -146,8 +195,8 @@
             name="previous"
             aria-label="{{ 'general.slider.previous_slide' | t }}"
           >
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
+            <span class="svg-wrapper" style="height: 100%; width: 100%;">
+              {{- 'caret-left.svg' | inline_asset_content -}}
             </span>
           </button>
           <div class="slider-counter caption">
@@ -162,15 +211,15 @@
             name="next"
             aria-label="{{ 'general.slider.next_slide' | t }}"
           >
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
+            <span class="svg-wrapper" style="height: 100%; width: 100%;">
+              {{- 'caret-right.svg' | inline_asset_content -}}
             </span>
           </button>
         </div>
       {%- endif -%}
     </slider-component>
 
-    {%- if section.settings.show_view_all and section.settings.post_limit < section.settings.blog.articles_count -%}
+    {%- if section.settings.show_view_all -%}
       <div
         class="blog__view-all center small-hide medium-hide{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
         {% if settings.animations_reveal_on_scroll %}
@@ -215,7 +264,7 @@
     {
       "type": "header",
       "content": "t:sections.featured-blog.settings.text_header.content"
-    },            
+    },
     {
       "type": "inline_richtext",
       "id": "heading",
@@ -251,9 +300,15 @@
       "label": "t:sections.all.heading_size.label"
     },
     {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "default": "Read our news & articles about updates.",
+      "label": "Subheading"
+    },
+    {
       "type": "header",
       "content": "t:sections.featured-blog.settings.layout_header.content"
-    },        
+    },
     {
       "type": "range",
       "id": "columns_desktop",
@@ -267,9 +322,8 @@
       "type": "checkbox",
       "id": "show_view_all",
       "default": true,
-      "label": "t:sections.featured-blog.settings.show_view_all.label",
-      "info": "t:sections.featured-blog.settings.show_view_all.info"
-    },    
+      "label": "t:sections.featured-blog.settings.show_view_all.label"
+    },
     {
       "type": "checkbox",
       "id": "show_image",
@@ -294,7 +348,7 @@
       "label": "t:sections.all.colors.label",
       "info": "t:sections.all.colors.has_cards_info",
       "default": "scheme-1"
-    },    
+    },
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
