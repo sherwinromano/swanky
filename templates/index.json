@@ -100,25 +100,6 @@
         "padding_bottom": 0
       }
     },
-    "featured_blog_Jf4d8X": {
-      "type": "featured-blog",
-      "name": "t:sections.featured-blog.presets.name",
-      "settings": {
-        "blog": "recent-blogs",
-        "post_limit": 3,
-        "heading": "Recent Blogs",
-        "heading_size": "h1",
-        "subheading": "Read our news & articles about updates.",
-        "columns_desktop": 3,
-        "show_view_all": true,
-        "show_image": true,
-        "show_date": false,
-        "show_author": false,
-        "color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "testimonials_slider_MCBg9z": {
       "type": "testimonials-slider",
       "blocks": {
@@ -157,7 +138,113 @@
         "heading": "Customer testimonials",
         "text_color": "#8a8a8a",
         "star_color": "#161616",
-        "author_color": "#EC6C5A"
+        "author_color": "#ec6c5a"
+      }
+    },
+    "promo_cards_7a4zfc": {
+      "type": "promo-cards",
+      "blocks": {
+        "card_NTmJLm": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/showcase-img-1.webp",
+            "heading": "Summer Outfits",
+            "text": "Erat consequ at aliquet semper rhoncus fell diam non faucibus. Tristique in vitae aliquam consequat massa nunc quisque.",
+            "button_label": "Shop collection",
+            "button_link": "shopify://collections/automated-collection",
+            "button_style": "solid"
+          }
+        },
+        "card_CMnBCA": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/showcase-img-3.webp",
+            "heading": "Fashion Outfits",
+            "text": "Commodo quam dis nisl ultrices a ac. Augue purus pretium in eu ut etiam et nunc lacus.",
+            "button_label": "Shop it now",
+            "button_link": "shopify://collections/automated-collection",
+            "button_style": "outline"
+          }
+        }
+      },
+      "block_order": [
+        "card_NTmJLm",
+        "card_CMnBCA"
+      ],
+      "name": "Promo cards",
+      "settings": {
+        "text_color": "#FFFFFF",
+        "overlay_opacity": 10,
+        "gap": 8,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "featured_blog_Jf4d8X": {
+      "type": "featured-blog",
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "blog": "recent-blogs",
+        "post_limit": 3,
+        "heading": "Recent Blogs",
+        "heading_size": "h1",
+        "subheading": "Read our news & articles about updates.",
+        "columns_desktop": 3,
+        "show_view_all": true,
+        "show_image": true,
+        "show_date": false,
+        "show_author": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "shop_our_insta_qdQTYJ": {
+      "type": "shop-our-insta",
+      "blocks": {
+        "image_TbdKwi": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-1.webp"
+          }
+        },
+        "image_wxTUBi": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-2.webp"
+          }
+        },
+        "image_Nzq3EF": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-3.webp"
+          }
+        },
+        "image_A4mHMF": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-4.webp"
+          }
+        },
+        "image_RBw8gg": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-5.webp"
+          }
+        }
+      },
+      "block_order": [
+        "image_TbdKwi",
+        "image_wxTUBi",
+        "image_Nzq3EF",
+        "image_A4mHMF",
+        "image_RBw8gg"
+      ],
+      "name": "Shop Our Insta",
+      "settings": {
+        "heading": "Shop Our Insta",
+        "gap": 20,
+        "padding_bottom": 100
       }
     }
   },
@@ -165,6 +252,8 @@
     "image_banner_gL3iKt",
     "services_strip_4JCMqc",
     "testimonials_slider_MCBg9z",
-    "featured_blog_Jf4d8X"
+    "promo_cards_7a4zfc",
+    "featured_blog_Jf4d8X",
+    "shop_our_insta_qdQTYJ"
   ]
 }

@@ -1,14 +1,266 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "page_banner_ChBK6E": {
+      "type": "page-banner",
+      "name": "Page banner",
+      "settings": {
+        "image": "shopify://shop_images/hero-image.webp",
+        "custom_title": "",
+        "heading_tag": "h1",
+        "show_breadcrumb": true,
+        "home_label": "Home",
+        "text_color": "#FFFFFF",
+        "background_color": "#6F6A68",
+        "overlay_opacity": 30,
+        "min_height": 260
+      }
+    },
+    "rich_text_Vi8HGW": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_MN3zcA": {
+          "type": "heading",
+          "settings": {
+            "heading": "How Was Swanky Started?",
+            "heading_size": "h0"
+          }
+        },
+        "text_pC7Dkc": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_MN3zcA",
+        "text_pC7Dkc"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "services_strip_py3dw8": {
+      "type": "services-strip",
+      "blocks": {
+        "service_mgpeNy": {
+          "type": "service",
+          "settings": {
+            "icon": "truck",
+            "heading": "Quick Delivery",
+            "text": "Inside City delivery within 5 days"
+          }
+        },
+        "service_gWAUNU": {
+          "type": "service",
+          "settings": {
+            "icon": "bag",
+            "heading": "Pick Up In Store",
+            "text": "We have option of pick up in store."
+          }
+        },
+        "service_EndBKX": {
+          "type": "service",
+          "settings": {
+            "icon": "gift",
+            "heading": "Special Packaging",
+            "text": "Our packaging is best for products."
+          }
+        }
+      },
+      "block_order": [
+        "service_mgpeNy",
+        "service_gWAUNU",
+        "service_EndBKX"
+      ],
+      "name": "Services",
+      "settings": {
+        "use_page_width": false,
+        "icon_color": "#EE6B55",
+        "heading_color": "#040404",
+        "text_color": "#737373",
+        "border_color": "#DDD3D1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "testimonials_slider_AXKTMk": {
+      "type": "testimonials-slider",
+      "blocks": {
+        "testimonial_KU6PnF": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "rating": 5,
+            "author": "Emma Chamberlin"
+          }
+        },
+        "testimonial_fTQgDa": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "rating": 4,
+            "author": "John Doe"
+          }
+        },
+        "testimonial_idkTDB": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "rating": 3,
+            "author": "Mike Smith"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_KU6PnF",
+        "testimonial_fTQgDa",
+        "testimonial_idkTDB"
+      ],
+      "name": "Testimonials slider",
+      "settings": {
+        "heading": "Customer testimonials",
+        "text_color": "#8a8a8a",
+        "star_color": "#161616",
+        "author_color": "#EC6C5A"
+      }
+    },
+    "featured_blog_YjjJXh": {
+      "type": "featured-blog",
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "blog": "recent-blogs",
+        "post_limit": 3,
+        "heading": "Recent Blogs",
+        "heading_size": "h1",
+        "subheading": "Read our news & articles about updates.",
+        "columns_desktop": 3,
+        "show_view_all": true,
+        "show_image": true,
+        "show_date": false,
+        "show_author": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "our_store_fqbtpM": {
+      "type": "our-store",
+      "blocks": {
+        "store_YajP7q": {
+          "type": "store",
+          "settings": {
+            "country": "USA",
+            "address": "730 Glenstone Ave 65802, Springfield, US",
+            "phone_1": "+123 222 333 44",
+            "phone_2": "+123 666 777 88",
+            "email": "example@email.com"
+          }
+        },
+        "store_Ym9phm": {
+          "type": "store",
+          "settings": {
+            "country": "France",
+            "address": "13 Rue Montmartre 75001, Paris, France",
+            "phone_1": "+123 222 333 44",
+            "phone_2": "+123 666 777 88",
+            "email": "example@email.com"
+          }
+        }
+      },
+      "block_order": [
+        "store_YajP7q",
+        "store_Ym9phm"
+      ],
+      "name": "Our Store",
+      "settings": {
+        "image": "shopify://shop_images/physical-store.webp",
+        "heading": "Our Stores",
+        "text": "You can also directly buy products from our stores.",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "shop_our_insta_RgXEq8": {
+      "type": "shop-our-insta",
+      "blocks": {
+        "image_tqAVh4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-1.webp"
+          }
+        },
+        "image_GbVGHC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-2.webp"
+          }
+        },
+        "image_EdageJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-3.webp"
+          }
+        },
+        "image_JTffHW": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-4.webp"
+          }
+        },
+        "image_7ajrzc": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-5.webp"
+          }
+        }
+      },
+      "block_order": [
+        "image_tqAVh4",
+        "image_GbVGHC",
+        "image_EdageJ",
+        "image_JTffHW",
+        "image_7ajrzc"
+      ],
+      "name": "Shop Our Insta",
+      "settings": {
+        "heading": "Shop Our Insta",
+        "gap": 20,
+        "padding_bottom": 100
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "page_banner_ChBK6E",
+    "rich_text_Vi8HGW",
+    "services_strip_py3dw8",
+    "testimonials_slider_AXKTMk",
+    "featured_blog_YjjJXh",
+    "our_store_fqbtpM",
+    "shop_our_insta_RgXEq8"
   ]
 }

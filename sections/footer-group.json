@@ -27,11 +27,22 @@
             "heading": "Help & Info",
             "menu": "help-info"
           }
+        },
+        "contact_info_TUNqUh": {
+          "type": "contact_info",
+          "settings": {
+            "heading": "Contact Us",
+            "email_text": "Do you have any queries or suggestions?",
+            "email": "example@email.com",
+            "phone_text": "If you need support? Just give us a call.",
+            "phone": "+123 222 333 44"
+          }
         }
       },
       "block_order": [
         "link_list_WwrzXi",
-        "link_list_NUcagQ"
+        "link_list_NUcagQ",
+        "contact_info_TUNqUh"
       ],
       "settings": {
         "color_scheme": "scheme-1",
