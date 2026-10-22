@@ -1,0 +1,103 @@
+/* Instagram gallery — scoped to .instagram-gallery (BEM). Mobile-first.
+   Layout: flex column on mobile + tablet, flex row from 1024px. */
+.instagram-gallery {
+  padding-bottom: var(--instagram-gallery-padding-bottom, 0);
+}
+
+.instagram-gallery__heading {
+  margin: 0;
+  padding: 0 1.6rem 2.4rem;
+  font-size: clamp(2.8rem, 2rem + 2.2vw, 4.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.instagram-gallery__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--instagram-gallery-gap, 20px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.instagram-gallery__item {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.instagram-gallery__link {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+}
+
+.instagram-gallery__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.instagram-gallery__image--placeholder {
+  background-color: #d9d4d0;
+}
+
+.instagram-gallery__image--placeholder svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  opacity: 0.4;
+}
+
+.instagram-gallery__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(0 0 0 / 0.4);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.instagram-gallery__icon {
+  width: 3.2rem;
+  height: 3.2rem;
+}
+
+a.instagram-gallery__link:hover .instagram-gallery__overlay,
+a.instagram-gallery__link:focus-visible .instagram-gallery__overlay {
+  opacity: 1;
+}
+
+a.instagram-gallery__link:focus-visible {
+  outline: 0.2rem solid var(--instagram-gallery-heading);
+  outline-offset: -0.4rem;
+}
+
+.instagram-gallery__empty {
+  margin: 0;
+  padding: 4rem 1.6rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .instagram-gallery__heading {
+    padding-bottom: 4.4rem;
+  }
+
+  .instagram-gallery__list {
+    flex-direction: row;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .instagram-gallery__overlay {
+    transition: none;
+  }
+}
