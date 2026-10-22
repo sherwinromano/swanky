@@ -26,8 +26,8 @@
         "heading_tag": "h1",
         "show_breadcrumb": true,
         "home_label": "Home",
-        "text_color": "#FFFFFF",
-        "background_color": "#6F6A68",
+        "text_color": "#ffffff",
+        "background_color": "#6f6a68",
         "overlay_opacity": 30,
         "min_height": 260
       }
@@ -98,11 +98,11 @@
       ],
       "name": "Services",
       "settings": {
-        "use_page_width": false,
-        "icon_color": "#EE6B55",
+        "use_page_width": true,
+        "icon_color": "#ee6b55",
         "heading_color": "#040404",
         "text_color": "#737373",
-        "border_color": "#DDD3D1",
+        "border_color": "#ddd3d1",
         "padding_top": 0,
         "padding_bottom": 0
       }
@@ -145,7 +145,7 @@
         "heading": "Customer testimonials",
         "text_color": "#8a8a8a",
         "star_color": "#161616",
-        "author_color": "#EC6C5A"
+        "author_color": "#ec6c5a"
       }
     },
     "featured_blog_YjjJXh": {
