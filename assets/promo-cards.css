@@ -1,0 +1,174 @@
+/* Promo cards — scoped to .promo-cards (BEM). Mobile-first.
+   Layout: flex column on mobile + tablet, flex row from 1024px. */
+.promo-cards {
+  --promo-cards-text: #fff;
+  --promo-cards-overlay: 0.1;
+
+  padding-block: var(--promo-cards-padding-top, 0)
+    var(--promo-cards-padding-bottom, 0);
+}
+
+.promo-cards__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--promo-cards-gap, 8px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.promo-cards__item {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.promo-cards__card {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 26rem;
+  aspect-ratio: 318 / 260;
+  overflow: hidden;
+  color: var(--promo-cards-text);
+  isolation: isolate;
+}
+
+.promo-cards__image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.promo-cards__image--placeholder {
+  background-color: #d9d4d0;
+}
+
+.promo-cards__image--placeholder svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  opacity: 0.4;
+}
+
+/* Overlay keeps white text readable on bright photos */
+.promo-cards__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgb(0 0 0 / var(--promo-cards-overlay));
+  pointer-events: none;
+}
+
+.promo-cards__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 3rem;
+}
+
+.promo-cards__heading {
+  margin: 0;
+  color: inherit;
+  font-size: clamp(2.8rem, 2.2rem + 1.6vw, 4rem);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.promo-cards__text {
+  max-width: 44rem;
+  margin: 0;
+  color: inherit;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.promo-cards__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.8rem;
+  padding: 1.1rem 2.4rem;
+  border: 0.1rem solid var(--promo-cards-text);
+  color: var(--promo-cards-text);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.promo-cards__button--solid {
+  background-color: var(--promo-cards-text);
+  color: #1a1a1a;
+}
+
+.promo-cards__button--outline {
+  background-color: transparent;
+}
+
+.promo-cards__button--solid:hover {
+  background-color: transparent;
+  color: var(--promo-cards-text);
+}
+
+.promo-cards__button--outline:hover {
+  background-color: var(--promo-cards-text);
+  color: #1a1a1a;
+}
+
+.promo-cards__button:focus-visible {
+  outline: 0.2rem solid var(--promo-cards-text);
+  outline-offset: 0.3rem;
+}
+
+.promo-cards__empty {
+  margin: 0;
+  padding: 4rem 1.6rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 640px) {
+  .promo-cards__content {
+    padding: 8rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .promo-cards__card {
+    min-height: 36rem;
+    aspect-ratio: 768 / 420;
+  }
+
+  .promo-cards__text {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .promo-cards__list {
+    flex-direction: row;
+  }
+
+  .promo-cards__card {
+    min-height: 0;
+    aspect-ratio: 318 / 260;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-cards__button {
+    transition: none;
+  }
+}

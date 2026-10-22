@@ -1,0 +1,138 @@
+/* Stores info — scoped to .stores-info (BEM). Mobile-first.
+   Layout: flex column on mobile + tablet, flex row from 1024px. */
+.stores-info {
+  padding-block: var(--stores-info-padding-top, 0)
+    var(--stores-info-padding-bottom, 0);
+}
+
+.stores-info__inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.stores-info__media {
+  position: relative;
+  flex: 1 1 50%;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.stores-info__image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stores-info__image--placeholder {
+  background-color: #d9d4d0;
+}
+
+.stores-info__image--placeholder svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  opacity: 0.4;
+}
+
+.stores-info__content {
+  display: flex;
+  flex: 1 1 50%;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 4rem 1.6rem;
+}
+
+.stores-info__heading {
+  margin: 0;
+  font-size: clamp(3.2rem, 2.4rem + 2.2vw, 4.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.stores-info__text {
+  margin: 1rem 0 0;
+  font-size: 1.5rem;
+  line-height: 110%;
+}
+
+.stores-info__list {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  margin: 3.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stores-info__store {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.stores-info__country {
+  display: inline-block;
+  margin: 0 0 1.6rem;
+  font-size: 1.8rem;
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+}
+
+.stores-info__details {
+  font-style: normal;
+}
+
+.stores-info__line {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  line-height: 130%;
+  overflow-wrap: anywhere;
+}
+
+.stores-info__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.stores-info__link:hover {
+  text-decoration: underline;
+}
+
+.stores-info__link:focus-visible {
+  outline: 0.2rem solid var(--stores-info-heading);
+  outline-offset: 0.2rem;
+}
+
+.stores-info__empty {
+  margin: 3.2rem 0 0;
+}
+
+@media screen and (min-width: 768px) {
+  .stores-info__media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .stores-info__content {
+    padding: 5.6rem 4rem;
+  }
+
+  .stores-info__list {
+    flex-direction: row;
+    gap: 4rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .stores-info__inner {
+    flex-direction: row;
+  }
+
+  .stores-info__media {
+    aspect-ratio: auto;
+    min-height: 40rem;
+  }
+}

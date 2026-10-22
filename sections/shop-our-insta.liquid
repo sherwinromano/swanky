@@ -1,0 +1,132 @@
+{{ 'shop-our-insta.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign instagram_url = settings.social_instagram_link
+-%}
+
+<section
+  class="page-width-desktop scroll-trigger animate--slide-in instagram-gallery instagram-gallery--{{ section.id }}"
+  style="
+    --instagram-gallery-gap: {{ section.settings.gap }}px;
+    --instagram-gallery-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  {%- if section.settings.heading != blank -%}
+    <h2 class="instagram-gallery__heading">{{ section.settings.heading | escape }}</h2>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <ul class="instagram-gallery__list" role="list">
+      {%- for block in section.blocks -%}
+        {%- capture tile -%}
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: 800
+              | image_tag:
+                class: 'instagram-gallery__image',
+                widths: '268, 375, 536, 800',
+                sizes: '(min-width: 1024px) 20vw, 100vw',
+                loading: 'lazy',
+                alt: block.settings.image.alt
+            }}
+          {%- else -%}
+            <div class="instagram-gallery__image instagram-gallery__image--placeholder">
+              {{ 'lifestyle-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+          <span class="instagram-gallery__overlay" aria-hidden="true">
+            <svg
+              class="instagram-gallery__icon"
+              viewBox="0 0 32 32"
+              width="32"
+              height="32"
+              focusable="false"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.4"
+            >
+              <rect x="2" y="2" width="28" height="28" rx="8"/>
+              <circle cx="16" cy="16" r="6.5"/>
+              <circle cx="24" cy="8" r="1.4" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+        {%- endcapture -%}
+
+        <li class="instagram-gallery__item" {{ block.shopify_attributes }}>
+          {%- if instagram_url != blank -%}
+            <a
+              href="{{ instagram_url }}"
+              class="instagram-gallery__link"
+              target="_blank"
+              rel="noopener"
+            >
+              {{ tile }}
+              <span class="visually-hidden">Instagram, {{ 'accessibility.link_messages.new_window' | t }}</span>
+            </a>
+          {%- else -%}
+            <div class="instagram-gallery__link">{{ tile }}</div>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- elsif request.design_mode -%}
+    <p class="instagram-gallery__empty">Add image blocks to get started.</p>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Shop Our Insta",
+  "tag": "div",
+  "class": "section",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop Our Insta" },
+    {
+      "type": "paragraph",
+      "content": "Images link to the Instagram URL set in Theme settings > Social media."
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between images",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [{ "type": "image_picker", "id": "image", "label": "Image" }]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop Our Insta",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

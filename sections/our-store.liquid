@@ -1,0 +1,157 @@
+{{ 'our-store.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="page-width-desktop scroll-trigger animate--slide-in stores-info stores-info--{{ section.id }}"
+  style="
+    --stores-info-padding-top: {{ section.settings.padding_top }}px;
+    --stores-info-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="stores-info__inner">
+    <div class="stores-info__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1500
+          | image_tag:
+            class: 'stores-info__image',
+            widths: '375, 550, 750, 1100, 1500',
+            sizes: '(min-width: 1024px) 50vw, 100vw',
+            loading: 'lazy',
+            alt: section.settings.image.alt
+        }}
+      {%- else -%}
+        <div class="stores-info__image stores-info__image--placeholder">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="stores-info__content">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="stores-info__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <p class="stores-info__text">{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="stores-info__list" role="list">
+          {%- for block in section.blocks -%}
+            <li class="stores-info__store" {{ block.shopify_attributes }}>
+              {%- if block.settings.country != blank -%}
+                <h3 class="stores-info__country">{{ block.settings.country | escape }}</h3>
+              {%- endif -%}
+
+              <address class="stores-info__details">
+                {%- if block.settings.address != blank -%}
+                  <p class="stores-info__line">{{ block.settings.address | escape }}</p>
+                {%- endif -%}
+
+                {%- for i in (1..2) -%}
+                  {%- assign phone_key = 'phone_' | append: i -%}
+                  {%- assign phone = block.settings[phone_key] -%}
+                  {%- if phone != blank -%}
+                    <p class="stores-info__line">
+                      <a
+                        class="stores-info__link"
+                        href="tel:{{ phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | escape }}"
+                      >
+                        {{- phone | escape -}}
+                      </a>
+                    </p>
+                  {%- endif -%}
+                {%- endfor -%}
+
+                {%- if block.settings.email != blank -%}
+                  <p class="stores-info__line">
+                    <a class="stores-info__link" href="mailto:{{ block.settings.email | escape }}">
+                      {{- block.settings.email | escape -}}
+                    </a>
+                  </p>
+                {%- endif -%}
+              </address>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- elsif request.design_mode -%}
+        <p class="stores-info__empty">Add store blocks to get started.</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Our Store",
+  "tag": "div",
+  "class": "section",
+  "limit": 1,
+  "max_blocks": 4,
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Our Stores" },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description",
+      "default": "You can also directly buy products from our stores."
+    },
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "store",
+      "name": "Store",
+      "settings": [
+        { "type": "text", "id": "country", "label": "Country / location", "default": "USA" },
+        {
+          "type": "text",
+          "id": "address",
+          "label": "Address",
+          "default": "730 Glenstone Ave 65802, Springfield, US"
+        },
+        { "type": "text", "id": "phone_1", "label": "Phone 1", "default": "+123 222 333 44" },
+        { "type": "text", "id": "phone_2", "label": "Phone 2", "default": "+123 666 777 88" },
+        { "type": "text", "id": "email", "label": "Email", "default": "example@email.com" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Store",
+      "blocks": [
+        { "type": "store" },
+        {
+          "type": "store",
+          "settings": {
+            "country": "France",
+            "address": "13 Rue Montmartre 75001, Paris, France"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

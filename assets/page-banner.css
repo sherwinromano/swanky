@@ -1,0 +1,108 @@
+/* Page banner — scoped to .page-banner (BEM). Mobile-first, full-width. */
+.page-banner {
+  --page-banner-bg: #6f6a68;
+  --page-banner-text: #fff;
+  --page-banner-overlay: 0.2;
+  --page-banner-min-height: 260px;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: min(var(--page-banner-min-height), 16rem);
+  overflow: hidden;
+  background-color: var(--page-banner-bg);
+  color: var(--page-banner-text);
+  isolation: isolate;
+}
+
+.page-banner__image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-banner--has-image::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: rgb(0 0 0 / var(--page-banner-overlay));
+  content: "";
+  pointer-events: none;
+}
+
+.page-banner__content {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  max-width: 100%;
+  padding: 3.2rem 1.6rem;
+  text-align: center;
+}
+
+.page-banner__title {
+  margin: 0;
+  color: inherit;
+  font-size: clamp(2.8rem, 2rem + 2.4vw, 5.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.page-banner__breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+  list-style: none;
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.page-banner__breadcrumb-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-banner__breadcrumb-separator svg {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+}
+
+.page-banner__breadcrumb-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.page-banner__breadcrumb-link:focus-visible {
+  outline: 0.2rem solid var(--page-banner-text);
+  outline-offset: 0.3rem;
+}
+
+@media screen and (min-width: 768px) {
+  .page-banner {
+    min-height: min(var(--page-banner-min-height), 20rem);
+  }
+
+  .page-banner__breadcrumb-list {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .page-banner {
+    min-height: var(--page-banner-min-height);
+  }
+}

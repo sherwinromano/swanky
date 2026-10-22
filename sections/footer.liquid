@@ -6,90 +6,122 @@
 {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  .footer {
-    margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
-  }
-
-  .footer__content-top {
-    display: grid;
-    gap: 40px;
-  }
-
-  .footer-block--newsletter {
-    margin-top: 0;
-    align-items: start;
-    flex-direction: column;
-  }
-
-   .footer-block--newsletter.footer-block--has-logo {
-    flex-wrap: wrap;
-  }
-
-  .footer-block__logo-link {
-    display: inline-block;
-    max-width: 100%;
-  }
-
-  .footer-block__logo-image {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-
-  .footer-block.grid__item {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .list-menu__item--link {
-    text-transform: uppercase;
-    font-family: var(--font-heading-family);
-  }
-
-  .list-unstyled {
-    justify-content: start !important;
-  }
-
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  .footer__column--info {
-	  flex-direction: column;
-	  width: 100%;
-  }
-
-  @media screen and (min-width: 750px) {
     .footer {
-      margin-top: {{ section.settings.margin_top }}px;
+      margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
     }
 
     .footer__content-top {
-      grid-template-columns: repeat(2, 1fr);
+      display: grid;
+      gap: 40px;
     }
 
-    .footer__column--info {
+    .footer-block--newsletter {
+      margin-top: 0;
       align-items: start;
+      flex-direction: column;
+    }
+
+     .footer-block--newsletter.footer-block--has-logo {
+      flex-wrap: wrap;
+    }
+
+    .footer-block__logo-link {
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    .footer-block__logo-image {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .footer-block.grid__item {
+      max-width: 100%;
+      width: 100%;
+      margin: 0;
+    }
+
+    .footer-block__details-content {
+      margin: 0;
+    }
+
+    .list-menu__item--link {
+      text-transform: uppercase;
+      font-family: var(--font-heading-family);
+    }
+
+    .list-unstyled {
+      justify-content: start !important;
     }
 
     .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-
-  @media screen and (min-width: 1024px) {
-    .footer__content-top {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 150px;
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     }
 
     .footer__column--info {
-	    flex-direction: row;
-      width: fit-content;
+     flex-direction: column;
+     width: 100%;
     }
+
+    .footer-contact__group {
+    margin: 0 0 1.6rem;
+    font-size: 1.4rem;
+    line-height: 1.5;
   }
+
+  .footer-contact__text {
+    display: block;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .footer-contact__link {
+    color: rgb(var(--color-foreground));
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+    font-weight: 600;
+  }
+
+  .footer-contact__link:hover {
+    text-decoration-thickness: 0.2rem;
+  }
+
+  .footer-contact__link:focus-visible {
+    outline: 0.2rem solid currentColor;
+    outline-offset: 0.3rem;
+  }
+
+    @media screen and (min-width: 750px) {
+      .footer {
+        margin-top: {{ section.settings.margin_top }}px;
+      }
+
+      .footer__content-top {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer__column--info {
+        align-items: start;
+      }
+
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+
+    @media screen and (min-width: 1024px) {
+      .footer__content-top {
+        grid-template-columns: 1.7fr 1fr 1fr 1.2fr;
+      gap: 40px;
+      }
+
+      .footer__column--info {
+       flex-direction: row;
+        width: fit-content;
+      }
+    }
 {%- endstyle -%}
 
 <footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
@@ -330,6 +362,33 @@
                       {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
                     {%- endif -%}
                   </div>
+                {%- when 'contact_info' -%}
+                  <div class="footer-block__details-content footer-contact">
+                    {%- if block.settings.email != blank -%}
+                      <p class="footer-contact__group">
+                        {%- if block.settings.email_text != blank -%}
+                          <span class="footer-contact__text">{{ block.settings.email_text | escape }}</span>
+                        {%- endif -%}
+                        <a class="footer-contact__link" href="mailto:{{ block.settings.email | escape }}">
+                          {{- block.settings.email | escape -}}
+                        </a>
+                      </p>
+                    {%- endif -%}
+
+                    {%- if block.settings.phone != blank -%}
+                      <p class="footer-contact__group">
+                        {%- if block.settings.phone_text != blank -%}
+                          <span class="footer-contact__text">{{ block.settings.phone_text | escape }}</span>
+                        {%- endif -%}
+                        <a
+                          class="footer-contact__link"
+                          href="tel:{{ block.settings.phone | remove: ' ' | remove: '-' | remove: '(' | remove: ')' | escape }}"
+                        >
+                          {{- block.settings.phone | escape -}}
+                        </a>
+                      </p>
+                    {%- endif -%}
+                  </div>
               {%- endcase -%}
             </div>
           {%- endfor -%}
@@ -509,6 +568,27 @@
           ],
           "default": "center"
         }
+      ]
+    },
+    {
+      "type": "contact_info",
+      "name": "Contact info",
+      "settings": [
+        { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Contact Us" },
+        {
+          "type": "text",
+          "id": "email_text",
+          "label": "Email text",
+          "default": "Do you have any queries or suggestions?"
+        },
+        { "type": "text", "id": "email", "label": "Email address", "default": "example@email.com" },
+        {
+          "type": "text",
+          "id": "phone_text",
+          "label": "Phone text",
+          "default": "If you need support? Just give us a call."
+        },
+        { "type": "text", "id": "phone", "label": "Phone number", "default": "+123 222 333 44" }
       ]
     }
   ],
