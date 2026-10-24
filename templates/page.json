@@ -9,14 +9,6 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-page",
-      "disabled": true,
-      "settings": {
-        "padding_top": 28,
-        "padding_bottom": 28
-      }
-    },
     "page_banner_ChBK6E": {
       "type": "page-banner",
       "name": "Page banner",
@@ -49,10 +41,7 @@
           }
         }
       },
-      "block_order": [
-        "heading_MN3zcA",
-        "text_pC7Dkc"
-      ],
+      "block_order": ["heading_MN3zcA", "text_pC7Dkc"],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -91,11 +80,7 @@
           }
         }
       },
-      "block_order": [
-        "service_mgpeNy",
-        "service_gWAUNU",
-        "service_EndBKX"
-      ],
+      "block_order": ["service_mgpeNy", "service_gWAUNU", "service_EndBKX"],
       "name": "Services",
       "settings": {
         "use_page_width": true,
@@ -191,10 +176,7 @@
           }
         }
       },
-      "block_order": [
-        "store_YajP7q",
-        "store_Ym9phm"
-      ],
+      "block_order": ["store_YajP7q", "store_Ym9phm"],
       "name": "Our Store",
       "settings": {
         "image": "shopify://shop_images/physical-store.webp",
@@ -254,7 +236,6 @@
     }
   },
   "order": [
-    "main",
     "page_banner_ChBK6E",
     "rich_text_Vi8HGW",
     "services_strip_py3dw8",
