@@ -1,29 +1,166 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "page_banner_t88ffT": {
+      "type": "page-banner",
+      "name": "Page banner",
+      "settings": {
+        "image": "shopify://shop_images/hero-image.webp",
+        "custom_title": "",
+        "heading_tag": "h1",
+        "show_breadcrumb": true,
+        "home_label": "Home",
+        "text_color": "#FFFFFF",
+        "background_color": "#6F6A68",
+        "overlay_opacity": 30,
+        "min_height": 260
+      }
+    },
     "form": {
       "type": "contact-form",
       "blocks": {
         "office_1": {
           "type": "office",
-          "settings": {}
+          "settings": {
+            "title": "Office",
+            "address": "730 Glenstone Ave 65802, Springfield, US",
+            "phone_1": "+123 222 333 44",
+            "phone_2": "+123 666 777 88",
+            "email": "example@email.com"
+          }
         },
         "office_2": {
           "type": "office",
           "settings": {
-            "title": "Management"
+            "title": "Management",
+            "address": "730 Glenstone Ave 65802, Springfield, US",
+            "phone_1": "+123 222 333 44",
+            "phone_2": "+123 666 777 88",
+            "email": "example@email.com"
           }
         }
       },
-      "block_order": ["office_1", "office_2"],
+      "block_order": [
+        "office_1",
+        "office_2"
+      ],
       "settings": {
-        "heading": "",
+        "heading": "Any Questions?",
         "heading_size": "h1",
+        "form_text": "Use the form below to get in touch with us.",
         "show_contact_info": true,
+        "info_heading": "Contact Info",
+        "info_text": "These are the contact details",
+        "name_label": "",
+        "email_label": "Email",
+        "phone_label": "Phone Number",
+        "subject_label": "Subject",
+        "subject_field_name": "Subject",
+        "message_label": "Your Message",
+        "submit_label": "Submit",
         "color_scheme": "scheme-1",
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "our_store_xzG8MU": {
+      "type": "our-store",
+      "blocks": {
+        "store_MKFWwa": {
+          "type": "store",
+          "settings": {
+            "country": "USA",
+            "address": "730 Glenstone Ave 65802, Springfield, US",
+            "phone_1": "+123 222 333 44",
+            "phone_2": "+123 666 777 88",
+            "email": "example@email.com"
+          }
+        },
+        "store_jKdTwL": {
+          "type": "store",
+          "settings": {
+            "country": "France",
+            "address": "13 Rue Montmartre 75001, Paris, France",
+            "phone_1": "+123 222 333 44",
+            "phone_2": "+123 666 777 88",
+            "email": "example@email.com"
+          }
+        }
+      },
+      "block_order": [
+        "store_MKFWwa",
+        "store_jKdTwL"
+      ],
+      "name": "Our Store",
+      "settings": {
+        "image": "shopify://shop_images/physical-store.webp",
+        "heading": "Our Stores",
+        "text": "You can also directly buy products from our stores.",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "shop_our_insta_TQnJNj": {
+      "type": "shop-our-insta",
+      "blocks": {
+        "image_wXY8fM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-1.webp"
+          }
+        },
+        "image_etxMRF": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-2.webp"
+          }
+        },
+        "image_e4ePQF": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-3.webp"
+          }
+        },
+        "image_RMtzLV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-4.webp"
+          }
+        },
+        "image_9UYbhg": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-5.webp"
+          }
+        }
+      },
+      "block_order": [
+        "image_wXY8fM",
+        "image_etxMRF",
+        "image_e4ePQF",
+        "image_RMtzLV",
+        "image_9UYbhg"
+      ],
+      "name": "Shop Our Insta",
+      "settings": {
+        "heading": "Shop Our Insta",
+        "gap": 20,
+        "padding_bottom": 100
+      }
     }
   },
-  "order": ["form"]
+  "order": [
+    "page_banner_t88ffT",
+    "form",
+    "our_store_xzG8MU",
+    "shop_our_insta_TQnJNj"
+  ]
 }
