@@ -107,8 +107,8 @@
   margin-top: 0;
 }
 
-.contact-split__form .title-wrapper--no-top-margin {
-  margin: 0;
+.contact-split__info .title-wrapper--no-top-margin, .contact-split__form .title-wrapper--no-top-margin {
+  margin: 0 0 1.35rem 0;
 }
 
 .contact-split__form .title-wrapper--no-top-margin + .contact-split__text {
