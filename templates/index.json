@@ -23,7 +23,7 @@
           "type": "buttons",
           "settings": {
             "button_label_1": "Shop Now",
-            "button_link_1": "shopify://collections/automated-collection",
+            "button_link_1": "shopify://collections/shop",
             "button_style_secondary_1": false,
             "button_background_1": "white",
             "button_padding_vertical_1": 12,
@@ -151,7 +151,7 @@
             "heading": "Summer Outfits",
             "text": "Erat consequ at aliquet semper rhoncus fell diam non faucibus. Tristique in vitae aliquam consequat massa nunc quisque.",
             "button_label": "Shop collection",
-            "button_link": "shopify://collections/automated-collection",
+            "button_link": "shopify://collections/shop",
             "button_style": "solid"
           }
         },
@@ -162,7 +162,7 @@
             "heading": "Fashion Outfits",
             "text": "Commodo quam dis nisl ultrices a ac. Augue purus pretium in eu ut etiam et nunc lacus.",
             "button_label": "Shop it now",
-            "button_link": "shopify://collections/automated-collection",
+            "button_link": "shopify://collections/shop",
             "button_style": "outline"
           }
         }
