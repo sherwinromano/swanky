@@ -9,10 +9,58 @@
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
+  #shopify-section-{{ section.id }} .totals {
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .totals > p {
+    font-family: var(--font-heading-family);
+    color: rgb(var(--color-foreground));
+    font-size: calc(var(--font-heading-scale) * 2.35rem);
+  }
+
+  #shopify-section-{{ section.id }} .totals > h2 {
+    font-family: var(--font-body-family);
+    font-weight: normal;
+    color: rgba(var(--color-foreground), 0.75);
+    order: 1;
+  }
+
+  #shopify-section-{{ section.id }} .tax-note.caption-large {
+    text-align: end;
+  }
+
+  #shopify-section-{{ section.id }} .cart__ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .cart__ctas > * {
+    flex-basis: 100%;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .cart__ctas > button {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  @media screen and (min-width: 640px) {
+    #shopify-section-{{ section.id }} .cart__ctas {
+      flex-direction: row;
+    }
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cart__ctas {
+      flex-direction: column;
     }
   }
 {%- endstyle -%}
@@ -117,6 +165,15 @@
                 >
                   {{ 'sections.cart.checkout' | t }}
                 </button>
+                {%- if section.settings.continue_shopping_button -%}
+                  <a
+                    href="{{ routes.collections_url }}"
+                    class="cart__continue-shopping button button--secondary"
+                    role="button"
+                  >
+                    Continue Shopping
+                  </a>
+                {%- endif -%}
               </div>
 
               {%- if additional_checkout_buttons -%}
@@ -147,7 +204,7 @@
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
-    },    
+    },
     {
       "type": "range",
       "id": "padding_top",
@@ -167,6 +224,12 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "continue_shopping_button",
+      "label": "Display 'Continue Shopping' button",
+      "default": true
     }
   ],
   "blocks": [

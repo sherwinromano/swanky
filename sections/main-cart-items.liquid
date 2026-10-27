@@ -6,17 +6,83 @@
 {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+   .section-{{ section.id }}-padding {
+     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+   }
+
+   #shopify-section-{{ section.id }} > cart-items table.cart-items thead tr th {
+    font-family: var(--font-heading-family);
+    color: rgb(var(--color-foreground)) !important;
+    font-size: calc(var(--font-heading-scale) * 1.5rem);
+    letter-spacing: normal;
+    text-align: center;
+    padding-inline: 0;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
+  #shopify-section-{{ section.id }} > cart-items .cart__items, #shopify-section-{{ section.id }} > cart-items th {
+    border-bottom: 1px solid #04040425;
   }
+
+  #shopify-section-{{ section.id }} > cart-items table.cart-items td.cart-item__remove {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} > cart-items dl {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} > cart-items .product-option {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} > cart-items .cart-item__title {
+    margin-bottom: 16px;
+  }
+
+  #shopify-section-{{ section.id }} > cart-items table.cart-items tbody tr td.cart-item__totals {
+    padding-inline: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} > cart-items quantity-input {
+    width: calc(12rem / var(--font-body-scale) + var(--inputs-border-width) * 2);
+
+  }
+
+  #shopify-section-{{ section.id }} > cart-items table.cart-items tbody tr td.cart-item__totals span.price {
+    text-align: center;
+    font-family: var(--font-heading-family);
+  }
+
+  #shopify-section-{{ section.id }} > cart-items quantity-popover .cart-item__quantity-wrapper {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+   @media screen and (min-width: 750px) {
+     .section-{{ section.id }}-padding {
+       padding-top: {{ section.settings.padding_top }}px;
+       padding-bottom: {{ section.settings.padding_bottom }}px;
+     }
+
+     #shopify-section-{{ section.id }} > cart-items table.cart-items tbody tr td.cart-item__quantity {
+      padding-inline: 1rem;
+     }
+
+     #shopify-section-{{ section.id }} > cart-items quantity-popover .cart-item__quantity-wrapper {
+      justify-content: center;
+     }
+
+     #shopify-section-{{ section.id }} > cart-items quantity-popover .cart-item__quantity-wrapper cart-remove-button {
+      display: none;
+     }
+
+     #shopify-section-{{ section.id }} > cart-items table.cart-items td.cart-item__remove {
+      display: block;
+      padding-top: 4.40rem;
+     }
+   }
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}
@@ -26,16 +92,18 @@
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
 <cart-items
-  class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}"
+  class="scroll-trigger animate--slide-in gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}"
   view-event-payload="{{ cart | standard_event_data: 'view', context: 'page' | escape }}"
 >
   <div class="page-width">
-    <div class="title-wrapper-with-link">
-      <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="underlined-link">
-        {{- 'general.continue_shopping' | t -}}
-      </a>
-    </div>
+    {%- if section.settings.default_header -%}
+      <div class="title-wrapper-with-link">
+        <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
+        <a href="{{ routes.all_products_collection_url }}" class="underlined-link">
+          {{- 'general.continue_shopping' | t -}}
+        </a>
+      </div>
+    {%- endif -%}
 
     <div class="cart__warnings">
       <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
@@ -77,6 +145,13 @@
                   <th class="small-hide right caption-with-letter-spacing" colspan="1" scope="col">
                     {{ 'sections.cart.headings.total' | t }}
                   </th>
+                  <th
+                    class="small-hide right caption-with-letter-spacing"
+                    colspan="2"
+                    scope="col"
+                  >
+                    <span style="visibility: hidden;">Remove</span>
+                  </th>
                 </tr>
               </thead>
 
@@ -113,7 +188,10 @@
 
                       <div class="cart-item__title">
                         <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
-                        {%- assign cart_disclosure_modal_id = 'CartDisclosureModal-cart-' | append: item.key | replace: ':', '-' -%}
+                        {%- assign cart_disclosure_modal_id = 'CartDisclosureModal-cart-'
+                          | append: item.key
+                          | replace: ':', '-'
+                        -%}
                         {%- render 'cart-disclosure-indicator',
                           product: item.product,
                           modal_id: cart_disclosure_modal_id
@@ -316,7 +394,7 @@
                               aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
                             >
                               <span class="svg-wrapper">
-                                {{- 'icon-remove.svg' | inline_asset_content -}}
+                                {{- 'icon-close.svg' | inline_asset_content -}}
                               </span>
                             </a>
                           </cart-remove-button>
@@ -446,6 +524,26 @@
                         {%- endif -%}
                       </div>
                     </td>
+                    <td class="cart-item__remove small-hide">
+                      <cart-remove-button
+                        id="Remove-{{ item.index | plus: 1 }}"
+                        data-index="{{ item.index | plus: 1 }}"
+                        {% assign can_remove = item.instructions.can_remove | default: true %}
+                        {% if can_remove == false %}
+                          class="hidden"
+                        {% endif %}
+                      >
+                        <a
+                          href="{{ item.url_to_remove }}"
+                          class="button button--tertiary"
+                          aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
+                        >
+                          <span class="svg-wrapper">
+                            {{- 'icon-close.svg' | inline_asset_content -}}
+                          </span>
+                        </a>
+                      </cart-remove-button>
+                    </td>
                   </tr>
                 {%- endfor -%}
               </tbody>
@@ -501,6 +599,12 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "checkbox",
+      "id": "default_header",
+      "label": "Show default header",
+      "default": true
     }
   ]
 }
