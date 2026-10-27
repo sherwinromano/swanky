@@ -41,7 +41,10 @@
           }
         }
       },
-      "block_order": ["heading_MN3zcA", "text_pC7Dkc"],
+      "block_order": [
+        "heading_MN3zcA",
+        "text_pC7Dkc"
+      ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -80,7 +83,11 @@
           }
         }
       },
-      "block_order": ["service_mgpeNy", "service_gWAUNU", "service_EndBKX"],
+      "block_order": [
+        "service_mgpeNy",
+        "service_gWAUNU",
+        "service_EndBKX"
+      ],
       "name": "Services",
       "settings": {
         "use_page_width": true,
@@ -98,7 +105,7 @@
         "testimonial_KU6PnF": {
           "type": "testimonial",
           "settings": {
-            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "quote": "Absolutely love the quality and style of these outfits! Everything fits beautifully, feels comfortable, and looks even better in person. Definitely my new favorite place to shop for fashion essentials.",
             "rating": 5,
             "author": "Emma Chamberlin"
           }
@@ -106,17 +113,17 @@
         "testimonial_fTQgDa": {
           "type": "testimonial",
           "settings": {
-            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            "rating": 4,
-            "author": "John Doe"
+            "quote": "These summer outfits are exactly what I was looking for! The fabrics are lightweight, the designs are so cute, and they're perfect for sunny days and weekend getaways. Highly recommended!",
+            "rating": 5,
+            "author": "Jane Doe"
           }
         },
         "testimonial_idkTDB": {
           "type": "testimonial",
           "settings": {
-            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            "rating": 3,
-            "author": "Mike Smith"
+            "quote": "I'm so impressed with the quality and attention to detail. The pieces are versatile, easy to style, and make putting together an outfit effortless. I'll definitely be ordering more!",
+            "rating": 5,
+            "author": "Olivia Smith"
           }
         }
       },
@@ -176,7 +183,10 @@
           }
         }
       },
-      "block_order": ["store_YajP7q", "store_Ym9phm"],
+      "block_order": [
+        "store_YajP7q",
+        "store_Ym9phm"
+      ],
       "name": "Our Store",
       "settings": {
         "image": "shopify://shop_images/physical-store.webp",

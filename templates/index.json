@@ -106,7 +106,7 @@
         "testimonial_JL7U9b": {
           "type": "testimonial",
           "settings": {
-            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "quote": "Absolutely love the quality and style of these outfits! Everything fits beautifully, feels comfortable, and looks even better in person. Definitely my new favorite place to shop for fashion essentials.",
             "rating": 5,
             "author": "Emma Chamberlin"
           }
@@ -114,17 +114,17 @@
         "testimonial_gHC9nt": {
           "type": "testimonial",
           "settings": {
-            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            "rating": 4,
-            "author": "John Doe"
+            "quote": "These summer outfits are exactly what I was looking for! The fabrics are lightweight, the designs are so cute, and they're perfect for sunny days and weekend getaways. Highly recommended!",
+            "rating": 5,
+            "author": "Jane Doe"
           }
         },
         "testimonial_tmTXgY": {
           "type": "testimonial",
           "settings": {
-            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            "rating": 3,
-            "author": "Mike Smith"
+            "quote": "I'm so impressed with the quality and attention to detail. The pieces are versatile, easy to style, and make putting together an outfit effortless. I'll definitely be ordering more!",
+            "rating": 5,
+            "author": "Olivia Smith"
           }
         }
       },
@@ -149,9 +149,9 @@
           "settings": {
             "image": "shopify://shop_images/showcase-img-1.webp",
             "heading": "Summer Outfits",
-            "text": "Erat consequ at aliquet semper rhoncus fell diam non faucibus. Tristique in vitae aliquam consequat massa nunc quisque.",
+            "text": "Embrace the sunny days with our summer-ready collection, featuring lightweight fabrics, breathable essentials, and effortlessly chic styles.",
             "button_label": "Shop collection",
-            "button_link": "shopify://collections/shop",
+            "button_link": "shopify://collections/frontpage",
             "button_style": "solid"
           }
         },
@@ -160,9 +160,9 @@
           "settings": {
             "image": "shopify://shop_images/showcase-img-3.webp",
             "heading": "Fashion Outfits",
-            "text": "Commodo quam dis nisl ultrices a ac. Augue purus pretium in eu ut etiam et nunc lacus.",
+            "text": "Discover your style with our curated collection of fashion essentials, featuring timeless pieces and modern trends that effortlessly elevate your everyday look.",
             "button_label": "Shop it now",
-            "button_link": "shopify://collections/shop",
+            "button_link": "shopify://collections/frontpage",
             "button_style": "outline"
           }
         }
@@ -173,7 +173,7 @@
       ],
       "name": "Promo cards",
       "settings": {
-        "text_color": "#FFFFFF",
+        "text_color": "#ffffff",
         "overlay_opacity": 10,
         "gap": 8,
         "padding_top": 0,

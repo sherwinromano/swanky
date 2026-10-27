@@ -1,7 +1,32 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "page_banner_Qhkq9U": {
+      "type": "page-banner",
+      "name": "Page banner",
+      "settings": {
+        "image": "shopify://shop_images/hero-image.webp",
+        "custom_title": "Shop",
+        "heading_tag": "h1",
+        "show_breadcrumb": true,
+        "home_label": "Home",
+        "text_color": "#FFFFFF",
+        "background_color": "#6F6A68",
+        "overlay_opacity": 30,
+        "min_height": 260
+      }
+    },
     "banner": {
       "type": "main-collection-banner",
+      "disabled": true,
       "settings": {
         "show_collection_description": true,
         "show_collection_image": false,
@@ -13,6 +38,7 @@
       "settings": {
         "products_per_page": 16,
         "columns_desktop": 4,
+        "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
@@ -23,14 +49,105 @@
         "enable_filtering": true,
         "filter_type": "horizontal",
         "enable_sorting": true,
-        "columns_mobile": "2",
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "testimonials_slider_dLwNgr": {
+      "type": "testimonials-slider",
+      "blocks": {
+        "testimonial_8Xi3BX": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Absolutely love the quality and style of these outfits! Everything fits beautifully, feels comfortable, and looks even better in person. Definitely my new favorite place to shop for fashion essentials.",
+            "rating": 5,
+            "author": "Emma Chamberlin"
+          }
+        },
+        "testimonial_KjDi6C": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "These summer outfits are exactly what I was looking for! The fabrics are lightweight, the designs are so cute, and they're perfect for sunny days and weekend getaways. Highly recommended!",
+            "rating": 5,
+            "author": "Jane Doe"
+          }
+        },
+        "testimonial_PqkQ79": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I'm so impressed with the quality and attention to detail. The pieces are versatile, easy to style, and make putting together an outfit effortless. I'll definitely be ordering more!",
+            "rating": 5,
+            "author": "Olivia Smith"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_8Xi3BX",
+        "testimonial_KjDi6C",
+        "testimonial_PqkQ79"
+      ],
+      "name": "Testimonials slider",
+      "settings": {
+        "heading": "Customer testimonials",
+        "text_color": "#8a8a8a",
+        "star_color": "#161616",
+        "author_color": "#EC6C5A"
+      }
+    },
+    "shop_our_insta_CVdTAB": {
+      "type": "shop-our-insta",
+      "blocks": {
+        "image_JQ74zz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-1.webp"
+          }
+        },
+        "image_eGmEED": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-2.webp"
+          }
+        },
+        "image_BBwG63": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-3.webp"
+          }
+        },
+        "image_D7wdU8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-4.webp"
+          }
+        },
+        "image_qkjWEf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/social-img-5.webp"
+          }
+        }
+      },
+      "block_order": [
+        "image_JQ74zz",
+        "image_eGmEED",
+        "image_BBwG63",
+        "image_D7wdU8",
+        "image_qkjWEf"
+      ],
+      "name": "Shop Our Insta",
+      "settings": {
+        "heading": "Shop Our Insta",
+        "gap": 20,
+        "padding_bottom": 100
       }
     }
   },
   "order": [
+    "page_banner_Qhkq9U",
     "banner",
-    "product-grid"
+    "product-grid",
+    "testimonials_slider_dLwNgr",
+    "shop_our_insta_CVdTAB"
   ]
 }
