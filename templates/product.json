@@ -18,8 +18,8 @@
         "heading_tag": "h1",
         "show_breadcrumb": true,
         "home_label": "Home",
-        "text_color": "#FFFFFF",
-        "background_color": "#6F6A68",
+        "text_color": "#ffffff",
+        "background_color": "#6f6a68",
         "overlay_opacity": 30,
         "min_height": 260
       }
@@ -46,6 +46,14 @@
             "swatch_shape": "none"
           }
         },
+        "inventory_RaVWxU": {
+          "type": "inventory",
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 5,
+            "show_inventory_quantity": true
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -63,6 +71,7 @@
         "price",
         "description",
         "variant_picker",
+        "inventory_RaVWxU",
         "quantity_selector",
         "buy_buttons"
       ],
@@ -139,7 +148,7 @@
         "heading": "Customer testimonials",
         "text_color": "#8a8a8a",
         "star_color": "#161616",
-        "author_color": "#EC6C5A"
+        "author_color": "#ec6c5a"
       }
     },
     "shop_our_insta_3hwCRh": {
