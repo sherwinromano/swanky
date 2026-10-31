@@ -72,14 +72,63 @@
     >
   {%- endif -%}
 
+  {% comment %}
+    Customization code starts here
+  {% endcomment %}
+
+  {% if section.settings.gallery_layout == 'thumbnail' or section.settings.gallery_layout == 'thumbnail_slider' %}
+    {% assign custom_layout = 'custom_layout' %}
+  {% endif %}
+
+  {% style %}
+    .custom_layout_parent_style {
+      max-width: 100% !important;
+    }
+
+    .product__info-wrapper .price-item.price-item--regular {
+      font-weight: 800;
+      font-size: calc(var(--font-heading-scale) * 2rem);
+      color: #ec6c5a;
+    }
+
+    div.product__description.rte {
+      border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+      padding-bottom: 2.5rem;
+    }
+    /* Remove the inventory quantity indicator */
+
+    p.product__inventory > span {
+      display: none;
+    }
+
+    p.product__inventory {
+      color: rgb(var(--color-foreground));
+    }
+
+    #Quantity-Form-{{ section.id }} label.quantity__label {
+      font-family: var(--font-heading-family);
+      font-size: calc(var(--font-heading-scale) * 1.88rem);
+      color: rgb(var(--color-foreground));
+    }
+
+    @media screen and (min-width: 750px) {
+      .custom_layout_parent_style {
+        max-width: 50% !important;
+      }
+    }
+  {% endstyle %}
+  {% comment %}
+    Customization code ends here
+  {% endcomment %}
+
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
     <div class="page-width">
       <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-        <div class="grid__item product__media-wrapper">
-          {% render 'product-media-gallery', variant_images: variant_images %}
+        <div class="grid__item product__media-wrapper {% if custom_layout %} custom_layout_parent_style {% endif %}">
+          {% render 'product-media-gallery', variant_images: variant_images, custom_layout: custom_layout %}
         </div>
-        <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %} {% if custom_layout %} custom_layout_parent_style {% endif %}">
           <section
             id="ProductInfo-{{ section.id }}"
             class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"

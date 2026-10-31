@@ -67,8 +67,7 @@
       {{ label_unavailable }}
     {%- endcapture -%}
 
-    {%
-      render 'swatch-input',
+    {% render 'swatch-input',
       id: input_id,
       name: input_name,
       value: escaped_value,
@@ -87,11 +86,9 @@
       name="{{ input_name | escape }}"
       value="{{ escaped_value }}"
       form="{{ product_form_id }}"
+      class="{{ custom_selection_style }}{% if option_disabled %} disabled{% endif %}"
       {% if value.selected %}
         checked
-      {% endif %}
-      {% if option_disabled %}
-        class="disabled"
       {% endif %}
       {{ input_dataset }}
     >

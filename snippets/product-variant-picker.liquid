@@ -8,6 +8,43 @@
   Usage:
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
+
+{% style %}
+  variant-selects {
+    margin: 2rem 0 !important;
+  }
+
+  variant-selects > fieldset.product-form__input:first-child {
+    margin: 0 0 2.5rem 0;
+  }
+
+  variant-selects > fieldset.product-form__input:last-child {
+    margin: 0;
+  }
+
+  .custom_heading_style {
+    font-family: var(--font-heading-family);
+    font-size: calc(var(--font-heading-scale) * 1.88rem);
+    color: rgb(var(--color-foreground));
+  }
+
+  .product-form__input--pill input.custom_selection_style[type='radio'] + label {
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    font-size: 1.55rem;
+
+    color: rgba(var(--color-foreground), 0.75);
+    padding: 0 0 2px 0;
+    margin-right: 2rem;
+  }
+
+  .product-form__input--pill input.custom_selection_style[type='radio']:checked + label {
+    color: rgb(var(--color-foreground));
+    border-bottom: 1px solid rgb(var(--color-foreground));
+  }
+{% endstyle %}
+
 {%- unless product.has_only_default_variant -%}
   <variant-selects
     id="variant-selects-{{ section.id }}"
@@ -33,6 +70,11 @@
             assign picker_type = 'swatch'
           endif
         endif
+
+        assign custom_selection_style = blank
+        if picker_type == 'button'
+          assign custom_selection_style = 'custom_selection_style'
+        endif
       -%}
       {%- if picker_type == 'swatch' -%}
         <fieldset class="js product-form__input product-form__input--swatch">
@@ -51,12 +93,13 @@
         </fieldset>
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+          <legend class="form__label custom_heading_style">{{ option.name }}</legend>
           {% render 'product-variant-options',
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            custom_selection_style: custom_selection_style
           %}
         </fieldset>
       {%- else -%}
